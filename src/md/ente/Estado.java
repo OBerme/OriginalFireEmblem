@@ -1,4 +1,4 @@
-package MD.Ente;
+package md.ente;
 
 public class Estado {
 	private StateSerVivo tipoEstado;

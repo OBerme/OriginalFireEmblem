@@ -1,4 +1,4 @@
-package MD.Ente;
+package md.ente;
 
 public class Persona extends SerVivo{
 	public Persona(int hp, String name, Estado estado) {

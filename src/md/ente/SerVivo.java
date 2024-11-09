@@ -1,4 +1,4 @@
-package MD.Ente;
+package md.ente;
 
 public class SerVivo extends Ente{
 	private Estado estado;
