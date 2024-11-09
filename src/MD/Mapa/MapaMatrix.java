@@ -1,7 +1,7 @@
 package MD.Mapa;
 
-import MD.Ente.Ente;
-import MD.Ente.Persona;
+import md.ente.Ente;
+import md.ente.Persona;
 
 public  class MapaMatrix extends Mapa<Integer, Integer>  {
 	private static final String ROW_STR = "-";

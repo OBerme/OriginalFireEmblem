@@ -1,6 +1,6 @@
 package ln.acciones.ataque;
 
-import MD.Ente.Ente;
+import md.ente.Ente;
 
 //Clase abstracta que representa un ataque decorado
 abstract class AtaqueDecorator {

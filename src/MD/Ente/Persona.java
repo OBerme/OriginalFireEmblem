@@ -1,6 +1,11 @@
 package MD.Ente;
 
-public class Persona extends Ente {
+public class Persona extends SerVivo{
+	public Persona(int hp, String name, Estado estado) {
+		super(hp, name, estado);
+		// TODO Auto-generated constructor stub
+	}
+
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub

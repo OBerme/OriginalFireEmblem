@@ -1,6 +1,6 @@
 package MD.Mapa;
 
-import MD.Ente.Ente;
+import md.ente.Ente;
 
 public abstract class Mapa<X, Y> {
 	protected Posicion<X,Y>[] posiciones;

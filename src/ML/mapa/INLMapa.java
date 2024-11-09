@@ -1,7 +1,7 @@
 package ML.mapa;
 
-import MD.Ente.Ente;
 import MD.Mapa.Posicion;
+import md.ente.Ente;
 
 public interface INLMapa<X, Y> {
 	void moverEnte(Ente ente, Posicion<X, Y> posi);

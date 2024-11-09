@@ -1,8 +1,8 @@
 package ML.mapa;
 
-import MD.Ente.Ente;
 import MD.Mapa.MapaMatrix;
 import MD.Mapa.Posicion;
+import md.ente.Ente;
 
 public class LNMapaMatrix extends LNMapa<Integer, Integer>{
 

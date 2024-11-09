@@ -2,8 +2,6 @@ package main;
 
 import MD.Acciones.Ataque.Ataque;
 import MD.Acciones.Ataque.Tipo;
-import MD.Ente.Ente;
-import MD.Ente.Persona;
 import MD.Mapa.Mapa;
 import MD.Mapa.MapaMatrix;
 import MD.Mapa.Posicion;
@@ -11,6 +9,8 @@ import ML.mapa.INLMapa;
 import ML.mapa.LNMapaMatrix;
 import ln.acciones.ataque.ILNAccion;
 import ln.acciones.ataque.LNAtaque;
+import md.ente.Ente;
+import md.ente.Persona;
 
 public class Principal {
 	public static void main(String[] args) {

@@ -1,7 +1,7 @@
 package MD.Acciones.Ataque;
 
 import MD.Acciones.Accion;
-import MD.Ente.Ente;
+import md.ente.Ente;
 
 public class Ataque extends Accion {
     private int fuerza;
