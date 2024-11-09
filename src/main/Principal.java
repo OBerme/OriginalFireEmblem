@@ -1,13 +1,13 @@
 package main;
 
-import md.mapa.*;
-import ln.mapa.INLMapa;
-import ln.acciones.ILNAccion;
-import ln.acciones.LNAtaque;
-import ln.mapa.LNMapaMatrix;
-import md.acciones.ataque.Ataque;
-import md.acciones.ataque.Tipo;
-import md.ente.*;
+import main.ln.acciones.ILNAccion;
+import main.ln.acciones.LNAtaque;
+import main.ln.mapa.INLMapa;
+import main.ln.mapa.LNMapaMatrix;
+import main.md.acciones.ataque.Ataque;
+import main.md.acciones.ataque.Tipo;
+import main.md.ente.*;
+import main.md.mapa.*;
 
 public class Principal {
 	public static void main(String[] args) {
