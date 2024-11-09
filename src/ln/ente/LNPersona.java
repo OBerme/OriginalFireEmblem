@@ -3,7 +3,7 @@ package ln.ente;
 import md.ente.IEnteEvents;
 import md.ente.Persona;
 
-public class LNPersona extends LNServivo{
+public class LNPersona extends LNSerVivo{
 	private Persona persona;
 	
 	
@@ -13,19 +13,16 @@ public class LNPersona extends LNServivo{
 	}
 	
 	public void reducirHp(int damage) {
-		if(!persona.esquiva()) {
-			persona.setHP(persona.getHp() - damage);
-			if(persona.getState() == ServivoState.Died) {
-
-				enteEvents.onEnteDies(persona);
-			}	
-		}
-		
+//		if(!persona.esquiva()) {
+//			persona.setHP(persona.getHp() - damage);
+//			if(persona.getState() == ServivoState.Died) {
+//
+//				enteEvents.onEnteDies(persona);
+//			}	
+//		}
+//		
 		
 	}
 	
-	public boolean esquiva() {
-		
-	}
 
 }

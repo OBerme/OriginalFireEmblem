@@ -1,16 +1,13 @@
 package main;
 
-import MD.Acciones.Ataque.Ataque;
-import MD.Acciones.Ataque.Tipo;
-import MD.Mapa.Mapa;
-import MD.Mapa.MapaMatrix;
-import MD.Mapa.Posicion;
-import ML.mapa.INLMapa;
-import ML.mapa.LNMapaMatrix;
-import ln.acciones.ataque.ILNAccion;
-import ln.acciones.ataque.LNAtaque;
-import md.ente.Ente;
-import md.ente.Persona;
+import md.mapa.*;
+import ln.mapa.INLMapa;
+import ln.acciones.ILNAccion;
+import ln.acciones.LNAtaque;
+import ln.mapa.LNMapaMatrix;
+import md.acciones.ataque.Ataque;
+import md.acciones.ataque.Tipo;
+import md.ente.*;
 
 public class Principal {
 	public static void main(String[] args) {
@@ -21,22 +18,22 @@ public class Principal {
 		Posicion<Integer, Integer> p = new Posicion<Integer, Integer>(1,1);
 		
 		
-		lnMapa.moverEnte( new Persona(), p);
+		lnMapa.moverEnte( new Persona(200, "Ronaldo", new Estado(StateSerVivo.NORMAL)), p);
 		
 		System.out.println(mapa.toString());
 		 p = new Posicion<Integer, Integer>(2,2);
 		
-		Ente pe1 =  new Persona();
+		Ente pe1 =  new Persona(200, "Ronaldo", new Estado(StateSerVivo.NORMAL));
 		lnMapa.moverEnte(pe1, p);
 		
-		Ente pe2 =  new Persona();
+		Ente pe2 =  new Persona(200, "Ronaldo", new Estado(StateSerVivo.NORMAL));
 		lnMapa.moverEnte( pe2, p);
 		
 		System.out.println(mapa.toString());
 		
 		p = new Posicion<Integer, Integer>(1,2);
 		
-		lnMapa.moverEnte( new Persona(), p);
+		lnMapa.moverEnte( pe2, p);
 		System.out.println(mapa.toString());
 		
 		Ataque ata1 = new Ataque("megapuño", 20, Tipo.FUEGO);

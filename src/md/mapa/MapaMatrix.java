@@ -24,7 +24,7 @@ public  class MapaMatrix extends Mapa<Integer, Integer>  {
 		
 		for(int i = 0 ; i < length; i++) {
 			for(int j = 0 ; j < length; j++) {
-				nPosi = new Posicion<Integer, Integer>(i, j, new Ente());
+				nPosi = new Posicion<Integer, Integer>(i, j, new Ente(200, "Mounstruo"));
 				posiciones[i*length+j] = nPosi;
 				eMap[i][j] = nPosi;
 			}

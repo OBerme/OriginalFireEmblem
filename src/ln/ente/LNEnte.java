@@ -1,6 +1,7 @@
-package ML.Ente;
-import MD.Acciones.Ataque.Ataque;
+package ln.ente;
+import md.acciones.ataque.*;
 import md.ente.Ente;
+import md.ente.IEnteEvents;
 
 public abstract class LNEnte {
 	protected IEnteEvents enteEvents;

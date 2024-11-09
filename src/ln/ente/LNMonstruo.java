@@ -1,6 +1,7 @@
-package ML.Ente;
+package ln.ente;
 
-import MD.Acciones.Ataque.Ataque;
+
+import md.ente.IEnteEvents;
 import md.ente.Monstruo;
 
 public class LNMonstruo extends LNSerVivo {
@@ -14,8 +15,8 @@ public class LNMonstruo extends LNSerVivo {
 	public void reducirHp(int damage) {
 		// TODO Auto-generated method stub
 		this.monstruo.setHp(this.monstruo.getHp() - damage);
-		if(persona.getState()==ServicioState.Died) {
-			enteEvents.onEnteDies(monstruo);
-		}
+//		if(monstruo.getState()==ServicioState.Died) {
+//			enteEvents.onEnteDies(monstruo);
+//		}
 	}
 }

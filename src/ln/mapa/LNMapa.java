@@ -1,4 +1,4 @@
-package ml.mapa;
+package ln.mapa;
 
 import md.mapa.Mapa;
 

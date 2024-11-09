@@ -1,7 +1,8 @@
-package ML.Ente;
+package ln.ente;
 
-import MD.Acciones.Ataque.Ataque;
+
 import md.ente.Ente;
+import md.ente.IEnteEvents;
 import md.ente.SerVivo;
 
 public abstract class LNSerVivo extends LNEnte{

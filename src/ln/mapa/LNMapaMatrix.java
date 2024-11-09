@@ -1,14 +1,9 @@
-package ml.mapa;
+package ln.mapa;
 
-<<<<<<<< HEAD:src/ln/mapa/LNMapaMatrix.java
-import MD.Mapa.MapaMatrix;
-import MD.Mapa.Posicion;
-import md.ente.Ente;
-========
+
 import md.ente.Ente;
 import md.mapa.MapaMatrix;
 import md.mapa.Posicion;
->>>>>>>> IEnteEvent:src/ml/mapa/LNMapaMatrix.java
 
 public class LNMapaMatrix extends LNMapa<Integer, Integer>{
 

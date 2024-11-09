@@ -1,10 +1,9 @@
 package ln.acciones;
 
-<<<<<<< HEAD:src/ln/acciones/ataque/LNAtaque.java
-import MD.Acciones.Ataque.Ataque;
-=======
+
+
 import md.acciones.ataque.Ataque;
->>>>>>> IEnteEvent:src/ln/acciones/LNAtaque.java
+
 import md.ente.Ente;
 
 public class LNAtaque extends LNAccion implements ILNAccion{
