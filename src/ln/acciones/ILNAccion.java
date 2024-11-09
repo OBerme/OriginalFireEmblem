@@ -1,6 +1,6 @@
-package ln.acciones.ataque;
+package ln.acciones;
 
-import MD.Acciones.Ataque.Ataque;
+import md.acciones.ataque.Ataque;
 
 public interface ILNAccion {
 

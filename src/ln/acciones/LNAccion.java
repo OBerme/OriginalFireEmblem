@@ -1,6 +1,6 @@
-package ln.acciones.ataque;
+package ln.acciones;
 
-import MD.Ente.Ente;
+import md.ente.Ente;
 
 public abstract class LNAccion implements ILNAccion{
 	protected Ente ente;

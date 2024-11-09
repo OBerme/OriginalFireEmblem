@@ -1,7 +1,7 @@
-package ln.acciones.ataque;
+package ln.acciones;
 
-import MD.Acciones.Ataque.Ataque;
-import MD.Ente.Ente;
+import md.acciones.ataque.Ataque;
+import md.ente.Ente;
 
 public class LNAtaque extends LNAccion implements ILNAccion{
 	private AtaqueDecorator ataqueDecorator;

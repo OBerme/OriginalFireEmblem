@@ -1,6 +1,6 @@
-package ML.mapa;
+package ml.mapa;
 
-import MD.Mapa.Mapa;
+import md.mapa.Mapa;
 
 public abstract class LNMapa<X, Y> 
 	implements INLMapa<X, Y>{

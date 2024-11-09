@@ -1,6 +1,6 @@
-package MD.Mapa;
+package md.mapa;
 
-import MD.Ente.Ente;
+import md.ente.Ente;
 
 public class Posicion<X,Y> {
 	private X x;

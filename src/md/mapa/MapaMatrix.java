@@ -1,7 +1,7 @@
-package MD.Mapa;
+package md.mapa;
 
-import MD.Ente.Ente;
-import MD.Ente.Persona;
+import md.ente.Ente;
+import md.ente.Persona;
 
 public  class MapaMatrix extends Mapa<Integer, Integer>  {
 	private static final String ROW_STR = "-";
@@ -104,6 +104,34 @@ public  class MapaMatrix extends Mapa<Integer, Integer>  {
 		Posicion<Integer, Integer> aPosi = getPosicion(posicion.getX(), posicion.getY());
 		
 		return aPosi == null || !(aPosi.getEnte() instanceof Persona);
+	}
+	
+	/**
+	 * The ente should be in the map and should be not null
+	 * @param ente
+	 * @return The position which the ente is right now 
+	 *  null if the ente is not in the map
+	 */
+	private Posicion<Integer, Integer> getEntePosition(Ente ente){
+		Posicion<Integer, Integer> position = null;
+		for(Posicion<Integer, Integer> nPosition : posiciones) {
+			Ente nEnte = nPosition.getEnte();
+			if(nEnte != null && nEnte.equals(ente)) {
+				position = nPosition;
+			}
+		}
+		return position;
+	}
+	
+	
+
+	/**
+	 * Pre : Ente should be not null and should be in the map
+	 */
+	@Override
+	public void onEnteDies(Ente ente) {
+		Posicion<Integer, Integer> position = getEntePosition(ente);
+		position.setEnte(null);		
 	}
 	
 	

@@ -1,6 +1,6 @@
-package MD.Acciones;
+package md.acciones;
 
-import MD.Ente.Ente;
+import md.ente.Ente;
 
 public abstract class Accion {
 	protected String name;

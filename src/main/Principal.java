@@ -1,16 +1,16 @@
 package main;
 
-import MD.Acciones.Ataque.Ataque;
-import MD.Acciones.Ataque.Tipo;
-import MD.Ente.Ente;
-import MD.Ente.Persona;
-import MD.Mapa.Mapa;
-import MD.Mapa.MapaMatrix;
-import MD.Mapa.Posicion;
-import ML.mapa.INLMapa;
-import ML.mapa.LNMapaMatrix;
-import ln.acciones.ataque.ILNAccion;
-import ln.acciones.ataque.LNAtaque;
+import ln.acciones.ILNAccion;
+import ln.acciones.LNAtaque;
+import md.acciones.ataque.Ataque;
+import md.acciones.ataque.Tipo;
+import md.ente.Ente;
+import md.ente.Persona;
+import md.mapa.Mapa;
+import md.mapa.MapaMatrix;
+import md.mapa.Posicion;
+import ml.mapa.INLMapa;
+import ml.mapa.LNMapaMatrix;
 
 public class Principal {
 	public static void main(String[] args) {
@@ -44,6 +44,7 @@ public class Principal {
 		ILNAccion action = new LNAtaque(pe2, ata1);
 		action.appendAtaque(ata1);
 		action.appendAtaque(ata1);
+		
 		int damage = action.getDamage();
 		
 		System.out.println("The person " + pe2 + " recibes! " + damage);
