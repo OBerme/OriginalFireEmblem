@@ -1,8 +1,12 @@
-package MD.Mapa;
+package md.mapa;
 
 import md.ente.Ente;
+<<<<<<< HEAD
+=======
+import md.ente.IEnteEvents;
+>>>>>>> IEnteEvent
 
-public abstract class Mapa<X, Y> {
+public abstract class Mapa<X, Y> implements IEnteEvents{
 	protected Posicion<X,Y>[] posiciones;
 	
 	public int getLength() {

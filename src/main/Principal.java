@@ -44,6 +44,7 @@ public class Principal {
 		ILNAccion action = new LNAtaque(pe2, ata1);
 		action.appendAtaque(ata1);
 		action.appendAtaque(ata1);
+		
 		int damage = action.getDamage();
 		
 		System.out.println("The person " + pe2 + " recibes! " + damage);

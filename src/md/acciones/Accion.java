@@ -1,4 +1,4 @@
-package MD.Acciones;
+package md.acciones;
 
 import md.ente.Ente;
 

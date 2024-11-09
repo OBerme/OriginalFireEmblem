@@ -1,6 +1,6 @@
-package MD.Acciones.Ataque;
+package md.acciones.ataque;
 
-import MD.Acciones.Accion;
+import md.acciones.Accion;
 import md.ente.Ente;
 
 public class Ataque extends Accion {
@@ -11,7 +11,6 @@ public class Ataque extends Accion {
         super(name);
         this.fuerza = fuerza;
         this.tipo = tipo;
-        this.ente = ente;
     }
 
     public int getFuerza() {

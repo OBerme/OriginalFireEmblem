@@ -1,4 +1,4 @@
-package ln.acciones.ataque;
+package ln.acciones;
 
 import md.ente.Ente;
 

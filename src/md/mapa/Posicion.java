@@ -1,4 +1,4 @@
-package MD.Mapa;
+package md.mapa;
 
 import md.ente.Ente;
 

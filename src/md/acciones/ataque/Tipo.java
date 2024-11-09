@@ -1,4 +1,4 @@
-package MD.Acciones.Ataque;
+package md.acciones.ataque;
 
 public enum Tipo {
 	FUEGO
