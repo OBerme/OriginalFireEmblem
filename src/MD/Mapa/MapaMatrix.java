@@ -13,11 +13,11 @@ public  class MapaMatrix extends Mapa<Integer, Integer>  {
 
 	public MapaMatrix(int length) {
 		this.posiciones = new Posicion[length*length];
-		this.mapa = generateMapa(length);
+		this.mapa = generateEmptyMap(length);
 		this.length = length;
 	}
 	
-	private Posicion<Integer, Integer>[][] generateMapa(int length){
+	private Posicion<Integer, Integer>[][] generateMapaWithEntes(int length){
 		Posicion nPosi = null;
 		
 		Posicion<Integer, Integer>[][] eMap = new Posicion[length][length];
@@ -33,6 +33,21 @@ public  class MapaMatrix extends Mapa<Integer, Integer>  {
 		return eMap;
 	}
 	
+	
+	private Posicion<Integer, Integer>[][] generateEmptyMap(int length){
+		Posicion<Integer, Integer>[][] eMap = new Posicion[length][length];
+		
+		for(int i = 0 ; i < length; i++) {
+			for(int j = 0 ; j < length; j++) {
+				
+				posiciones[i*length+j] = null;
+				eMap[i][j] = null;
+			}
+			
+		}
+		return eMap;
+	}
+	
 	public Posicion<Integer, Integer>[][] getMapa() {
 		return mapa;
 	}
@@ -41,6 +56,7 @@ public  class MapaMatrix extends Mapa<Integer, Integer>  {
 	public String toString() {
 		
 		String exit = "";
+		Posicion<Integer, Integer> nPosition;
 		int countCharsEachPosition = 3;
 		for(int j = 0 ; j < length; j++) {
 			for(int i = 0 ; i < length*countCharsEachPosition; i++) {
@@ -49,7 +65,8 @@ public  class MapaMatrix extends Mapa<Integer, Integer>  {
 			exit += "\n";
 			
 			for(int i = 0 ; i < length; i++) {
-				exit += COLUM_STR +  mapa[i][j].toString() ;
+				nPosition = mapa[i][j];
+				exit += COLUM_STR +  (nPosition == null ? " " : nPosition.toString() );
 				exit+= ( i +1 ) == length   ? COLUM_STR : "";
 			}
 			exit += "\n";
@@ -84,8 +101,9 @@ public  class MapaMatrix extends Mapa<Integer, Integer>  {
 	@Override
 	public boolean isEmptyPosicion(Posicion<Integer, Integer> posicion) {
 		// TODO Auto-generated method stub
+		Posicion<Integer, Integer> aPosi = getPosicion(posicion.getX(), posicion.getY());
 		
-		return ! (getPosicion(posicion.getX(), posicion.getY()).getEnte() instanceof Persona);
+		return aPosi == null || !(aPosi.getEnte() instanceof Persona);
 	}
 	
 	

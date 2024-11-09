@@ -7,13 +7,13 @@ import MD.Mapa.Posicion;
 public class LNMapaMatrix extends LNMapa<Integer, Integer>{
 
 	
-	private MapaMatrix mapaVector;
+	
 	
 	
 	
 	public LNMapaMatrix(MapaMatrix mapaVector) {
 		super();
-		this.mapaVector = mapaVector;
+		this.mapa = mapaVector;
 	}
 
 	/**
@@ -22,20 +22,28 @@ public class LNMapaMatrix extends LNMapa<Integer, Integer>{
 	 */
 	@Override
 	public void moverEnte(Ente ente, Posicion<Integer, Integer> posi) {
-		
-		if(mapaVector.isEmptyPosicion(posi)) {
+		if(mapa.isEmptyPosicion(posi)) {
 			posi.setEnte(ente);
-			mapaVector.setPosicion(posi);
+			mapa.setPosicion(posi);
 		}
-		
-		
 	}
 	
 	
 
 	@Override
 	public boolean eleminarEnte(Ente ente) {
-		// TODO Auto-generated method stub
+		Posicion<Integer,Integer> fPosition = null;
+		for(Posicion<Integer, Integer> nPosi : mapa.getPosiciones()) {
+			if(nPosi.getEnte().equals(ente)) {
+				fPosition = nPosi;
+				break;
+			}
+		}
+		if(fPosition == null)
+			return false;
+		
+		//Change the value of ente
+		
 		return false;
 	}
 

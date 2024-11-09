@@ -6,7 +6,7 @@ public  class Ente {
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
-		return " ";
+		return "E";
 	}
 	
 }
