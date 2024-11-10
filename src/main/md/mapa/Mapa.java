@@ -1,5 +1,7 @@
 package main.md.mapa;
 
+import main.ln.mapa.IEnteCollection;
+import main.md.ente.Ente;
 import main.md.ente.IEnteEvents;
 
 
@@ -19,4 +21,14 @@ public abstract class Mapa<X, Y> implements IEnteEvents{
 	
 	public abstract void setPosicion(Posicion<X, Y> posicion) ;
 	public abstract boolean isEmptyPosicion(Posicion<X, Y> posicion) ;
+	public abstract Posicion<X, Y> getEntePosition(Ente ente);
+
+
+	public abstract String toStringWithNumber() ;
+
+	public abstract void setPosicion(Integer x, Integer y, Posicion<Integer, Integer> posicion);
+
+
+	public abstract String toStringNumberPositions() ;
+
 }

@@ -1,8 +1,8 @@
 package main.md.ente;
 
 public class Persona extends SerVivo{
-	public Persona(int hp, String name, Estado estado) {
-		super(hp, name, estado);
+	public Persona(int hp, String name,String shortName, Estado estado) {
+		super(hp, name,shortName, estado);
 		// TODO Auto-generated constructor stub
 	}
 
@@ -23,5 +23,13 @@ public class Persona extends SerVivo{
 		
 		// TODO Auto-generated method stub
 		return false;
+	}
+	
+
+	public String getStatus() {
+		// TODO Auto-generated method stub
+		return "Persona " + this.name 
+				+ "\nHealth: " + this.hp
+				+ "\nStatus: " + this.estado.getTipoEstado().toString();
 	}
 }

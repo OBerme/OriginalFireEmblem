@@ -23,7 +23,7 @@ public class Posicion<X,Y> {
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
-		return ente.toString();
+		return getX()+"," + getY();
 	}
 	
 	public X getX() {
@@ -44,6 +44,12 @@ public class Posicion<X,Y> {
 	public void setEnte(Ente ente) {
 		this.ente = ente;
 	}
+	
+	public boolean hasEnte() {
+		return ente != null;
+	}
+	
+	
 	
 	
 }

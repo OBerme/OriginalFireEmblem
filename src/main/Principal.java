@@ -2,50 +2,32 @@ package main;
 
 import main.ln.acciones.ILNAccion;
 import main.ln.acciones.LNAtaque;
+import main.ln.mapa.ILNMapaMatrixEntes;
 import main.ln.mapa.INLMapa;
 import main.ln.mapa.LNMapaMatrix;
+import main.ln.mapa.LNMapaMatrixEntes;
 import main.md.acciones.ataque.Ataque;
 import main.md.acciones.ataque.Tipo;
 import main.md.ente.*;
 import main.md.mapa.*;
+import main.pl.controller.PL_ConsoleGameController;
 
 public class Principal {
+	
+	private static final int MAP_LENGTH = 3;
 	public static void main(String[] args) {
-		MapaMatrix mapa = new MapaMatrix(3);
-		INLMapa<Integer, Integer> lnMapa = new LNMapaMatrix(mapa);
+		MapaMatrix mapa = new MapaMatrix(MAP_LENGTH);
+		ILNMapaMatrixEntes lnMapa = new LNMapaMatrixEntes(mapa);
 		
-		System.out.println(mapa.toString());
-		Posicion<Integer, Integer> p = new Posicion<Integer, Integer>(1,1);
+		Estado nState =  new Estado(StateSerVivo.NORMAL);
 		
+		Persona p1 = new Persona(200, "Oscar", "O", new Estado(StateSerVivo.NORMAL));
+		Persona p2 = new Persona(700, "Joji", "J", new Estado(StateSerVivo.NORMAL));
 		
-		lnMapa.moverEnte( new Persona(200, "Ronaldo", new Estado(StateSerVivo.NORMAL)), p);
+		lnMapa.moverEnte(p1, new Posicion<Integer, Integer>(0, 0));
+		lnMapa.moverEnte(p2, new Posicion<Integer, Integer>(2, 2));
 		
-		System.out.println(mapa.toString());
-		 p = new Posicion<Integer, Integer>(2,2);
-		
-		Ente pe1 =  new Persona(200, "Ronaldo", new Estado(StateSerVivo.NORMAL));
-		lnMapa.moverEnte(pe1, p);
-		
-		Ente pe2 =  new Persona(200, "Ronaldo", new Estado(StateSerVivo.NORMAL));
-		lnMapa.moverEnte( pe2, p);
-		
-		System.out.println(mapa.toString());
-		
-		p = new Posicion<Integer, Integer>(1,2);
-		
-		lnMapa.moverEnte( pe2, p);
-		System.out.println(mapa.toString());
-		
-		Ataque ata1 = new Ataque("megapuño", 20, Tipo.FUEGO);
-		
-		ILNAccion action = new LNAtaque(pe2, ata1);
-		action.appendAtaque(ata1);
-		action.appendAtaque(ata1);
-		
-		int damage = action.getDamage();
-		
-		System.out.println("The person " + pe2 + " recibes! " + damage);
-		
-		
+		PL_ConsoleGameController console = new PL_ConsoleGameController(lnMapa);
+		console.start();
 	}
 }

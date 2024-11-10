@@ -1,6 +1,8 @@
 package main.ln.mapa;
 
 
+import java.util.ArrayList;
+
 import main.md.ente.Ente;
 import main.md.mapa.MapaMatrix;
 import main.md.mapa.Posicion;
@@ -15,6 +17,7 @@ public class LNMapaMatrix extends LNMapa<Integer, Integer>{
 	public LNMapaMatrix(MapaMatrix mapaVector) {
 		super();
 		this.mapa = mapaVector;
+		
 	}
 
 	/**
@@ -22,11 +25,26 @@ public class LNMapaMatrix extends LNMapa<Integer, Integer>{
 	 * 	posicion tiene que ser una posicion valida del mapa
 	 */
 	@Override
-	public void moverEnte(Ente ente, Posicion<Integer, Integer> posi) {
+	public boolean moverEnte(Ente ente, Posicion<Integer, Integer> posi) {
 		if(mapa.isEmptyPosicion(posi)) {
-			posi.setEnte(ente);
-			mapa.setPosicion(posi);
+			setEntePosition(ente, posi);
+			return true;
 		}
+		return false;
+	}
+
+	protected void setEntePosition(Ente ente, Posicion<Integer, Integer> posi) {
+		posi.setEnte(ente);
+		mapa.setPosicion(posi);
+	}
+	
+	/**
+	 * Pre: posicion tiene que ser una posicion valida del mapa
+	 * Post: posi.getEnte() == null
+	 */
+	@Override
+	public void removeEnteFromPosition(Posicion<Integer, Integer> posi) {
+		posi.setEnte(null);	
 	}
 	
 	
@@ -46,6 +64,12 @@ public class LNMapaMatrix extends LNMapa<Integer, Integer>{
 		//Change the value of ente
 		
 		return false;
+	}
+
+	@Override
+	public String getMapaDesing() {
+		// TODO Auto-generated method stub
+		return this.mapa.toString();
 	}
 
 }

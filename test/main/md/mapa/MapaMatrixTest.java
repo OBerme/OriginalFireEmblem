@@ -9,8 +9,6 @@ import main.ln.mapa.LNMapaMatrix;
 import main.md.ente.Estado;
 import main.md.ente.Persona;
 import main.md.ente.StateSerVivo;
-import main.md.mapa.MapaMatrix;
-import main.md.mapa.Posicion;
 
 public class MapaMatrixTest {
 
@@ -43,7 +41,7 @@ public class MapaMatrixTest {
 		
 		Posicion<Integer, Integer> position = new Posicion<Integer, Integer>(1, 1);
 		
-		Persona nP = new Persona(200, "Ronaldo", new Estado(StateSerVivo.NORMAL));
+		Persona nP = new Persona(200, "Ronaldo","R", new Estado(StateSerVivo.NORMAL));
 		lnMapa.moverEnte( nP, position);
 		
 		assertFalse( mapa.isEmptyPosicion(position), "The position is not empty");

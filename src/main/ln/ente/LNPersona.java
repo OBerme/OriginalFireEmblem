@@ -20,8 +20,13 @@ public class LNPersona extends LNSerVivo{
 //				enteEvents.onEnteDies(persona);
 //			}	
 //		}
-//		
+	}
+
+	@Override
+	public String getStatus() {
+		// TODO Auto-generated method stub
 		
+		return persona.getStatus();
 	}
 	
 

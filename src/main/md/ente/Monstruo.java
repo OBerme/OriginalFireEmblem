@@ -2,8 +2,8 @@ package main.md.ente;
 
 
 public class Monstruo extends SerVivo {
-	public Monstruo(int hp, String name, Estado estado) {
-		super(hp, name, estado);
+	public Monstruo(int hp, String name,String shortName, Estado estado) {
+		super(hp, name,shortName, estado);
 		// TODO Auto-generated constructor stub
 	}
 	public void ataqueEspecial() {

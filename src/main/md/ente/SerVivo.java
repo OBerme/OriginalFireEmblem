@@ -1,9 +1,9 @@
 package main.md.ente;
 
 public class SerVivo extends Ente{
-	private Estado estado;
-	public SerVivo(int hp, String name, Estado estado) {
-		super(hp, name);
+	protected Estado estado;
+	public SerVivo(int hp, String name,String shortName,  Estado estado) {
+		super(hp, name, shortName);
 		this.estado = estado;
 		// TODO Auto-generated constructor stub
 	}

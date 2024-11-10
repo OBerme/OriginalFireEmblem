@@ -19,4 +19,11 @@ public class LNMonstruo extends LNSerVivo {
 //			enteEvents.onEnteDies(monstruo);
 //		}
 	}
+	@Override
+	public String getStatus() {
+		return monstruo.getStatus();
+	}
+	
+	
+	
 }

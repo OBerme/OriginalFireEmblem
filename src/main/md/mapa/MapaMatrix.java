@@ -1,11 +1,15 @@
 package main.md.mapa;
 
 import main.md.ente.Ente;
+import main.md.ente.Estado;
+import main.md.ente.Monstruo;
 import main.md.ente.Persona;
+import main.md.ente.StateSerVivo;
 
 public  class MapaMatrix extends Mapa<Integer, Integer>  {
 	private static final String ROW_STR = "-";
 	private static final String COLUM_STR = "|";
+	private static final String EMPTY_STR = " ";
 	
 	
 	private Posicion<Integer, Integer>[][] mapa;
@@ -17,21 +21,21 @@ public  class MapaMatrix extends Mapa<Integer, Integer>  {
 		this.length = length;
 	}
 	
-	private Posicion<Integer, Integer>[][] generateMapaWithEntes(int length){
-		Posicion nPosi = null;
-		
-		Posicion<Integer, Integer>[][] eMap = new Posicion[length][length];
-		
-		for(int i = 0 ; i < length; i++) {
-			for(int j = 0 ; j < length; j++) {
-				nPosi = new Posicion<Integer, Integer>(i, j, new Ente(200, "Mounstruo"));
-				posiciones[i*length+j] = nPosi;
-				eMap[i][j] = nPosi;
-			}
-			
-		}
-		return eMap;
-	}
+//	private Posicion<Integer, Integer>[][] generateMapaWithEntes(int length){
+//		Posicion nPosi = null;
+//		
+//		Posicion<Integer, Integer>[][] eMap = new Posicion[length][length];
+//		
+//		for(int i = 0 ; i < length; i++) {
+//			for(int j = 0 ; j < length; j++) {
+//				nPosi = new Posicion<Integer, Integer>(i, j, new Monstruo(200, "Mounstruo", "M", new Estado(StateSerVivo.NORMAL)));
+//				posiciones[i*length+j] = nPosi;
+//				eMap[i][j] = nPosi;
+//			}
+//			
+//		}
+//		return eMap;
+//	}
 	
 	
 	private Posicion<Integer, Integer>[][] generateEmptyMap(int length){
@@ -56,6 +60,7 @@ public  class MapaMatrix extends Mapa<Integer, Integer>  {
 	public String toString() {
 		
 		String exit = "";
+		String nChar = "";
 		Posicion<Integer, Integer> nPosition;
 		int countCharsEachPosition = 3;
 		for(int j = 0 ; j < length; j++) {
@@ -66,8 +71,75 @@ public  class MapaMatrix extends Mapa<Integer, Integer>  {
 			
 			for(int i = 0 ; i < length; i++) {
 				nPosition = mapa[i][j];
-				exit += COLUM_STR +  (nPosition == null ? " " : nPosition.toString() );
-				exit+= ( i +1 ) == length   ? COLUM_STR : "";
+				
+				if(nPosition != null) 
+					nChar = nPosition.hasEnte()  ? nPosition.getEnte().getShortName() :  EMPTY_STR;
+				
+				else
+					nChar = EMPTY_STR;
+				exit += COLUM_STR + nChar;  
+				exit+= ( i +1 ) == length  ? COLUM_STR : "";
+			}
+			exit += "\n";
+		}
+		for(int i = 0 ; i < length*countCharsEachPosition; i++) {
+			exit+= ROW_STR;
+		}
+		
+		return exit;
+	}
+	
+	@Override
+	public String toStringWithNumber() {
+		
+		String exit = "";
+		String nChar = "";
+		Posicion<Integer, Integer> nPosition;
+		int countCharsEachPosition = 3;
+		for(int j = 0 ; j < length; j++) {
+			for(int i = 0 ; i < length*countCharsEachPosition; i++) {
+				exit+= ROW_STR;
+			}
+			exit += "\n";
+			
+			for(int i = 0 ; i < length; i++) {
+				nPosition = mapa[i][j];
+				
+				if(nPosition != null) 
+					nChar = nPosition.hasEnte()  ? nPosition.getEnte().getNumb()+"" :  EMPTY_STR ;
+				
+				else
+					nChar = EMPTY_STR;
+				exit += COLUM_STR + nChar;  
+				exit+= ( i +1 ) == length  ? COLUM_STR : "";
+			}
+			exit += "\n";
+		}
+		for(int i = 0 ; i < length*countCharsEachPosition; i++) {
+			exit+= ROW_STR;
+		}
+		
+		return exit;
+	}
+	
+
+	@Override
+	public String toStringNumberPositions() {
+		
+		String exit = "";
+		String nChar = "";
+		Posicion<Integer, Integer> nPosition;
+		int countCharsEachPosition = 5;
+		for(int j = 0 ; j < length; j++) {
+			for(int i = 0 ; i < length*countCharsEachPosition; i++) {
+				exit+= ROW_STR;
+			}
+			exit += "\n";
+			
+			for(int i = 0 ; i < length; i++) {
+				exit += COLUM_STR + i + "," + j;
+				
+				exit+= ( i +1 ) == length  ? COLUM_STR : "";
 			}
 			exit += "\n";
 		}
@@ -94,8 +166,13 @@ public  class MapaMatrix extends Mapa<Integer, Integer>  {
 
 	@Override
 	public void setPosicion(Posicion<Integer, Integer> posicion) {
-		this.mapa[posicion.getX()][posicion.getY()] = posicion;
-		
+		setPosicion(posicion.getX(), posicion.getY(), posicion);
+	}
+	
+	@Override
+	public void setPosicion(Integer x, Integer y, Posicion<Integer, Integer> posicion) {
+		this.mapa[x][y] = posicion;
+		this.posiciones[x*length+y] = posicion;
 	}
 
 	@Override
@@ -112,12 +189,14 @@ public  class MapaMatrix extends Mapa<Integer, Integer>  {
 	 * @return The position which the ente is right now 
 	 *  null if the ente is not in the map
 	 */
-	private Posicion<Integer, Integer> getEntePosition(Ente ente){
+	public Posicion<Integer, Integer> getEntePosition(Ente ente){
 		Posicion<Integer, Integer> position = null;
 		for(Posicion<Integer, Integer> nPosition : posiciones) {
-			Ente nEnte = nPosition.getEnte();
-			if(nEnte != null && nEnte.equals(ente)) {
-				position = nPosition;
+			if(nPosition != null && nPosition.hasEnte()) {
+				Ente nEnte = nPosition.getEnte();
+				if(nEnte.equals(ente)) {
+					position = nPosition;
+				}	
 			}
 		}
 		return position;
@@ -133,6 +212,10 @@ public  class MapaMatrix extends Mapa<Integer, Integer>  {
 		Posicion<Integer, Integer> position = getEntePosition(ente);
 		position.setEnte(null);		
 	}
+
+
+	
+	
 	
 	
 

@@ -9,4 +9,5 @@ public abstract class LNEnte {
 		this.enteEvents =  enteEvents;
 	}
 	public abstract void reducirHp(int damage);
+	public abstract String  getStatus();
 }
