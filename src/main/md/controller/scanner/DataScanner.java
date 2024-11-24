@@ -3,7 +3,6 @@ package main.md.controller.scanner;
 import java.util.Scanner;
 
 import main.md.controller.scanner.enums.DataScannerOptions;
-import main.md.controller.scanner.enums.DataScannerOptions.*;
 import main.md.ente.Ente;
 
 public class DataScanner extends OwnScanner {

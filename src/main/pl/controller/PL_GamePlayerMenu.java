@@ -2,6 +2,7 @@ package main.pl.controller;
 
 import main.ln.controller.menu.ILNBasicMenu;
 import main.ln.controller.menu.ILNEnteMenu;
+import main.ln.controller.menu.ILNGroupMenu;
 import main.ln.controller.menu.ILNMenu;
 import main.ln.controller.menu.ILNPositionMenu;
 import main.ln.controller.menu.LNBasicMenu;
@@ -11,14 +12,16 @@ import main.md.controller.menu.BasicMenu;
 import main.md.controller.menu.EnteMenu;
 import main.md.controller.menu.PositionMenu;
 
-public class PL_GameMenu {
+public class PL_GamePlayerMenu {
 	private ILNMenu[] menus;
 	private ILNBasicMenu basicMenu;
 	private ILNPositionMenu positionMenu;
 	private ILNEnteMenu enteMenu;
+	private ILNGroupMenu groupMenu;
+	
 	private String loopMessage;
 	
-	public PL_GameMenu(String loopMessage) {
+	public PL_GamePlayerMenu(String loopMessage, ILNGroupMenu groupMenu) {
 		
 		BasicMenu bM = new BasicMenu();
 		this.basicMenu = new LNBasicMenu(bM);
@@ -29,10 +32,13 @@ public class PL_GameMenu {
 		EnteMenu eM = new EnteMenu();
 		this.enteMenu = new LNEnteMenu(eM);
 		
+		this.groupMenu = groupMenu;
+		
 		menus = new ILNMenu[]{
 			enteMenu,
 			positionMenu,
-			basicMenu
+			basicMenu,
+			groupMenu
 		};
 		
 		this.loopMessage = loopMessage;

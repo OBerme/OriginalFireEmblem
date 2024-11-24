@@ -7,13 +7,13 @@ import main.md.ente.Persona;
 import main.md.ente.StateSerVivo;
 
 public  class MapaMatrix extends Mapa<Integer, Integer>  {
-	private static final String ROW_STR = "-";
-	private static final String COLUM_STR = "|";
-	private static final String EMPTY_STR = " ";
+	protected static final String ROW_STR = "-";
+	protected static final String COLUM_STR = "|";
+	protected static final String EMPTY_STR = " ";
 	
 	
-	private Posicion<Integer, Integer>[][] mapa;
-	private int length;
+	protected Posicion<Integer, Integer>[][] mapa;
+	protected int length;
 
 	public MapaMatrix(int length) {
 		this.posiciones = new Posicion[length*length];

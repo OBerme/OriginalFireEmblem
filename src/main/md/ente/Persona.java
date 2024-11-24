@@ -1,11 +1,16 @@
 package main.md.ente;
 
-public class Persona extends SerVivo{
+
+
+import main.md.group.Group;
+import main.md.group.Groupable;
+
+public class Persona extends SerVivo {
+	
 	public Persona(int hp, String name,String shortName, Estado estado) {
 		super(hp, name,shortName, estado);
 		// TODO Auto-generated constructor stub
 	}
-
 
 	@Override
 	public String toString() {
@@ -32,4 +37,5 @@ public class Persona extends SerVivo{
 				+ "\nHealth: " + this.hp
 				+ "\nStatus: " + this.estado.getTipoEstado().toString();
 	}
+
 }

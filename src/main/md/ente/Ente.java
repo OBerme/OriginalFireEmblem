@@ -65,6 +65,10 @@ public  class Ente{
 	public void setNumb(int numb) {
 		this.numb = numb;
 	}
+	
+	public boolean isDied() {
+		return this.hp <= 0;
+	}
 
 
 	@Override

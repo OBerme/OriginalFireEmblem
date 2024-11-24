@@ -1,6 +1,6 @@
 package main.controller.classes;
 
-public interface Player {
+public interface PlayerObjects {
 	void action();
 	void hability();
 }

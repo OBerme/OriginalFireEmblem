@@ -1,7 +1,12 @@
 package main.md.ente;
 
-public class SerVivo extends Ente{
+import main.md.group.Group;
+import main.md.group.Groupable;
+
+public class SerVivo extends Ente implements Groupable{
 	protected Estado estado;
+	private Group group;
+	
 	public SerVivo(int hp, String name,String shortName,  Estado estado) {
 		super(hp, name, shortName);
 		this.estado = estado;
@@ -15,5 +20,21 @@ public class SerVivo extends Ente{
 	}
 	public String getName(){
 		return this.name;
+	}
+
+	@Override
+	public void setGroup(Group group) {
+		this.group = group;
+	}
+
+	@Override
+	public boolean isDone() {
+		// TODO Auto-generated method stub
+		return super.isDied();
+	}
+
+	@Override
+	public Group getGroup() {
+		return this.group;
 	}
 }

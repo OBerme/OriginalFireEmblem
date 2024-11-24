@@ -1,18 +1,9 @@
 package main.md.controller.menu;
 
-import java.util.ArrayList;
 
-import main.ln.controller.menu.IMenuShowable;
-import main.md.controller.menu.enums.BasicMenuOptions;
 import main.md.controller.menu.enums.EnteMenuOptions;
-import main.md.ente.Ente;
 
 public class EnteMenu extends Menu{
-    
-
-
-
-    
     
 	@Override
 	public String toString() {

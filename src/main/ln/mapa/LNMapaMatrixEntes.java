@@ -4,11 +4,12 @@ package main.ln.mapa;
 import java.util.HashMap;
 
 import main.md.ente.Ente;
+import main.md.ente.IEnteEvents;
 import main.md.mapa.MapaMatrix;
 import main.md.mapa.Posicion;
 
 public class LNMapaMatrixEntes extends LNMapaMatrix 
-	implements ILNMapaMatrixEntes, IEnteCollection, IEnteNumberShowable{
+	implements ILNMapaMatrixEntes, IEnteCollection, IEnteNumberShowable, IEnteEvents{
 	
 	private HashMap<Integer, Ente> entes;
 	public LNMapaMatrixEntes(MapaMatrix mapaVector) {
@@ -31,7 +32,7 @@ public class LNMapaMatrixEntes extends LNMapaMatrix
 			else 
 				appendEnte(ente);
 			
-			super.setEntePosition(ente, posi);
+			setEntePosition(ente, posi);
 				
 			
 			return true;
@@ -80,12 +81,60 @@ public class LNMapaMatrixEntes extends LNMapaMatrix
 		return super.getMapaDesing();
 	}
 	
-	public void setPosicion(Integer x, Integer y, Posicion<Integer, Integer> posicion) {
-		this.mapa.setPosicion(x, y, posicion);
+	
+
+	@Override
+	public void onEnteDies(Ente ente) {
+		if(isEnteInMap(ente)) {
+			removeEnte(ente);
+		}
 	}
 	
-	public String toStringNumberPositions() {
-		return this.mapa.toStringNumberPositions();
+
+
+	protected void setEntePosition(Ente ente, Posicion<Integer, Integer> posi) {
+		posi.setEnte(ente);
+		mapa.setPosicion(posi);
 	}
+	
+	
+	/**
+	 * Pre: posicion tiene que ser una posicion valida del mapa
+	 * Post: posi.getEnte() == null
+	 */
+	@Override
+	public void removeEnteFromPosition(Posicion<Integer, Integer> posi) {
+		posi.setEnte(null);	
+	}
+	
+	
+
+	@Override
+	public boolean removeEnte(Ente ente) {
+		Posicion<Integer,Integer> fPosition = null;
+		for(Posicion<Integer, Integer> nPosi : mapa.getPosiciones()) {
+			if(nPosi.getEnte().equals(ente)) {
+				fPosition = nPosi;
+				break;
+			}
+		}
+		if(fPosition == null)
+			return false;
+		
+		//Change the value of ente
+		fPosition.setEnte(null);
+		this.entes.remove(ente.getNumb());
+		
+		return true;
+	}
+
+	@Override
+	public void addEnte(Ente ente, Posicion<Integer, Integer> posi) {
+		this.entes.put(ente.getNumb(), ente);
+		setEntePosition(ente, posi);
+		
+	}
+
+	
 	
 }
