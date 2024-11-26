@@ -11,6 +11,8 @@ import main.ln.controller.menu.LNPositionMenu;
 import main.md.controller.menu.BasicMenu;
 import main.md.controller.menu.EnteMenu;
 import main.md.controller.menu.PositionMenu;
+import main.md.turner.IGameEvent;
+import main.md.turner.ITurnerEvents;
 
 public class PL_GamePlayerMenu {
 	private ILNMenu[] menus;
@@ -22,7 +24,6 @@ public class PL_GamePlayerMenu {
 	private String loopMessage;
 	
 	public PL_GamePlayerMenu(String loopMessage, ILNGroupMenu groupMenu) {
-		
 		BasicMenu bM = new BasicMenu();
 		this.basicMenu = new LNBasicMenu(bM);
 

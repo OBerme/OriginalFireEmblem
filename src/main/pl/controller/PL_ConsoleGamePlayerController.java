@@ -6,6 +6,7 @@ import java.util.Scanner;
 import main.ln.controller.menu.ILNGroupMenu;
 import main.ln.controller.menu.IMenuShowable;
 import main.ln.controller.menu.LNGroupMenu;
+import main.ln.group.LNGroup;
 import main.ln.mapa.IEnteCollection;
 import main.ln.mapa.ILNMapaMatrixEntes;
 import main.ln.mapa.ILNMapaMatrixEntesGroup;
@@ -24,19 +25,26 @@ import main.md.group.Group;
 import main.md.group.Groupable;
 import main.md.mapa.MapaMatrix;
 import main.md.mapa.Posicion;
+import main.md.turner.ITurnerEvents;
+import main.md.turner.Turnable;
 import main.pl.controller.enums.ConsoleGameControllerMessages;
 
-public class PL_ConsoleGamePlayerController {	
+public class PL_ConsoleGamePlayerController implements Turnable{	
 	private PL_GamePlayerMenu menu;
 	private PL_GameScanner scn;
-	private Group playerGroup;
+	private LNGroup lnPlayerGroup;
+	private ITurnerEvents turnerEvent;
+	private boolean contin;
 	
 	
 	private ILNMapaMatrixEntesGroup lnMapa;
 	
-	public PL_ConsoleGamePlayerController(ILNMapaMatrixEntesGroup lnMapa, Group playerGroup) {
+	public PL_ConsoleGamePlayerController(ILNMapaMatrixEntesGroup lnMapa, LNGroup lnPlayerGroup,ITurnerEvents turnerEvent) {
 		this.lnMapa = lnMapa;
-		this.playerGroup = playerGroup;
+		this.lnPlayerGroup = lnPlayerGroup;
+		
+		this.turnerEvent = turnerEvent;
+		
 		
 		IEnteCollection iEnteColle = (IEnteCollection) lnMapa;
 		OwnScanner scanner = new OwnScanner(new Scanner(System.in)); 
@@ -56,7 +64,7 @@ public class PL_ConsoleGamePlayerController {
 
         int menuOption;
         
-    	while(true){
+        while(lnPlayerGroup.hasActions() && contin){
     		System.out.println(lnMapa.getMapaDesing()); //Show the map
             this.menu.showMenu();
             
@@ -103,13 +111,13 @@ public class PL_ConsoleGamePlayerController {
         }
         else if(menuOption == EnteMenuOptions.MOEN.getOption()){ //move ente 
         	System.out.println("Give me the number of the ente");
-        	System.out.println(this.lnMapa.getGroupMapString(playerGroup));
+        	System.out.println(this.lnMapa.getGroupMapString(lnPlayerGroup.getGroup()));
         	
     		int numbEnte = this.scn.getInteger();
         	Ente sEnte = lnMapa.getEnte(numbEnte);
         	
-        	//to check if the ente is in the player group
-        	while( !((Groupable)sEnte).getGroup().equals(this.playerGroup)){ 
+        	//to check if the ente is in the player lnPlayerGroup
+        	while( !((Groupable)sEnte).getGroup().equals(this.lnPlayerGroup)){ 
         		System.out.println("Please give a valid number");
         		sEnte = lnMapa.getEnte(this.scn.getInteger());
         	}
@@ -124,8 +132,20 @@ public class PL_ConsoleGamePlayerController {
         else if(menuOption == PositionMenuOptions.SHPO.getOption()) {
         	System.out.println(this.lnMapa.toStringNumberPositions());
         }
-        else if(menuOption == GroupMenuOptions.SHEN.getOption()) { //Show entes group of the player
-        	System.out.println(this.lnMapa.getGroupMapString(playerGroup));
+        else if(menuOption == GroupMenuOptions.SHEN.getOption()) { //Show entes LNGroup of the player
+        	System.out.println(this.lnMapa.getGroupMapString(lnPlayerGroup.getGroup()));
         }
+	}
+
+	@Override
+	public void doTurn() {
+		this.contin =  true;
+		start();
+	}
+
+	@Override
+	public void skipTurn(){
+		this.contin = false;
+		
 	}
 }

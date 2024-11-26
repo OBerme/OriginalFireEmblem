@@ -3,13 +3,13 @@ package main.md.group;
 import java.util.List;
 
 import main.md.player.Player;
+import main.md.turner.Actionable;
 
 public class Group {
     // Pre: The group key tiene que ser uno de la lista del equipo
 	private Player player;
     private Groupable groupKey;
     private List<Groupable> team;
-
 
     
     public Group(Groupable groupKey, Player player) {
@@ -73,4 +73,11 @@ public class Group {
     	Group gObj = (Group) obj;
     	return this.player.getId() == gObj.getPlayer().getId();
     }
+
+	public List<Groupable> getTeam() {
+		return team;
+	}
+	
+	
+
 }

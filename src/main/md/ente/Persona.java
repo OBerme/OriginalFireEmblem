@@ -7,15 +7,15 @@ import main.md.group.Groupable;
 
 public class Persona extends SerVivo {
 	
-	public Persona(int hp, String name,String shortName, Estado estado) {
-		super(hp, name,shortName, estado);
+	public Persona(int hp, String name,String shortName, Estado estado, int speed) {
+		super(hp, name,shortName, estado, speed);
 		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
-		return "P";
+		return shortName;
 	}
 	
 	@Override
@@ -35,7 +35,9 @@ public class Persona extends SerVivo {
 		// TODO Auto-generated method stub
 		return "Persona " + this.name 
 				+ "\nHealth: " + this.hp
-				+ "\nStatus: " + this.estado.getTipoEstado().toString();
+				+ "\nStatus: " + this.estado.getTipoEstado().toString()
+				+ "\nNum Turns: " + this.numTurns;
 	}
 
 }
+

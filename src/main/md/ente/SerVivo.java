@@ -2,15 +2,21 @@ package main.md.ente;
 
 import main.md.group.Group;
 import main.md.group.Groupable;
+import main.md.turner.Actionable;
+import main.md.turner.constants.TurnerEnumConstant;
 
-public class SerVivo extends Ente implements Groupable{
+public class SerVivo extends Ente implements Groupable, Actionable{
 	protected Estado estado;
-	private Group group;
+	protected Group group;
+	protected int numTurns;
+	protected int dNumTurns;
+	protected boolean hasMoreActions;
 	
-	public SerVivo(int hp, String name,String shortName,  Estado estado) {
+	public SerVivo(int hp, String name,String shortName,  Estado estado, int speed) {
 		super(hp, name, shortName);
 		this.estado = estado;
-		// TODO Auto-generated constructor stub
+		this.numTurns =  TurnerEnumConstant.getNumTurns(speed);
+		this.dNumTurns = numTurns;
 	}
 	public int getHp() {
 		return this.hp;
@@ -36,5 +42,25 @@ public class SerVivo extends Ente implements Groupable{
 	@Override
 	public Group getGroup() {
 		return this.group;
+	}
+	
+	
+	@Override
+	public int getNumActions() {
+		return hasMoreActions ? 0 : numTurns ;
+	}
+	@Override
+	public boolean hasActions() {
+		return hasMoreActions && getNumActions() == 0 ;
+	}
+	@Override
+	public void subtractNumActions(int numActions) {
+		this.numTurns -= numActions;
+		
+	}
+	@Override
+	public void resetNumActions() {
+		this.numTurns = dNumTurns;
+		
 	}
 }
