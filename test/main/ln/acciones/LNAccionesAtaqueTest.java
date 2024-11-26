@@ -17,6 +17,7 @@ import main.md.ente.Persona;
 import main.md.ente.StateSerVivo;
 import main.md.mapa.MapaMatrix;
 import main.md.mapa.Posicion;
+import main.md.turner.constants.TurnerEnumConstant;
 
 public class LNAccionesAtaqueTest {
 
@@ -24,7 +25,7 @@ public class LNAccionesAtaqueTest {
 	public void testRemovedAtack() {
 		
 		LNAccionesAtaque lnAcciones = new LNAccionesAtaque(null);
-		Ente pers1 = new Persona(200,"Oscar","O", new Estado(StateSerVivo.NORMAL));
+		Ente pers1 = new Persona(200,"Oscar","O", new Estado(StateSerVivo.NORMAL), TurnerEnumConstant.SPEED_DIVIDER.getCost());
 		
 		Ataque ata1 = new Ataque("PunietazoFUEGOOOO", 200, Tipo.FUEGO);
 		
@@ -64,7 +65,7 @@ public class LNAccionesAtaqueTest {
 		MapaMatrix mapa = new MapaMatrix(length);
 		ILNMapaMatrixEntes lnMapa = new LNMapaMatrixEntes(mapa);
 		
-		Ente pers1 = new Persona(200,"Oscar","O", new Estado(StateSerVivo.NORMAL));
+		Ente pers1 = new Persona(200,"Oscar","O", new Estado(StateSerVivo.NORMAL), TurnerEnumConstant.SPEED_DIVIDER.getCost());
 		Ataque ata1 = new Ataque("PunietazoFUEGOOOO", 200, Tipo.FUEGO);
 		
 		lnMapa.addEnte(pers1, new Posicion<Integer, Integer>(0, 0));

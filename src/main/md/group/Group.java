@@ -41,7 +41,7 @@ public class Group {
     //Post: devolvera si el grupo esta acabado
     public boolean isDone() {
         // Sin implementación
-        return giveUp && groupKey.isDone();
+        return giveUp || groupKey.isDone();
     }
     
     public Player getPlayer() {

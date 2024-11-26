@@ -9,9 +9,10 @@ public class LNTurner implements ITurnerEvents{
 	private IGameEvent gameEvent;
 	private Turner turner;
 	
-	public LNTurner(Turner turner) {
+	public LNTurner(Turner turner, IGameEvent gameEvent) {
 		super();
 		this.turner = turner;
+		this.gameEvent = gameEvent;
 	}
 
 	public void start() {
@@ -27,7 +28,8 @@ public class LNTurner implements ITurnerEvents{
 	
 	private void doTurn() {
 		for(Turnable nTurnable : turner.getTurnables()) {
-			nTurnable.doTurn();
+			if(turner.isContin())
+				nTurnable.doTurn();
 		}
 		turner.onTurnPass();
 	}

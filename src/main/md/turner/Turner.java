@@ -8,7 +8,7 @@ public class Turner {
 	private boolean contin;
 	private int turn;
 	
-	public Turner( IGameEvent gameEvent) {
+	public Turner() {
 		super();
 		this.contin = true;
 		this.turn = 0;		
