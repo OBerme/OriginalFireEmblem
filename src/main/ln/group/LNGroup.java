@@ -68,6 +68,12 @@ public class LNGroup implements IGroupEvents, ILNGroup, Actionable {
 			}
 		}
 	}
+
+	@Override
+	public void giveUp() {
+		// TODO Auto-generated method stub
+		this.group.setGiveUp(true);
+	}
 	
 	
 

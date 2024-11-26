@@ -10,11 +10,12 @@ public class Group {
 	private Player player;
     private Groupable groupKey;
     private List<Groupable> team;
-
+    private boolean giveUp;
     
     public Group(Groupable groupKey, Player player) {
         this.groupKey = groupKey;
         this.player = player;
+        this.giveUp = false;
     }
     
     // Post: ----
@@ -40,7 +41,7 @@ public class Group {
     //Post: devolvera si el grupo esta acabado
     public boolean isDone() {
         // Sin implementación
-        return groupKey.isDone();
+        return giveUp && groupKey.isDone();
     }
     
     public Player getPlayer() {
@@ -77,6 +78,11 @@ public class Group {
 	public List<Groupable> getTeam() {
 		return team;
 	}
+
+	public void setGiveUp(boolean giveUp) {
+		this.giveUp = giveUp;
+	}
+	
 	
 	
 

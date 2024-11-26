@@ -5,7 +5,7 @@ import main.md.group.Groupable;
 import main.md.turner.Actionable;
 import main.md.turner.constants.TurnerEnumConstant;
 
-public class SerVivo extends Ente implements Groupable, Actionable{
+public class SerVivo extends Ente implements Groupable, Actionable, Movable{
 	protected Estado estado;
 	protected Group group;
 	protected int numTurns;
@@ -47,16 +47,18 @@ public class SerVivo extends Ente implements Groupable, Actionable{
 	
 	@Override
 	public int getNumActions() {
-		return hasMoreActions ? 0 : numTurns ;
+		return  numTurns ;
 	}
 	@Override
 	public boolean hasActions() {
-		return hasMoreActions && getNumActions() == 0 ;
+		return getNumActions() != 0 ;
 	}
 	@Override
 	public void subtractNumActions(int numActions) {
-		this.numTurns -= numActions;
-		
+		if(numActions > numTurns)
+			this.numTurns = 0;
+		else 
+			this.numTurns -= numActions;		
 	}
 	@Override
 	public void resetNumActions() {

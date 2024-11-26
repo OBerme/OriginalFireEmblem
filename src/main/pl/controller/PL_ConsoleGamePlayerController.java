@@ -13,7 +13,9 @@ import main.ln.mapa.ILNMapaMatrixEntesGroup;
 import main.ln.mapa.INLMapa;
 import main.ln.mapa.LNMapaMatrix;
 import main.ln.mapa.LNMapaMatrixEntes;
+import main.ln.player.LNPlayer;
 import main.md.controller.menu.GroupMenu;
+import main.md.controller.menu.enums.ActionableMenuOptions;
 import main.md.controller.menu.enums.BasicMenuOptions;
 import main.md.controller.menu.enums.EnteMenuOptions;
 import main.md.controller.menu.enums.GroupMenuOptions;
@@ -21,26 +23,33 @@ import main.md.controller.menu.enums.PositionMenuOptions;
 import main.md.controller.scanner.IGroupMap;
 import main.md.controller.scanner.OwnScanner;
 import main.md.ente.Ente;
+import main.md.ente.Movable;
 import main.md.group.Group;
 import main.md.group.Groupable;
 import main.md.mapa.MapaMatrix;
 import main.md.mapa.Posicion;
+import main.md.turner.Actionable;
 import main.md.turner.ITurnerEvents;
 import main.md.turner.Turnable;
+import main.md.turner.constants.TurnerEnumConstant;
 import main.pl.controller.enums.ConsoleGameControllerMessages;
 
 public class PL_ConsoleGamePlayerController implements Turnable{	
 	private PL_GamePlayerMenu menu;
 	private PL_GameScanner scn;
 	private LNGroup lnPlayerGroup;
+	private LNPlayer lnPlayer;
 	private ITurnerEvents turnerEvent;
+	
 	private boolean contin;
 	
 	
 	private ILNMapaMatrixEntesGroup lnMapa;
 	
-	public PL_ConsoleGamePlayerController(ILNMapaMatrixEntesGroup lnMapa, LNGroup lnPlayerGroup,ITurnerEvents turnerEvent) {
+	public PL_ConsoleGamePlayerController(ILNMapaMatrixEntesGroup lnMapa, 
+			LNGroup lnPlayerGroup,ITurnerEvents turnerEvent, LNPlayer lnPlayer) {
 		this.lnMapa = lnMapa;
+		this.lnPlayer = lnPlayer;
 		this.lnPlayerGroup = lnPlayerGroup;
 		
 		this.turnerEvent = turnerEvent;
@@ -60,27 +69,34 @@ public class PL_ConsoleGamePlayerController implements Turnable{
 	
 	 //@Override
 	public void start(){
-        System.out.println(ConsoleGameControllerMessages.WELCOME_MESSAGE);
+        System.out.println(ConsoleGameControllerMessages.getPlayerTurnMessage(lnPlayer.getName()));
 
         int menuOption;
         
+        if(lnPlayerGroup.isDone())
+        	turnerEvent.onGiveUp();
+        
+        lnPlayerGroup.resetNumActions();
         while(lnPlayerGroup.hasActions() && contin){
+        	
     		System.out.println(lnMapa.getMapaDesing()); //Show the map
             this.menu.showMenu();
             
             
             menuOption = getMenuOption();       
             
-            if(menuOption== BasicMenuOptions.EXIT.getOption()){
+            if(menuOption== GroupMenuOptions.WDG.getOption()){
                 System.out.println(ConsoleGameControllerMessages.CONFIRM_EXIT);
                 if(scn.confims()) {
+                	turnerEvent.onGiveUp();
+                	lnPlayerGroup.giveUp();
                 	break;
                 }
             }
             else
                 doMenuOption(menuOption);
         }
-        System.out.println(ConsoleGameControllerMessages.BYE_MESSAGE);
+        
     }
 	
 
@@ -97,7 +113,7 @@ public class PL_ConsoleGamePlayerController implements Turnable{
 	}
 
 	public void doMenuOption(int menuOption) {
-		
+        //---------------------------ENTE OPTIONS--------------------------
         if(menuOption == EnteMenuOptions.SHEN.getOption()) { //Show number of the entes
         	System.out.println(this.lnMapa.getNumberEntesDesing());
         }
@@ -117,23 +133,51 @@ public class PL_ConsoleGamePlayerController implements Turnable{
         	Ente sEnte = lnMapa.getEnte(numbEnte);
         	
         	//to check if the ente is in the player lnPlayerGroup
-        	while( !((Groupable)sEnte).getGroup().equals(this.lnPlayerGroup)){ 
+        	while( !((Groupable)sEnte).getGroup().equals(this.lnPlayerGroup.getGroup())){ 
         		System.out.println("Please give a valid number");
         		sEnte = lnMapa.getEnte(this.scn.getInteger());
         	}
         	
-        	System.out.println("Give me the new position");
-        	
-        	Posicion<Integer, Integer> nPosition = this.scn.getPosition();
-        	if(!this.lnMapa.moverEnte(sEnte, nPosition)) {
-        		System.out.println("You cant move to an ocuped position");
+        	if( (sEnte instanceof Movable && sEnte instanceof Actionable)) { //To pay the turn 
+        		Actionable sEnteActi = (Actionable) sEnte;
+        		if(sEnteActi.hasActions()) {
+        			System.out.println("Give me the new position");
+                	
+                	Posicion<Integer, Integer> nPosition = this.scn.getPosition();
+                	if(!this.lnMapa.moverEnte(sEnte, nPosition)) {
+                		System.out.println("You cant move to an ocuped position");
+                	}
+                	else {
+                		sEnteActi.subtractNumActions(TurnerEnumConstant.MOVE_COST.getCost());
+                		System.out.println("The player was moved");
+                	}
+        		}
+        		else
+        			System.out.println("The player can't moved");
+        		
         	}
+        	else {
+        		System.out.println("The ente is very bigchungus and you can't move it");
+        	}
+        	
+        		
         } 
         else if(menuOption == PositionMenuOptions.SHPO.getOption()) {
         	System.out.println(this.lnMapa.toStringNumberPositions());
         }
+        //---------------------------GROUP OPTIONS--------------------------
         else if(menuOption == GroupMenuOptions.SHEN.getOption()) { //Show entes LNGroup of the player
         	System.out.println(this.lnMapa.getGroupMapString(lnPlayerGroup.getGroup()));
+        }
+        else if(menuOption == GroupMenuOptions.WDG.getOption()) { //Show entes LNGroup of the player
+        	System.out.println(this.lnMapa.getGroupMapString(lnPlayerGroup.getGroup()));
+        }
+        //---------------------------ACTIONABLE OPTIONS--------------------------
+        else if(menuOption == ActionableMenuOptions.WTS.getOption()) { //Wants to skip
+        	skipTurn();
+        }
+        else if(menuOption == ActionableMenuOptions.DAA.getOption()) { //Wants to skip, but do all atacks and moves
+        	setMovesAndAtacks();
         }
 	}
 
@@ -145,7 +189,14 @@ public class PL_ConsoleGamePlayerController implements Turnable{
 
 	@Override
 	public void skipTurn(){
+		//Should rmeove all the actions in the map, but we are going to skip for now
 		this.contin = false;
 		
+		
+	}
+	
+	private void setMovesAndAtacks() {
+		//lnAtack do all things
+		skipTurn();
 	}
 }

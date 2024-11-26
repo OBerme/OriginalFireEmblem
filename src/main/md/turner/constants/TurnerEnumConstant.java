@@ -1,7 +1,9 @@
 package main.md.turner.constants;
 
 public enum TurnerEnumConstant {
-	SPEED_DIVIDER(2);
+	SPEED_DIVIDER(1),
+	MOVE_COST(1),
+	ATACK_COST(1);
 
     private final int option;
 
@@ -9,12 +11,14 @@ public enum TurnerEnumConstant {
         this.option = option;
     }
     
-    public int getSpeedConstant() {
+    
+    
+    public int getCost() {
     	return option;
     }
     
 
     public static int getNumTurns(int speed) {
-    	return speed / SPEED_DIVIDER.getSpeedConstant();
+    	return speed / SPEED_DIVIDER.getCost();
     }
 }

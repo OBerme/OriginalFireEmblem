@@ -6,6 +6,7 @@ import java.util.List;
 import main.ln.group.LNGroup;
 import main.ln.mapa.ILNMapaMatrixEntesGroup;
 import main.ln.mapa.LNMapaMatrixEntesGroup;
+import main.ln.player.LNPlayer;
 import main.ln.turner.LNTurner;
 import main.md.ente.Estado;
 import main.md.ente.Monstruo;
@@ -15,6 +16,7 @@ import main.md.ente.StateSerVivo;
 import main.md.group.Group;
 import main.md.group.Groupable;
 import main.md.mapa.MapaMatrixEnteGroup;
+import main.md.mapa.MapaMatrixEnteGroupActionable;
 import main.md.mapa.Posicion;
 import main.md.player.Player;
 import main.md.turner.IGameEvent;
@@ -34,20 +36,36 @@ public class PL_Game implements IGameEvent{
 		
 		this.lnGroups = new ArrayList<LNGroup>();
 		
+		Player oscarP = new Player(1, "Osqui");
+		Player jojiP = new Player(2, "Joji");
+		
 		
 		SerVivo[] listPersonas  = getListPersonas();
-		Group oscarGroup = getFirstGroup(listPersonas);
-		Group jojiGroup = getSecondGroup(listPersonas);
+		Group oscarGroup = getFirstGroup(listPersonas, oscarP);
+		Group jojiGroup = getSecondGroup(listPersonas, jojiP);
+		LNPlayer oscar = new LNPlayer(new Player(1, "Oscar"));
+		
 		
 		ILNMapaMatrixEntesGroup lnMapa =  setUpGroupMap(MAP_LENGTH, oscarGroup, jojiGroup);
 		moverPlayersRandom(lnMapa,listPersonas);
 		
-		PL_ConsoleGamePlayerController consoleP1 = new PL_ConsoleGamePlayerController(
-				lnMapa , new LNGroup(jojiGroup), (ITurnerEvents)lnTurner);
-		
 		List<Turnable> turnables =   new ArrayList<>();
+		
+		Turner tuner = new Turner( (IGameEvent)this);
+		this.lnTurner = new LNTurner(tuner);
+		
+		PL_ConsoleGamePlayerController consoleP1 = new PL_ConsoleGamePlayerController(
+				lnMapa , new LNGroup(jojiGroup), lnTurner,new LNPlayer(jojiP));
+		
+		PL_ConsoleGamePlayerController consoleP2 = new PL_ConsoleGamePlayerController(
+				lnMapa , new LNGroup(oscarGroup),lnTurner,new LNPlayer(oscarP));
+		
 		turnables.add((Turnable)consoleP1);
-		this.lnTurner = new LNTurner(new Turner(turnables, (IGameEvent)this));
+		turnables.add((Turnable)consoleP2);
+		
+		tuner.setTurnables(turnables);
+		
+		
 		this.lnTurner.start();
 	}
 	
@@ -65,7 +83,7 @@ public class PL_Game implements IGameEvent{
 		groupsR.add(gr1);
 		groupsR.add(gr2);
 		
-		MapaMatrixEnteGroup mapa = new MapaMatrixEnteGroup(length, groupsR);
+		MapaMatrixEnteGroupActionable mapa = new MapaMatrixEnteGroupActionable(length, groupsR);
 		
 		groups.add(new LNGroup(gr1));
 		groups.add(new LNGroup(gr2));
@@ -95,10 +113,10 @@ public class PL_Game implements IGameEvent{
 		}
 	}
 	
-	private static Group getFirstGroup(SerVivo[] listPersonas) {
+	private static Group getFirstGroup(SerVivo[] listPersonas, Player player) {
 		 
 		List<Groupable> team = new ArrayList();
-		Group oscarGroup =  new Group(listPersonas[0], team, new Player(1, "Oscar"));
+		Group oscarGroup =  new Group(listPersonas[0], team, player);
 		
 		for(int i = 0; i < listPersonas.length/2 ; i++) {
 			Groupable nGroupable = listPersonas[i];
@@ -109,10 +127,10 @@ public class PL_Game implements IGameEvent{
 		return oscarGroup;
 	}
 	
-	private static Group getSecondGroup(SerVivo[] listPersonas) {
+	private static Group getSecondGroup(SerVivo[] listPersonas, Player player) {
 		List<Groupable>  team = new ArrayList();
 		Group jojiGroup = new Group(listPersonas[listPersonas.length/2],team,
-				new Player(2, "Joji"));
+				player);
 		
 		for(int i = listPersonas.length/2; i < listPersonas.length ; i++) {
 			Groupable nGroupable = listPersonas[i];
@@ -127,15 +145,15 @@ public class PL_Game implements IGameEvent{
 	
 	private static SerVivo[] getListPersonas() {
 		return new SerVivo[] {
-				new Persona(200, "Oscar", "O", new Estado(StateSerVivo.NORMAL),TurnerEnumConstant.SPEED_DIVIDER.getSpeedConstant()),
-				new Monstruo(1500, "Undyne", "U", new Estado(StateSerVivo.NORMAL),TurnerEnumConstant.SPEED_DIVIDER.getSpeedConstant()),
-				new Monstruo(2700, "Asgore", "A", new Estado(StateSerVivo.NORMAL),TurnerEnumConstant.SPEED_DIVIDER.getSpeedConstant()),
-				new Monstruo(200, "Sans", "S", new Estado(StateSerVivo.NORMAL),TurnerEnumConstant.SPEED_DIVIDER.getSpeedConstant()),
+				new Persona(200, "Oscar", "O", new Estado(StateSerVivo.NORMAL),TurnerEnumConstant.SPEED_DIVIDER.getCost()),
+//				new Monstruo(1500, "Undyne", "U", new Estado(StateSerVivo.NORMAL),TurnerEnumConstant.SPEED_DIVIDER.getCost()),
+//				new Monstruo(2700, "Asgore", "A", new Estado(StateSerVivo.NORMAL),TurnerEnumConstant.SPEED_DIVIDER.getCost()),
+//				new Monstruo(200, "Sans", "S", new Estado(StateSerVivo.NORMAL),TurnerEnumConstant.SPEED_DIVIDER.getCost()),
 				
-				new Persona(700, "Joji", "J", new Estado(StateSerVivo.NORMAL),TurnerEnumConstant.SPEED_DIVIDER.getSpeedConstant()),
-				new Monstruo(1200, "Muffet", "M", new Estado(StateSerVivo.NORMAL),TurnerEnumConstant.SPEED_DIVIDER.getSpeedConstant()),
-				new Monstruo(1200, "Alphish", "H", new Estado(StateSerVivo.NORMAL),TurnerEnumConstant.SPEED_DIVIDER.getSpeedConstant()),
-				new Persona(5000, "Varona", "V", new Estado(StateSerVivo.NORMAL),TurnerEnumConstant.SPEED_DIVIDER.getSpeedConstant())
+				new Persona(700, "Joji", "J", new Estado(StateSerVivo.NORMAL),TurnerEnumConstant.SPEED_DIVIDER.getCost()),
+//				new Monstruo(1200, "Muffet", "M", new Estado(StateSerVivo.NORMAL),TurnerEnumConstant.SPEED_DIVIDER.getCost()),
+//				new Monstruo(1200, "Alphish", "H", new Estado(StateSerVivo.NORMAL),TurnerEnumConstant.SPEED_DIVIDER.getCost()),
+//				new Persona(5000, "Varona", "V", new Estado(StateSerVivo.NORMAL),TurnerEnumConstant.SPEED_DIVIDER.getCost())
 		};
 	}
 

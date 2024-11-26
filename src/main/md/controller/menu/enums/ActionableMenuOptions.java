@@ -1,13 +1,14 @@
 package main.md.controller.menu.enums;
 
-public enum GroupMenuOptions {
-	SHEN("Show number group to choose entes", 30),
-	WDG("Withdraw the game", 31);
+public enum ActionableMenuOptions {
+	WTS("Wants to skip", 40),
+	DAA("Do all actions", 41);
+	
 
     private final String message;
     private final int option;
 
-    GroupMenuOptions(String message, int option) {
+    ActionableMenuOptions(String message, int option) {
         this.message = message;
         this.option = option;
     }
@@ -26,4 +27,3 @@ public enum GroupMenuOptions {
     }
 
 }
-

@@ -1,13 +1,16 @@
 package main.pl.controller;
 
+import main.ln.controller.menu.ILNActionableMenu;
 import main.ln.controller.menu.ILNBasicMenu;
 import main.ln.controller.menu.ILNEnteMenu;
 import main.ln.controller.menu.ILNGroupMenu;
 import main.ln.controller.menu.ILNMenu;
 import main.ln.controller.menu.ILNPositionMenu;
+import main.ln.controller.menu.LNActionableMenu;
 import main.ln.controller.menu.LNBasicMenu;
 import main.ln.controller.menu.LNEnteMenu;
 import main.ln.controller.menu.LNPositionMenu;
+import main.md.controller.menu.ActionableMenu;
 import main.md.controller.menu.BasicMenu;
 import main.md.controller.menu.EnteMenu;
 import main.md.controller.menu.PositionMenu;
@@ -20,12 +23,13 @@ public class PL_GamePlayerMenu {
 	private ILNPositionMenu positionMenu;
 	private ILNEnteMenu enteMenu;
 	private ILNGroupMenu groupMenu;
+	private ILNActionableMenu actionableMenu;
 	
 	private String loopMessage;
 	
 	public PL_GamePlayerMenu(String loopMessage, ILNGroupMenu groupMenu) {
-		BasicMenu bM = new BasicMenu();
-		this.basicMenu = new LNBasicMenu(bM);
+//		BasicMenu bM = new BasicMenu();
+//		this.basicMenu = new LNBasicMenu(bM);
 
 		PositionMenu pM = new PositionMenu();
 		this.positionMenu = new LNPositionMenu(pM);
@@ -33,13 +37,17 @@ public class PL_GamePlayerMenu {
 		EnteMenu eM = new EnteMenu();
 		this.enteMenu = new LNEnteMenu(eM);
 		
+		ActionableMenu actionMenu = new ActionableMenu();
+		this.actionableMenu = new LNActionableMenu(actionMenu);
+		
 		this.groupMenu = groupMenu;
 		
 		menus = new ILNMenu[]{
 			enteMenu,
 			positionMenu,
 			groupMenu,
-			basicMenu
+			actionableMenu,
+//			basicMenu
 			
 		};
 		

@@ -8,15 +8,18 @@ public class Turner {
 	private boolean contin;
 	private int turn;
 	
-	public Turner(List<Turnable> turnables, IGameEvent gameEvent) {
+	public Turner( IGameEvent gameEvent) {
 		super();
-		this.turnables = turnables;
 		this.contin = true;
 		this.turn = 0;		
 	}
 
 	public List<Turnable> getTurnables() {
 		return turnables;
+	}
+
+	public void setTurnables(List<Turnable> turnables) {
+		this.turnables = turnables;
 	}
 
 	public void onTurnPass() {

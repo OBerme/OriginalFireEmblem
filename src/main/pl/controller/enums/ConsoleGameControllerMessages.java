@@ -7,9 +7,8 @@ public enum ConsoleGameControllerMessages {
 	EXIT("EXIT"),
 	
 	LOOP_MESSAGE("Give me an option"),
-	WELCOME_MESSAGE("Wellcome to FireRules game" 
-			+ "\nLets get started"),
-	BYE_MESSAGE("Bye for now"),
+	TURN_MESSAGE("Its your turn"),
+	DONE_ACTIONS("You set all the actions"),
 	
 	
 	CONFIRM_EXIT("Do you really want to exit? ("  + DataScannerOptions.YES_CONFIRMS.toString() 
@@ -30,4 +29,8 @@ public enum ConsoleGameControllerMessages {
     	return message;
     }
     
+    public static String getPlayerTurnMessage(String namePlayer)
+    {
+    	return TURN_MESSAGE + " " +namePlayer + "!";
+    }
 }
