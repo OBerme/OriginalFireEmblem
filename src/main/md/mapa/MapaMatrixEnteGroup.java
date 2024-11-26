@@ -17,9 +17,6 @@ public class MapaMatrixEnteGroup extends MapaMatrix {
 		this.groups = groups;
 	}
 	
-	
-
-	
 	public String getGroupMapString(Group sGroup) {
 		// TODO Auto-generated method stub
 

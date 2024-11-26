@@ -21,7 +21,7 @@ import main.md.group.Group;
 import main.md.group.Groupable;
 import main.md.mapa.*;
 import main.md.player.Player;
-import main.pl.controller.PL_ConsoleGameController;
+import main.pl.controller.PL_ConsoleGamePlayerController;
 
 public class Principal {
 	
@@ -38,7 +38,7 @@ public class Principal {
 		ILNMapaMatrixEntesGroup lnMapa =  setUpGroupMap(MAP_LENGTH, oscarGroup, jojiGroup);
 		moverPlayersRandom(lnMapa,listPersonas);
 		
-		PL_ConsoleGameController consoleP1 = new PL_ConsoleGameController(
+		PL_ConsoleGamePlayerController consoleP1 = new PL_ConsoleGamePlayerController(
 				lnMapa , jojiGroup);
 		
 		consoleP1.start();

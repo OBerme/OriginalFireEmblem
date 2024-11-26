@@ -26,7 +26,7 @@ import main.md.mapa.MapaMatrix;
 import main.md.mapa.Posicion;
 import main.pl.controller.enums.ConsoleGameControllerMessages;
 
-public class PL_ConsoleGameController {	
+public class PL_ConsoleGamePlayerController {	
 	private PL_GamePlayerMenu menu;
 	private PL_GameScanner scn;
 	private Group playerGroup;
@@ -34,7 +34,7 @@ public class PL_ConsoleGameController {
 	
 	private ILNMapaMatrixEntesGroup lnMapa;
 	
-	public PL_ConsoleGameController(ILNMapaMatrixEntesGroup lnMapa, Group playerGroup) {
+	public PL_ConsoleGamePlayerController(ILNMapaMatrixEntesGroup lnMapa, Group playerGroup) {
 		this.lnMapa = lnMapa;
 		this.playerGroup = playerGroup;
 		

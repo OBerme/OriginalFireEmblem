@@ -37,8 +37,9 @@ public class PL_GamePlayerMenu {
 		menus = new ILNMenu[]{
 			enteMenu,
 			positionMenu,
-			basicMenu,
-			groupMenu
+			groupMenu,
+			basicMenu
+			
 		};
 		
 		this.loopMessage = loopMessage;
