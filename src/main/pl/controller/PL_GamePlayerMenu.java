@@ -1,16 +1,19 @@
 package main.pl.controller;
 
 import main.ln.controller.menu.ILNActionableMenu;
+import main.ln.controller.menu.ILNAttackMenu;
 import main.ln.controller.menu.ILNBasicMenu;
 import main.ln.controller.menu.ILNEnteMenu;
 import main.ln.controller.menu.ILNGroupMenu;
 import main.ln.controller.menu.ILNMenu;
 import main.ln.controller.menu.ILNPositionMenu;
 import main.ln.controller.menu.LNActionableMenu;
+import main.ln.controller.menu.LNAttackMenu;
 import main.ln.controller.menu.LNBasicMenu;
 import main.ln.controller.menu.LNEnteMenu;
 import main.ln.controller.menu.LNPositionMenu;
 import main.md.controller.menu.ActionableMenu;
+import main.md.controller.menu.AttackMenu;
 import main.md.controller.menu.BasicMenu;
 import main.md.controller.menu.EnteMenu;
 import main.md.controller.menu.PositionMenu;
@@ -24,6 +27,7 @@ public class PL_GamePlayerMenu {
 	private ILNEnteMenu enteMenu;
 	private ILNGroupMenu groupMenu;
 	private ILNActionableMenu actionableMenu;
+
 	
 	private String loopMessage;
 	
@@ -39,6 +43,7 @@ public class PL_GamePlayerMenu {
 		
 		ActionableMenu actionMenu = new ActionableMenu();
 		this.actionableMenu = new LNActionableMenu(actionMenu);
+	
 		
 		this.groupMenu = groupMenu;
 		
@@ -46,7 +51,7 @@ public class PL_GamePlayerMenu {
 			enteMenu,
 			positionMenu,
 			groupMenu,
-			actionableMenu,
+			actionableMenu
 //			basicMenu
 			
 		};

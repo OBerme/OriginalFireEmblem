@@ -3,7 +3,8 @@ package main.md.controller.menu.enums;
 public enum EnteMenuOptions {
 	SHEN("Show number to choose entes", 10),
 	MOEN("Move an ente", 11),
-	DAEN("Data of an ente", 12);
+	DAEN("Data of an ente", 12),
+	ATEN("Attack with an ente", 13);
 	
 
     private final String message;
