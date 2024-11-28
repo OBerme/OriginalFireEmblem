@@ -3,7 +3,12 @@ package pl;
 
 import java.util.Scanner;
 
+import acciones.ln.AtaqueSolo;
 import acciones.ln.LNAccion;
+import acciones.ln.LNAccionesAtaque;
+import acciones.md.ataque.Ataque;
+import acciones.md.ataque.Tipo;
+import entes.IEnteEvents;
 import entes.Movable;
 import entes.md.Ente;
 import group.ln.LNGroup;
@@ -42,6 +47,8 @@ public class PL_ConsoleGamePlayerController implements Turnable{
 	private LNGroup lnPlayerGroup;
 	private LNPlayer lnPlayer;
 	private ITurnerEvents turnerEvent;
+	private IEnteEvents[] acciones;
+	private LNAccionesAtaque lnAccionesAtaque;
 	
 	private boolean contin;
 	
@@ -49,10 +56,12 @@ public class PL_ConsoleGamePlayerController implements Turnable{
 	private ILNMapaMatrixEntesGroup lnMapa;
 	
 	public PL_ConsoleGamePlayerController(ILNMapaMatrixEntesGroup lnMapa, 
-			LNGroup lnPlayerGroup,ITurnerEvents turnerEvent, LNPlayer lnPlayer) {
+			LNGroup lnPlayerGroup,ITurnerEvents turnerEvent, LNPlayer lnPlayer, LNAccionesAtaque lnAccionesAtaque ) {
+		this.lnAccionesAtaque = lnAccionesAtaque;
 		this.lnMapa = lnMapa;
 		this.lnPlayer = lnPlayer;
 		this.lnPlayerGroup = lnPlayerGroup;
+		
 		
 		this.turnerEvent = turnerEvent;
 		
@@ -98,7 +107,7 @@ public class PL_ConsoleGamePlayerController implements Turnable{
             else
                 doMenuOption(menuOption);
         }
-        
+        lnAccionesAtaque.doAtacks();    
     }
 	
 
@@ -180,26 +189,43 @@ public class PL_ConsoleGamePlayerController implements Turnable{
         	
         	if( (sEnte instanceof Movable && sEnte instanceof Actionable)) { //To pay the turn 
         		Actionable sEnteActi = (Actionable) sEnte;
+        		Ataque aChoice;
+        		lnAccionesAtaque = new LNAccionesAtaque(acciones);
+        		
         		if(sEnteActi.hasActions()) {
                 	Scanner sc = new Scanner(System.in);
         			int i=0;
+        			AttackMenu attackMenu = new AttackMenu();
         			while(i != 50 && i != 51) {
-        			System.out.println("Give me the attack");
-        			
-                	AttackMenu attackMenu = new AttackMenu();
-                	System.out.println(attackMenu.toString());
-                	i = sc.nextInt();
+        				System.out.println("Give me the attack");
+        				attackMenu.showMenu();
+        				i = sc.nextInt();
                 	}
+        			
         			System.out.println("Give me the number of the ente");
                 	System.out.println(this.lnMapa.getNumberEntesDesing());
                 	
             		numbEnte = this.scn.getInteger();
                 	sEnte = lnMapa.getEnte(numbEnte);
-                	while(((Groupable)sEnte).getGroup().equals(this.lnPlayerGroup.getGroup())){ 
+                	while(sEnteActi.getNumActions()!=0){ 
                 		//si es un ente del otro equipo
-                		//sEnte.setHP();
-                		System.out.println("The ente was attacked!");
-                		
+                		if(!((Groupable)sEnte).getGroup().equals(this.lnPlayerGroup.getGroup())){
+                			System.out.println("The ente was chosen");
+                    		sEnteActi.subtractNumActions(TurnerEnumConstant.MOVE_COST.getCost());
+                    		if(i == 50) {
+                            	aChoice = new Ataque("Physycal attack",10, null);
+                				
+                				lnAccionesAtaque.appendAtaque(sEnte, aChoice);
+                			}
+                			if(i == 51) {
+                            	aChoice = new Ataque("Magical attack", 5, Tipo.FUEGO);
+                      
+                            	lnAccionesAtaque.appendAtaque(sEnte, aChoice);
+                			}
+                		}
+                		else {
+                		System.out.println("That ente is from your own group");
+                		}
                 	}
         		}
         		else
@@ -208,6 +234,7 @@ public class PL_ConsoleGamePlayerController implements Turnable{
         	else {
         		System.out.println("The ente is very bigchungus and you can't attack with it");
         	}
+        	
         }
         else if(menuOption == PositionMenuOptions.SHPO.getOption()) {
         	System.out.println(this.lnMapa.toStringNumberPositions());

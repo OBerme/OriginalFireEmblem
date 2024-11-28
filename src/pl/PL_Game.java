@@ -3,7 +3,9 @@ package pl;
 import java.util.ArrayList;
 import java.util.List;
 
+import acciones.ln.LNAccionesAtaque;
 import entes.Estado;
+import entes.IEnteEvents;
 import entes.StateSerVivo;
 import entes.md.Monstruo;
 import entes.md.Persona;
@@ -53,6 +55,12 @@ public class PL_Game implements IGameEvent{
 		lnGroups.add(lnOsquiGroup);
 		
 		ILNMapaMatrixEntesGroup lnMapa =  setUpGroupMap(MAP_LENGTH, oscarGroup, jojiGroup);
+		
+		IEnteEvents[] lnEnteEvents = new IEnteEvents[]{
+				(IEnteEvents)lnMapa
+		};
+		
+		LNAccionesAtaque lnAccionesAtaque = new LNAccionesAtaque(lnEnteEvents);
 		moverPlayersRandom(lnMapa,listPersonas);
 		
 		List<Turnable> turnables =   new ArrayList<>();
@@ -61,10 +69,10 @@ public class PL_Game implements IGameEvent{
 		this.lnTurner = new LNTurner(tuner, this);
 		
 		PL_ConsoleGamePlayerController consoleP1 = new PL_ConsoleGamePlayerController(
-				lnMapa , lnJojiGroup, lnTurner,new LNPlayer(jojiP));
+				lnMapa , lnJojiGroup, lnTurner,new LNPlayer(jojiP),lnAccionesAtaque);
 		
 		PL_ConsoleGamePlayerController consoleP2 = new PL_ConsoleGamePlayerController(
-				lnMapa , lnOsquiGroup,lnTurner,new LNPlayer(oscarP));
+				lnMapa , lnOsquiGroup,lnTurner,new LNPlayer(oscarP),lnAccionesAtaque);
 		
 		turnables.add((Turnable)consoleP1);
 		turnables.add((Turnable)consoleP2);
