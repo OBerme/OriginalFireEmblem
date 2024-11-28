@@ -4,20 +4,24 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-import main.ln.mapa.ILNMapaMatrixEntes;
-import main.ln.mapa.INLMapa;
-import main.ln.mapa.LNMapaMatrix;
-import main.ln.mapa.LNMapaMatrixEntes;
-import main.md.acciones.ataque.Ataque;
-import main.md.acciones.ataque.Tipo;
-import main.md.ente.Ente;
-import main.md.ente.Estado;
-import main.md.ente.IEnteEvents;
-import main.md.ente.Persona;
-import main.md.ente.StateSerVivo;
-import main.md.mapa.MapaMatrix;
-import main.md.mapa.Posicion;
-import main.md.turner.constants.TurnerEnumConstant;
+import acciones.ln.AtaqueDecorator;
+import acciones.ln.IAtaqueDeterminista;
+import acciones.ln.IAtaqueNoDeterminista;
+import acciones.ln.LNAccionesAtaque;
+import acciones.md.ataque.Ataque;
+import acciones.md.ataque.Tipo;
+import entes.Estado;
+import entes.IEnteEvents;
+import entes.StateSerVivo;
+import entes.md.Ente;
+import entes.md.Persona;
+import mapa.ln.ILNMapaMatrixEntes;
+import mapa.ln.INLMapa;
+import mapa.ln.LNMapaMatrix;
+import mapa.ln.LNMapaMatrixEntes;
+import mapa.md.MapaMatrix;
+import mapa.md.Posicion;
+import turner.md.enums.TurnerEnumConstant;
 
 public class LNAccionesAtaqueTest {
 

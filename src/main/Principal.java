@@ -3,26 +3,24 @@ package main;
 import java.util.ArrayList;
 import java.util.List;
 
-
-
-import main.ln.acciones.ILNAccion;
-import main.ln.acciones.LNAccionesAtaque;
-import main.ln.group.LNGroup;
-import main.ln.mapa.ILNMapaMatrixEntes;
-import main.ln.mapa.ILNMapaMatrixEntesGroup;
-import main.ln.mapa.INLMapa;
-import main.ln.mapa.LNMapaMatrix;
-import main.ln.mapa.LNMapaMatrixEntes;
-import main.ln.mapa.LNMapaMatrixEntesGroup;
-import main.md.acciones.ataque.Ataque;
-import main.md.acciones.ataque.Tipo;
-import main.md.ente.*;
-import main.md.group.Group;
-import main.md.group.Groupable;
-import main.md.mapa.*;
-import main.md.player.Player;
-import main.pl.controller.PL_ConsoleGamePlayerController;
-import main.pl.controller.PL_Game;
+import acciones.ln.ILNAccion;
+import acciones.ln.LNAccionesAtaque;
+import acciones.md.ataque.Ataque;
+import acciones.md.ataque.Tipo;
+import entes.*;
+import group.ln.LNGroup;
+import group.md.Group;
+import group.md.Groupable;
+import mapa.ln.ILNMapaMatrixEntes;
+import mapa.ln.ILNMapaMatrixEntesGroup;
+import mapa.ln.INLMapa;
+import mapa.ln.LNMapaMatrix;
+import mapa.ln.LNMapaMatrixEntes;
+import mapa.ln.LNMapaMatrixEntesGroup;
+import mapa.md.*;
+import pl.PL_ConsoleGamePlayerController;
+import pl.PL_Game;
+import player.md.Player;
 
 public class Principal {
 	

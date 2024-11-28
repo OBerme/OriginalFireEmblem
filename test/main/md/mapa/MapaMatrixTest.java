@@ -4,11 +4,13 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-import main.ln.mapa.INLMapa;
-import main.ln.mapa.LNMapaMatrix;
-import main.md.ente.Estado;
-import main.md.ente.Persona;
-import main.md.ente.StateSerVivo;
+import entes.Estado;
+import entes.StateSerVivo;
+import entes.md.Persona;
+import mapa.ln.INLMapa;
+import mapa.ln.LNMapaMatrix;
+import mapa.md.MapaMatrix;
+import mapa.md.Posicion;
 
 public class MapaMatrixTest {
 
