@@ -251,12 +251,10 @@ public class PL_ConsoleGamePlayerController implements Turnable{
                 		sEnteActi.subtractNumActions(TurnerEnumConstant.MOVE_COST.getCost());
                 		if(i == 50) {
                         	aChoice = new Ataque("Physycal attack",1000, null);
-            				
             				lnAccionesAtaque.appendAtaque(sEnte, aChoice);
             			}
             			if(i == 51) {
                         	aChoice = new Ataque("Magical attack", 5000, Tipo.FUEGO);
-                  
                         	lnAccionesAtaque.appendAtaque(sEnte, aChoice);
             			}
             		}
