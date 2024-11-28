@@ -87,7 +87,6 @@ public class LNGroup implements IGroupEvents, ILNGroup, Actionable, IEnteEvents 
 		if(this.group.isDone()) {
 			turnerEvents.onGiveUp();
 		}
-		
 	}
 	
 	

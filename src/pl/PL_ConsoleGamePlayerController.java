@@ -83,30 +83,35 @@ public class PL_ConsoleGamePlayerController implements Turnable{
         System.out.println(ConsoleGameControllerMessages.getPlayerTurnMessage(lnPlayer.getName()));
 
         int menuOption;
-        if(lnPlayerGroup.isDone())
+        if(lnPlayerGroup.isDone()) {
         	turnerEvent.onGiveUp();
-        
-        lnPlayerGroup.resetNumActions();
-        while(lnPlayerGroup.hasActions() && contin){
-        	
-    		System.out.println(lnMapa.getMapaDesing()); //Show the map
-            this.menu.showMenu();
-            
-            
-            menuOption = getMenuOption();       
-            
-            if(menuOption== GroupMenuOptions.WDG.getOption()){
-                System.out.println(ConsoleGameControllerMessages.CONFIRM_EXIT);
-                if(scn.confims()) {
-                	turnerEvent.onGiveUp();
-                	lnPlayerGroup.giveUp();
-                	break;
-                }
-            }
-            else
-                doMenuOption(menuOption);
         }
-        lnAccionesAtaque.doAtacks();    
+        else {
+        	lnPlayerGroup.resetNumActions();
+            while(lnPlayerGroup.hasActions() && contin){
+            	
+        		System.out.println(lnMapa.getMapaDesing()); //Show the map
+                this.menu.showMenu();
+                
+                
+                menuOption = getMenuOption();       
+                
+                if(menuOption== GroupMenuOptions.WDG.getOption()){
+                    System.out.println(ConsoleGameControllerMessages.CONFIRM_EXIT);
+                    if(scn.confims()) {
+                    	turnerEvent.onGiveUp();
+                    	lnPlayerGroup.giveUp();
+                    	break;
+                    }
+                }
+                else
+                    doMenuOption(menuOption);
+            }
+            lnAccionesAtaque.doAtacks();    
+        }
+        	
+        
+        
     }
 	
 

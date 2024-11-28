@@ -72,10 +72,10 @@ public class LNAccionesAtaque extends LNAccion implements ILNAccion{
     	for(Ente nEnte : this.ataques.keySet()) {
     		AtaqueDecorator atack = this.ataques.get(nEnte);
     		int totalDamage = atack.getDamage();
-    		if(nEnte.getHp() < totalDamage) 
+    		nEnte.setHp(nEnte.getHp() - totalDamage);
+    		if(nEnte.getHp() == 0) 
     			onEnteDies(nEnte);
-    		else
-    			nEnte.setHp(nEnte.getHp() - totalDamage);
+    			
     	}
     }
     

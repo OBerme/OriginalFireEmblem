@@ -18,4 +18,10 @@ public class Player {
     public int getId() {
         return id;
     }
+    
+    @Override
+    public String toString() {
+    	// TODO Auto-generated method stub
+    	return this.name;
+    }
 }
