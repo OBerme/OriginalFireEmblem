@@ -47,17 +47,21 @@ public class PL_Game implements IGameEvent{
 		Group jojiGroup = getSecondGroup(listPersonas, jojiP);
 		LNPlayer oscar = new LNPlayer(new Player(1, "Oscar"));
 		
+		Turner tuner = new Turner();
+		this.lnTurner = new LNTurner(tuner, this);
 		
-		LNGroup lnJojiGroup = new LNGroup(jojiGroup);
-		LNGroup lnOsquiGroup = new LNGroup(oscarGroup);
+		LNGroup lnJojiGroup = new LNGroup(jojiGroup,lnTurner);
+		LNGroup lnOsquiGroup = new LNGroup(oscarGroup,lnTurner);
 		
 		lnGroups.add(lnJojiGroup);
 		lnGroups.add(lnOsquiGroup);
 		
-		ILNMapaMatrixEntesGroup lnMapa =  setUpGroupMap(MAP_LENGTH, oscarGroup, jojiGroup);
+		ILNMapaMatrixEntesGroup lnMapa =  setUpGroupMap(MAP_LENGTH, oscarGroup, jojiGroup, lnTurner);
 		
 		IEnteEvents[] lnEnteEvents = new IEnteEvents[]{
-				(IEnteEvents)lnMapa
+				(IEnteEvents)lnMapa,
+				(IEnteEvents)lnJojiGroup,
+				(IEnteEvents)lnOsquiGroup,
 		};
 		
 		LNAccionesAtaque lnAccionesAtaque = new LNAccionesAtaque(lnEnteEvents);
@@ -65,8 +69,7 @@ public class PL_Game implements IGameEvent{
 		
 		List<Turnable> turnables =   new ArrayList<>();
 		
-		Turner tuner = new Turner();
-		this.lnTurner = new LNTurner(tuner, this);
+		
 		
 		PL_ConsoleGamePlayerController consoleP1 = new PL_ConsoleGamePlayerController(
 				lnMapa , lnJojiGroup, lnTurner,new LNPlayer(jojiP),lnAccionesAtaque);
@@ -85,7 +88,7 @@ public class PL_Game implements IGameEvent{
 	
 
 	
-	private static ILNMapaMatrixEntesGroup setUpGroupMap(int length, Group gr1, Group gr2) {
+	private static ILNMapaMatrixEntesGroup setUpGroupMap(int length, Group gr1, Group gr2,LNTurner lnTurner) {
 		
 		List<LNGroup> groups = new ArrayList();
 		List<Group> groupsR = new ArrayList();
@@ -99,8 +102,8 @@ public class PL_Game implements IGameEvent{
 		
 		MapaMatrixEnteGroupActionable mapa = new MapaMatrixEnteGroupActionable(length, groupsR);
 		
-		groups.add(new LNGroup(gr1));
-		groups.add(new LNGroup(gr2));
+		groups.add(new LNGroup(gr1, lnTurner));
+		groups.add(new LNGroup(gr2,lnTurner));
 		
 		
 		ILNMapaMatrixEntesGroup lnMapa = new LNMapaMatrixEntesGroup(mapa, groups);

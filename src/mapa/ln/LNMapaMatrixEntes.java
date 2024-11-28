@@ -113,9 +113,13 @@ public class LNMapaMatrixEntes extends LNMapaMatrix
 	public boolean removeEnte(Ente ente) {
 		Posicion<Integer,Integer> fPosition = null;
 		for(Posicion<Integer, Integer> nPosi : mapa.getPosiciones()) {
-			if(nPosi.getEnte().equals(ente)) {
-				fPosition = nPosi;
-				break;
+			if(nPosi != null) {
+				if(nPosi.getEnte() != null) {
+					if(nPosi.getEnte().equals(ente)) {
+						fPosition = nPosi;
+						break;
+					}
+				}
 			}
 		}
 		if(fPosition == null)

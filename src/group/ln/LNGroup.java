@@ -1,17 +1,22 @@
 package group.ln;
 
+import entes.IEnteEvents;
+import entes.md.Ente;
 import group.md.Group;
 import group.md.Groupable;
 import group.md.IGroupEvents;
 import turner.md.Actionable;
+import turner.md.ITurnerEvents;
 import turner.md.Turnable;
 
-public class LNGroup implements IGroupEvents, ILNGroup, Actionable {
+public class LNGroup implements IGroupEvents, ILNGroup, Actionable, IEnteEvents {
     private Group group;
+    private  ITurnerEvents turnerEvents;    
 
     // Constructor
-    public LNGroup(Group group) {
+    public LNGroup(Group group,ITurnerEvents turnerEvents) {
         this.group = group;
+        this.turnerEvents  = turnerEvents;
     }
 
     // Pre: the member should be in the group
@@ -73,6 +78,16 @@ public class LNGroup implements IGroupEvents, ILNGroup, Actionable {
 	public void giveUp() {
 		// TODO Auto-generated method stub
 		this.group.setGiveUp(true);
+	}
+
+	@Override
+	public void onEnteDies(Ente ente) {
+		// TODO Auto-generated method stub
+		this.group.removeMember((Groupable) ente);
+		if(this.group.isDone()) {
+			turnerEvents.onGiveUp();
+		}
+		
 	}
 	
 	

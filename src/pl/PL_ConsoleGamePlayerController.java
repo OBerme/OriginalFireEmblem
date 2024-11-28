@@ -83,7 +83,6 @@ public class PL_ConsoleGamePlayerController implements Turnable{
         System.out.println(ConsoleGameControllerMessages.getPlayerTurnMessage(lnPlayer.getName()));
 
         int menuOption;
-        
         if(lnPlayerGroup.isDone())
         	turnerEvent.onGiveUp();
         
@@ -170,71 +169,10 @@ public class PL_ConsoleGamePlayerController implements Turnable{
         	else {
         		System.out.println("The ente is very bigchungus and you can't move it");
         	}
-        	
-        	
         		
         }
         else if(menuOption == EnteMenuOptions.ATEN.getOption()){ //move ente 
-        	System.out.println("Give me the number of the ente");
-        	System.out.println(this.lnMapa.getGroupMapString(lnPlayerGroup.getGroup()));
-        	
-    		int numbEnte = this.scn.getInteger();
-        	Ente sEnte = lnMapa.getEnte(numbEnte);
-        	
-        	//to check if the ente is in the player lnPlayerGroup
-        	while( !((Groupable)sEnte).getGroup().equals(this.lnPlayerGroup.getGroup())){ 
-        		System.out.println("Please give a valid number");
-        		sEnte = lnMapa.getEnte(this.scn.getInteger());
-        	}
-        	
-        	if( (sEnte instanceof Movable && sEnte instanceof Actionable)) { //To pay the turn 
-        		Actionable sEnteActi = (Actionable) sEnte;
-        		Ataque aChoice;
-        		lnAccionesAtaque = new LNAccionesAtaque(acciones);
-        		
-        		if(sEnteActi.hasActions()) {
-                	Scanner sc = new Scanner(System.in);
-        			int i=0;
-        			AttackMenu attackMenu = new AttackMenu();
-        			while(i != 50 && i != 51) {
-        				System.out.println("Give me the attack");
-        				attackMenu.showMenu();
-        				i = sc.nextInt();
-                	}
-        			
-        			System.out.println("Give me the number of the ente");
-                	System.out.println(this.lnMapa.getNumberEntesDesing());
-                	
-            		numbEnte = this.scn.getInteger();
-                	sEnte = lnMapa.getEnte(numbEnte);
-                	while(sEnteActi.getNumActions()!=0){ 
-                		//si es un ente del otro equipo
-                		if(!((Groupable)sEnte).getGroup().equals(this.lnPlayerGroup.getGroup())){
-                			System.out.println("The ente was chosen");
-                    		sEnteActi.subtractNumActions(TurnerEnumConstant.MOVE_COST.getCost());
-                    		if(i == 50) {
-                            	aChoice = new Ataque("Physycal attack",10, null);
-                				
-                				lnAccionesAtaque.appendAtaque(sEnte, aChoice);
-                			}
-                			if(i == 51) {
-                            	aChoice = new Ataque("Magical attack", 5, Tipo.FUEGO);
-                      
-                            	lnAccionesAtaque.appendAtaque(sEnte, aChoice);
-                			}
-                		}
-                		else {
-                		System.out.println("That ente is from your own group");
-                		}
-                	}
-        		}
-        		else
-        			System.out.println("The player can't attack");
-        		}
-        	else {
-        		System.out.println("The ente is very bigchungus and you can't attack with it");
-        	}
-        	
+        	doAttack();
         }
         else if(menuOption == PositionMenuOptions.SHPO.getOption()) {
         	System.out.println(this.lnMapa.toStringNumberPositions());
@@ -272,5 +210,66 @@ public class PL_ConsoleGamePlayerController implements Turnable{
 	private void setMovesAndAtacks() {
 		//lnAtack do all things
 		skipTurn();
+	}
+	private void doAttack() {
+		System.out.println("Give me the number of the ente");
+    	System.out.println(this.lnMapa.getGroupMapString(lnPlayerGroup.getGroup()));
+    	
+		int numbEnte = this.scn.getInteger();
+    	Ente sEnte = lnMapa.getEnte(numbEnte);
+    	
+    	//to check if the ente is in the player lnPlayerGroup
+    	while( !((Groupable)sEnte).getGroup().equals(this.lnPlayerGroup.getGroup())){ 
+    		System.out.println("Please give a valid number");
+    		sEnte = lnMapa.getEnte(this.scn.getInteger());
+    	}
+    	
+    	if( (sEnte instanceof Movable && sEnte instanceof Actionable)) { //To pay the turn 
+    		Actionable sEnteActi = (Actionable) sEnte;
+    		Ataque aChoice;
+    		
+    		
+    		if(sEnteActi.hasActions()) {
+            	Scanner sc = new Scanner(System.in);
+    			int i=0;
+    			AttackMenu attackMenu = new AttackMenu();
+    			while(i != 50 && i != 51) {
+    				System.out.println("Give me the attack");
+    				attackMenu.showMenu();
+    				i = sc.nextInt();
+            	}
+    			
+    			System.out.println("Give me the number of the ente");
+            	System.out.println(this.lnMapa.getNumberEntesDesing());
+            	
+        		numbEnte = this.scn.getInteger();
+            	sEnte = lnMapa.getEnte(numbEnte);
+            	while(sEnteActi.getNumActions()!=0){ 
+            		//si es un ente del otro equipo
+            		if(!((Groupable)sEnte).getGroup().equals(this.lnPlayerGroup.getGroup())){
+            			System.out.println("The ente was chosen");
+                		sEnteActi.subtractNumActions(TurnerEnumConstant.MOVE_COST.getCost());
+                		if(i == 50) {
+                        	aChoice = new Ataque("Physycal attack",1000, null);
+            				
+            				lnAccionesAtaque.appendAtaque(sEnte, aChoice);
+            			}
+            			if(i == 51) {
+                        	aChoice = new Ataque("Magical attack", 5000, Tipo.FUEGO);
+                  
+                        	lnAccionesAtaque.appendAtaque(sEnte, aChoice);
+            			}
+            		}
+            		else {
+            		System.out.println("That ente is from your own group");
+            		}
+            	}
+    		}
+    		else
+    			System.out.println("The player can't attack");
+    		}
+    	else {
+    		System.out.println("The ente is very bigchungus and you can't attack with it");
+    	}
 	}
 }
