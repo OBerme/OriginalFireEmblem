@@ -20,12 +20,13 @@ import mapa.ln.LNMapaMatrixEntesGroup;
 import mapa.md.*;
 import pl.PL_ConsoleGamePlayerController;
 import pl.PL_Game;
+import pl.PL_IntroPlayerGame;
 import player.md.Player;
 
 public class Principal {
 	
 	
 	public static void main(String[] args) {
-		new PL_Game();
+		new PL_IntroPlayerGame();
 	}
 }

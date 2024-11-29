@@ -1,35 +1,30 @@
-package WebServer;
+package WebUtil;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
-import WebServer.controller.ChatServerThread;
-import WebServer.controller.Client;
-import WebServer.controller.enums.ServerConfigurationsNum;
+import WebUtil.controller.GameServerThread;
+import WebUtil.controller.Client;
+import WebUtil.controller.enums.ServerConfigurationsNum;
 
-public class ChatServer extends BasicServer {
+public class GameServer extends BasicServer {
 	public static final boolean DEBUG_MODE = true;
 	public static final String FILE_PATH = "/home/stallman/eclipse/SIS/Pr2_Concur/txt1.txt";
 	
 	private List<Client> clientsWaiting;
 	
-	
+	public static void main(String[] args) {
+		new GameServer();
+	}
 	
 	//IO variables
 	public static final String EXIT_STRING = "";	
 	
 	
-	public static void main(String[] args) {
-		new ChatServer();
-	}
-	
-	public ChatServer() {
+	public GameServer() {
 		super();
 		//init the objects
-		
 		clientsWaiting = new ArrayList<Client>();
-		
-		//Init the connection
 		getConnection();
 		iniciarServidor();
 	}
@@ -40,7 +35,7 @@ public class ChatServer extends BasicServer {
 	protected void procesarCliente(Socket client) {
 		// TODO Auto-generated method stub
 		if(DEBUG_MODE) print("Attended the new client!");
-		ChatServerThread cST = new ChatServerThread(client, this);
+		GameServerThread cST = new GameServerThread(client, this);
 		cST.start();
 	}
 	
@@ -67,19 +62,11 @@ public class ChatServer extends BasicServer {
 		}
 		return true;
 	}
-	
-	
 
 	
 	public void print(String message) {
 		System.out.println(message);
 	}
-	
-	
-	
-	
-	
-
 
 }
 

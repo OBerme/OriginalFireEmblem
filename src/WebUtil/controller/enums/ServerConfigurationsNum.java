@@ -1,4 +1,4 @@
-package WebServer.controller.enums;
+package WebUtil.controller.enums;
 
 public enum ServerConfigurationsNum {
 	MIN_ID_NUMBER(0),

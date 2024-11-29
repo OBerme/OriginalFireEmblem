@@ -1,6 +1,6 @@
-package WebServer.interfaces.console.enums;
+package WebUtil.interfaces.console.enums;
 
-import WebServer.controller.enums.TypeConnection;
+import WebUtil.controller.enums.TypeConnection;
 
 public enum CI_ClientConnect_OptionsMenu {
     //MENU OPTIONS

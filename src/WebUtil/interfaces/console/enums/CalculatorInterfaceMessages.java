@@ -1,12 +1,11 @@
-package WebServer.interfaces.console.enums;
+package WebUtil.interfaces.console.enums;
 
 public enum CalculatorInterfaceMessages {
 
-    WELCOME_MESSAGE("WELCOME TO CALCULATOR 1.0 FORM OSCAR BERMEJO DOMINGUEZ" +
-            "\nLets start with some operations!"),
+    WELCOME_MESSAGE("Lets connect to other players!"),
     INSERT_NEW_OPERATION_MESSAGE("Insert a new operation to do!"),
     EXIT_MESSAGE_CONFIRMS_MESSAGE("Are you sure you want to exit?"),
-    CHOOSE_YES_MESSAGE("Yes/no?"),
+    CHOOSE_YES_MESSAGE("yes/no?"),
     NO_OPTIONS("There is no options"),
     
     

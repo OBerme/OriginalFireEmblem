@@ -5,7 +5,7 @@ import java.util.Scanner;
 import entes.md.Ente;
 import scanner.md.enums.DataScannerOptions;
 
-public class DataScanner extends OwnScanner {
+public class DataScanner extends BasicScanner {
 	
     public DataScanner(Scanner scn) {
 		super(scn);

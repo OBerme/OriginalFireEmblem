@@ -1,4 +1,4 @@
-package WebServer.interfaces.console.enums;
+package WebUtil.interfaces.console.enums;
 
 public enum CI_Client {
 	

@@ -1,6 +1,6 @@
-package WebServer.interfaces.console;
+package WebUtil.interfaces.console;
 
-import static WebServer.interfaces.console.enums.CalculatorInterfaceMessages.*;
+import static WebUtil.interfaces.console.enums.CalculatorInterfaceMessages.*;
 
 import java.util.Scanner;
 

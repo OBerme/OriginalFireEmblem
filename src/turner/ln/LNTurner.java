@@ -37,6 +37,11 @@ public class LNTurner implements ITurnerEvents{
 	@Override
 	public void onGiveUp() {
 		turner.setContin(false);
-		
 	}
+
+	public void setGameEvent(IGameEvent gameEvent) {
+		this.gameEvent = gameEvent;
+	}
+	
+	
 }

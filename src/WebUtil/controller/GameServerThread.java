@@ -1,4 +1,4 @@
-package WebServer.controller;
+package WebUtil.controller;
 
 import java.io.BufferedReader;
 import java.io.DataInputStream;
@@ -13,20 +13,20 @@ import java.net.Socket;
 import java.util.List;
 import java.util.concurrent.Callable;
 
-import WebServer.ChatServer;
-import WebServer.controller.enums.ServerConfigurationsNum;
-import WebServer.controller.enums.TypeConnection;
+import WebUtil.GameServer;
+import WebUtil.controller.enums.ServerConfigurationsNum;
+import WebUtil.controller.enums.TypeConnection;
 
-public class ChatServerThread extends Thread{
+public class GameServerThread extends Thread{
 	private static final boolean DEBUG_MODE = true;
 	private static final String STR_DISCON = TypeConnection.WD.getMessageConnection();
 	
 	private Socket client;
-	private ChatServer server;
+	private GameServer server;
 	
 	private Client aClient;
 	
-	public ChatServerThread(Socket client, ChatServer server) {
+	public GameServerThread(Socket client, GameServer server) {
 		this.client = client;
 		this.server = server;
 		

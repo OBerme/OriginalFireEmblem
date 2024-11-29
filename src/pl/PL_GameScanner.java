@@ -8,7 +8,7 @@ import scanner.ln.LNEnteScanner;
 import scanner.ln.LNPositionScanner;
 import scanner.md.DataScanner;
 import scanner.md.EnteScanner;
-import scanner.md.OwnScanner;
+import scanner.md.BasicScanner;
 import scanner.md.PositionScanner;
 
 public class PL_GameScanner {
@@ -17,7 +17,7 @@ public class PL_GameScanner {
 	private LNEnteScanner enteScanner;
 	
 	
-	public PL_GameScanner(OwnScanner scan, IEnteCollection iEnteColle) {
+	public PL_GameScanner(BasicScanner scan, IEnteCollection iEnteColle) {
 		dataScanner = new LNDataScanner(new DataScanner(scan.getScn()));
 		enteScanner = new LNEnteScanner(new EnteScanner(scan.getScn(), dataScanner, iEnteColle));
 		positionScanner = new LNPositionScanner(new PositionScanner(scan.getScn(), dataScanner));

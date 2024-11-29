@@ -7,7 +7,7 @@ import mapa.ln.IEnteCollection;
 import mapa.md.Posicion;
 import scanner.ln.ILNDataScanner;
 
-public class EnteScanner extends OwnScanner {
+public class EnteScanner extends BasicScanner {
 	private ILNDataScanner dataScanner;
 	private IEnteCollection enteCollection;
 	public EnteScanner(Scanner scn, ILNDataScanner dataScanner, IEnteCollection enteCollection) {

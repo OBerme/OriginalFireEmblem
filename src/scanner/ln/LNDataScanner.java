@@ -2,7 +2,7 @@ package scanner.ln;
 
 import mapa.md.Posicion;
 import scanner.md.DataScanner;
-import scanner.md.OwnScanner;
+import scanner.md.BasicScanner;
 
 public class LNDataScanner implements ILNDataScanner  {
     protected DataScanner dataScanner;

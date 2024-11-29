@@ -36,6 +36,7 @@ import pl.enums.ConsoleGameControllerMessages;
 import player.ln.LNPlayer;
 import scanner.md.IGroupMap;
 import scanner.md.OwnScanner;
+import scanner.md.BasicScanner;
 import turner.md.Actionable;
 import turner.md.ITurnerEvents;
 import turner.md.Turnable;
@@ -67,7 +68,7 @@ public class PL_ConsoleGamePlayerController implements Turnable{
 		
 		
 		IEnteCollection iEnteColle = (IEnteCollection) lnMapa;
-		OwnScanner scanner = new OwnScanner(new Scanner(System.in)); 
+		BasicScanner scanner = new BasicScanner(OwnScanner.getInstance().getScn()); 
 		
 		GroupMenu gM = new GroupMenu((IGroupMap)lnMapa);	
 		ILNGroupMenu lnGM = new LNGroupMenu(gM, (IMenuShowable)gM);

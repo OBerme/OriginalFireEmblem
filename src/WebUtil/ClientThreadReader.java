@@ -1,18 +1,18 @@
-package WebServer;
+package WebUtil;
 
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.net.Socket;
 
-import WebServer.controller.enums.ServerConfigurationsNum;
-import WebServer.controller.enums.TypeConnection;
+import WebUtil.controller.enums.ServerConfigurationsNum;
+import WebUtil.controller.enums.TypeConnection;
 
 public class ClientThreadReader extends Thread{
 	private DataInputStream dataInputStream;
 	private boolean disconect;  
-	private ChatClient chatClient;
+	private GameClientConsole chatClient;
     // Constructor que recibe un socket y crea el DataInputStream
-    public ClientThreadReader(Socket socket,ChatClient chatClient) {
+    public ClientThreadReader(Socket socket,GameClientConsole chatClient) {
         try {
             this.dataInputStream = new DataInputStream(socket.getInputStream());
             this.disconect = false;

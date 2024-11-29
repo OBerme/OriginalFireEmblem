@@ -1,4 +1,4 @@
-package WebServer.controller;
+package WebUtil.controller;
 
 public interface IChatClientEvents {
 	void onDisconnect();

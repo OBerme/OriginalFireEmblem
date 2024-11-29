@@ -5,7 +5,7 @@ import java.util.Scanner;
 import mapa.md.Posicion;
 import scanner.ln.ILNDataScanner;
 
-public class PositionScanner extends OwnScanner {
+public class PositionScanner extends BasicScanner {
 	private ILNDataScanner dataScanner;
 
     public PositionScanner(Scanner scn, ILNDataScanner dataScanner) {

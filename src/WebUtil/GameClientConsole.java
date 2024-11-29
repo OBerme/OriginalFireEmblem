@@ -1,4 +1,4 @@
-package WebServer;
+package WebUtil;
 
 
 import java.io.DataInputStream;
@@ -15,13 +15,14 @@ import java.net.UnknownHostException;
 import java.util.List;
 import java.util.Random;
 
-import WebServer.controller.Client;
-import WebServer.controller.IChatClientEvents;
-import WebServer.controller.enums.ServerConfigurationsNum;
-import WebServer.controller.enums.TypeConnection;
-import WebServer.interfaces.console.CI_ClientStream;
+import WebUtil.controller.Client;
+import WebUtil.controller.IChatClientEvents;
+import WebUtil.controller.enums.ServerConfigurationsNum;
+import WebUtil.controller.enums.TypeConnection;
+import WebUtil.interfaces.console.CI_ClientStream;
+import player.md.Player;
 
-public class ChatClient extends BasicClientSocket implements IChatClientEvents{
+public class GameClientConsole extends BasicClientSocket implements IChatClientEvents{
 	//I/O stuff
 	public static final int NUM_THREADS = 1;
 	public static final int MUM_LOOPS= 1;
@@ -43,14 +44,11 @@ public class ChatClient extends BasicClientSocket implements IChatClientEvents{
 	
 	private boolean isConnectToClient;
 	
+	private Player player;
 	
-	public static void main(String[] args) {
-		new ChatClient();
-	}
 	
-	public ChatClient() {
+	public GameClientConsole() {
 		super();
-		
 		this.isConnectToClient = false;
 		
 		if(DEBUG_MODE)print("Cliente iniciado!");
@@ -60,19 +58,6 @@ public class ChatClient extends BasicClientSocket implements IChatClientEvents{
 	private void print(String message) {
 		System.out.println("Interno: " + message);
 	}
-	
-	private void createStreams() {
-		try {
-			this.pW = new PrintWriter(clientSocket.getOutputStream());
-			this.dIS = new DataInputStream(clientSocket.getInputStream());
-			this.dOS = new DataOutputStream(clientSocket.getOutputStream());
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-	}
-	
 
 	public void closeConnection() {
 		
@@ -143,17 +128,16 @@ public class ChatClient extends BasicClientSocket implements IChatClientEvents{
 			getListOfUsers();
 		
 		if(this.cClients != null) {
-			this.cCI.print("Aqui tenemos los clients" );
 //			showAvaliableClients();
 			int nId =  0;
 			boolean sResponse = true;
 			
 //				do {
-					if(!sResponse)
-						this.cCI.print("Somthing went wrong"
-								+ "\n Please try with another id");
-					nId = getValidIdClient();
-					this.cCI.print("Connecting to the client...");
+			if(!sResponse)
+				this.cCI.print("Somthing went wrong"
+						+ "\n Please try with another id");
+			nId = getValidIdClient();
+			this.cCI.print("Connecting to the client...");
 //					try {
 //						
 ////						dOS.writeInt(nId);
@@ -162,18 +146,18 @@ public class ChatClient extends BasicClientSocket implements IChatClientEvents{
 //						// TODO Auto-generated catch block
 //						e.printStackTrace();
 //					}
-					
+			
 //				}
 //				while(!( sResponse = dIS.readBoolean()) );
-				
+		
 //				ObjectInputStream oIS = new ObjectInputStream(clientSocket.getInputStream());
 //				Client nClient = (Client)oIS.readObject();
-				for(Client nClient : cClients) {
-					if(nClient.getId() == nId) {
-						connectToClient(nClient);
-						break;
-					}
+			for(Client nClient : cClients) {
+				if(nClient.getId() == nId) {
+					connectToClient(nClient);
+					break;
 				}
+			}
 				
 					
 		}
@@ -269,11 +253,10 @@ public class ChatClient extends BasicClientSocket implements IChatClientEvents{
 	protected void onConnection() {
 		updateInputsOutputs(); //to refresh the connection			
 		if(isConnectToClient()) {
-			cTR = new ClientThreadReader(clientSocket,this);
-			cTR.start();
-			
+			//Say to the game start!
 		}
 		else {
+			
 			this.cCI = new CI_ClientStream(this);
 			this.cCI.print("Vamos a generar un id para ti...");
 			int id = getNewId();
@@ -282,13 +265,12 @@ public class ChatClient extends BasicClientSocket implements IChatClientEvents{
 			this.cCI.print("Dame un nombre de usuario que quieras tener");
 			String name = this.cCI.getLine();
 			
+			
 			snedClientToServer(id, name); //Send the client values to server
 			
 			this.cCI.print("Perfecto\n"
 					+ "Todo listo! empecemos!");
-			
-			
-			
+			this.player = new Player(id, name); //Generate teh player			
 		}
 		this.cCI.start();
 		
@@ -352,20 +334,7 @@ public class ChatClient extends BasicClientSocket implements IChatClientEvents{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
 		return nId;
-		
-		
-	}
-
-	public void writeAMessage(String message) {
-		
-		pW.println(message);
-		pW.flush();
-		
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
@@ -378,12 +347,12 @@ public class ChatClient extends BasicClientSocket implements IChatClientEvents{
 	@Override
 	public void onWaitResponse() {
 		cTR.onStop();
-		
 		closeConnection();
-		
 	}
 
-	
-	
+
+	public Player getPlayer() {
+		return player;
+	}
 }
 

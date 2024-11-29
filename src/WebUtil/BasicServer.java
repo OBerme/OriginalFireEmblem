@@ -1,14 +1,13 @@
-package WebServer;
+package WebUtil;
 
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-import WebServer.controller.enums.ServerConfigurationsNum;
+import WebUtil.controller.enums.ServerConfigurationsNum;
 
 public abstract class BasicServer {
 	protected static final boolean DEBUG_MODE = true;
-	
 	
 	public static final int PORT = ServerConfigurationsNum.SERVER_PORT.getNum();
 	protected boolean conti;
@@ -21,8 +20,10 @@ public abstract class BasicServer {
 		
 	}
 	
+	
 	protected void getConnection() {
 		try {
+			
 			this.serverSocket = new ServerSocket(PORT);
 			if(DEBUG_MODE) print("Servidor iniciado");
 		} catch (IOException e) {

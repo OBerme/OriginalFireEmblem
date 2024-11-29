@@ -7,7 +7,7 @@ import menu.md.enums.EnteMenuOptions;
 import menu.md.enums.GroupMenuOptions;
 import scanner.ln.ILNDataScanner;
 import scanner.md.IGroupMap;
-import scanner.md.OwnScanner;
+import scanner.md.BasicScanner;
 
 public class GroupMenu extends Menu {
 	private IGroupMap groupMap;

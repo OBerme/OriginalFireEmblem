@@ -1,16 +1,16 @@
-package WebServer.interfaces.console;
+package WebUtil.interfaces.console;
 
-import static WebServer.interfaces.console.enums.CI_Client.E_GVO;
-import static WebServer.interfaces.console.enums.CI_ClientDisco_OptionsMenu.*;
-import static WebServer.interfaces.console.enums.CalculatorInterfaceMessages.*;
-import static WebServer.interfaces.console.enums.ConsoleInterfaceStaticOptions.*;
+import static WebUtil.interfaces.console.enums.CI_Client.E_GVO;
+import static WebUtil.interfaces.console.enums.CI_ClientDisco_OptionsMenu.*;
+import static WebUtil.interfaces.console.enums.CalculatorInterfaceMessages.*;
+import static WebUtil.interfaces.console.enums.ConsoleInterfaceStaticOptions.*;
 
 import java.io.File;
 
-import WebServer.ChatClient;
-import WebServer.controller.Client;
-import WebServer.interfaces.console.enums.CI_ClientConnect_OptionsMenu;
-import WebServer.interfaces.console.enums.CI_ClientDisco_OptionsMenu;
+import WebUtil.GameClientConsole;
+import WebUtil.controller.Client;
+import WebUtil.interfaces.console.enums.CI_ClientConnect_OptionsMenu;
+import WebUtil.interfaces.console.enums.CI_ClientDisco_OptionsMenu;
 
 
 
@@ -21,10 +21,10 @@ public class CI_ClientStream extends DataConsoleInterface implements Runnable{
 		this.isConnectedClient = isConnectedClient;
 	}
 
-	private ChatClient eC;
+	private GameClientConsole eC;
 	private boolean isConnectedClient;
 	
-	 public CI_ClientStream(ChatClient eC) {
+	 public CI_ClientStream(GameClientConsole eC) {
 		super();
 		this.eC = eC;
 	}
@@ -50,19 +50,6 @@ public class CI_ClientStream extends DataConsoleInterface implements Runnable{
 	                else
 	                    doMenuOption(menuOption);
 	            }
-
-	        }
-	        else {
-	        	String nLine = null;
-//	        	showMenu();
-	        	do {
-	        		nLine = getLine();
-	        		eC.writeAMessage(nLine);
-	        	}
-	        	while(!wantsToDisconnect(nLine) && eC.isConnectToClient()); 
-//	        	this.eC.onWaitResponse();
-	        	
-	        	eC.onDisconnect();
 	        }
 	        
 	        
@@ -90,33 +77,11 @@ public class CI_ClientStream extends DataConsoleInterface implements Runnable{
             }
 
         }
-        else {
-        	String nLine = null;
-//        	showMenu();
-        	do {
-        		nLine = getLine();
-        		eC.writeAMessage(nLine);
-        	}
-        	while(!wantsToDisconnect(nLine) && eC.isConnectToClient()); 
-//        	this.eC.onWaitResponse();
-        	
-        	
-        }
         
         
         System.out.println(BYE_MESSAGE);
 		
 	}
-
-	
-	
-	
-    
-	private boolean wantsToDisconnect(String nLine) {
-		// TODO Auto-generated method stub
-		return nLine.equals(CI_ClientConnect_OptionsMenu.EXIT_OPTION_MESSAGE.getMessage());
-	}
-
 
 	public boolean isOption(int num) {
     	boolean isOption = false;
@@ -131,9 +96,6 @@ public class CI_ClientStream extends DataConsoleInterface implements Runnable{
     }
     
 	public void  showMenu() {
-
-//        if(! options)
-		
         System.out.println(PLEASE_GIVE_AN_OPTION);
         if(!this.eC.isConnectToClient()) {
         	for (CI_ClientDisco_OptionsMenu option : CI_ClientDisco_OptionsMenu.values()) {
@@ -145,10 +107,6 @@ public class CI_ClientStream extends DataConsoleInterface implements Runnable{
                 System.out.println("Option: " + option.getOption() + " - " + option);
             }
         }
-        
-        
-//        else
-//            System.out.println(NO_OPTIONS);
         
     }
     

@@ -1,13 +1,13 @@
 package scanner.ln;
 
 import mapa.md.Posicion;
-import scanner.md.OwnScanner;
+import scanner.md.BasicScanner;
 
 public class LNOwnScanner implements ILNOwnScanner  {
-    private OwnScanner ownScanner;
+    private BasicScanner ownScanner;
 
     // Constructor
-    public LNOwnScanner(OwnScanner ownScanner) {
+    public LNOwnScanner(BasicScanner ownScanner) {
         this.ownScanner = ownScanner;
     }
 

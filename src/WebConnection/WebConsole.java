@@ -1,6 +1,7 @@
 package WebConnection;
 
-import WebConnection.XML.Socket;
+import java.net.Socket;
+
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 @objid ("0bdacb02-eacb-42de-991d-cd2f6c185712")

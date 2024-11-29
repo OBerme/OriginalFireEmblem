@@ -1,11 +1,11 @@
-package WebServer;
+package WebUtil;
 
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
-import WebServer.controller.enums.ServerConfigurationsNum;
+import WebUtil.controller.enums.ServerConfigurationsNum;
 
 public abstract class BasicClientSocket {
 	
