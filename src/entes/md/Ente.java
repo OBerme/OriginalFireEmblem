@@ -1,21 +1,22 @@
 package entes.md;
 
-public  class Ente{
+import java.io.Serializable;
+
+public  class Ente implements Serializable{
 	protected int hp;
 	protected String name;
 	protected String shortName;
 	protected int numb;
 	
+	public Ente() {	}
+	
 	public Ente(int numb) {
 		this.numb = numb;
 	}
 	
-	
 	public String getShortName() {
 		return shortName;
 	}
-
-
 
 	public Ente(int hp, String name, String shortName) {
 		this.hp=hp;

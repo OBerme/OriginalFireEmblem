@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<actions>
+    <damageEntes>
+        <ente>
+            <hp>200</hp>
+            <numb>0</numb>
+        </ente>
+        <ente>
+            <hp>700</hp>
+            <numb>0</numb>
+        </ente>
+    </damageEntes>
+    <movedEntes>
+        <position>
+            <ente>
+                <hp>200</hp>
+                <numb>0</numb>
+            </ente>
+            <x>0</x>
+            <y>0</y>
+        </position>
+        <position>
+            <ente>
+                <hp>700</hp>
+                <numb>0</numb>
+            </ente>
+            <x>1</x>
+            <y>1</y>
+        </position>
+    </movedEntes>
+</actions>
