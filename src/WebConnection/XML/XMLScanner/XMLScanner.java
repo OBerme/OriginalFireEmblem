@@ -1,7 +1,8 @@
 package WebConnection.XML.XMLScanner;
 
-import WebConnection.XML.File;
-import WebConnection.XML.Socket;
+import java.io.File;
+import java.net.Socket;
+
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 @objid ("a50cd676-362b-4368-8480-b16919872526")
@@ -17,7 +18,7 @@ public class XMLScanner {
     }
 
     @objid ("795fe8f5-4d92-4421-9c46-00ecbb79e442")
-    public void onXMLScanned(final File file) {
+    public void onXMLScanned( File file) {
     }
 
 }
