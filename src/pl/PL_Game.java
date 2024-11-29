@@ -7,6 +7,9 @@ import acciones.ln.LNAccionesAtaque;
 import entes.Estado;
 import entes.IEnteEvents;
 import entes.StateSerVivo;
+import entes.ln.ILNEntes;
+import entes.ln.LNEntes;
+import entes.md.Ente;
 import entes.md.Monstruo;
 import entes.md.Persona;
 import entes.md.SerVivo;
@@ -64,7 +67,14 @@ public class PL_Game implements IGameEvent{
 				(IEnteEvents)lnOsquiGroup,
 		};
 		
-		LNAccionesAtaque lnAccionesAtaque = new LNAccionesAtaque(lnEnteEvents);
+		//ADD the entes created to LNEntes to control all off them
+		List<Ente> entes = new ArrayList<Ente>();
+		for(SerVivo nServivo : listPersonas) {
+			entes.add(nServivo);	
+		}
+		
+		ILNEntes lnEntes = new LNEntes(lnEnteEvents, entes); 
+		LNAccionesAtaque lnAccionesAtaque = new LNAccionesAtaque(lnEntes);
 		moverPlayersRandom(lnMapa,listPersonas);
 		
 		List<Turnable> turnables =   new ArrayList<>();

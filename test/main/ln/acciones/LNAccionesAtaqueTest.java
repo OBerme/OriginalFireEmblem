@@ -2,6 +2,9 @@ package main.ln.acciones;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 
 import acciones.ln.AtaqueDecorator;
@@ -13,6 +16,8 @@ import acciones.md.ataque.Tipo;
 import entes.Estado;
 import entes.IEnteEvents;
 import entes.StateSerVivo;
+import entes.ln.ILNEntes;
+import entes.ln.LNEntes;
 import entes.md.Ente;
 import entes.md.Persona;
 import mapa.ln.ILNMapaMatrixEntes;
@@ -27,9 +32,11 @@ public class LNAccionesAtaqueTest {
 
 	@Test
 	public void testRemovedAtack() {
+		ILNEntes lnEntes = new LNEntes(null, null);
 		
 		LNAccionesAtaque lnAcciones = new LNAccionesAtaque(null);
 		Ente pers1 = new Persona(200,"Oscar","O", new Estado(StateSerVivo.NORMAL), TurnerEnumConstant.SPEED_DIVIDER.getCost());
+		lnEntes.addEnte(pers1);
 		
 		Ataque ata1 = new Ataque("PunietazoFUEGOOOO", 200, Tipo.FUEGO);
 		
@@ -66,19 +73,25 @@ public class LNAccionesAtaqueTest {
 		int length = 2;
 		
 		
+		
 		MapaMatrix mapa = new MapaMatrix(length);
 		ILNMapaMatrixEntes lnMapa = new LNMapaMatrixEntes(mapa);
 		
 		Ente pers1 = new Persona(200,"Oscar","O", new Estado(StateSerVivo.NORMAL), TurnerEnumConstant.SPEED_DIVIDER.getCost());
+		List<Ente> entes = new ArrayList<Ente>();
+		entes.add(pers1);
+		
 		Ataque ata1 = new Ataque("PunietazoFUEGOOOO", 200, Tipo.FUEGO);
 		
 		lnMapa.addEnte(pers1, new Posicion<Integer, Integer>(0, 0));
 		
-		IEnteEvents[] mapsEntes = {
+		IEnteEvents[] iEnteEvents = {
 				(IEnteEvents) lnMapa
 		};
 		
-		LNAccionesAtaque lnAcciones = new LNAccionesAtaque(mapsEntes);
+		ILNEntes lnEntes = new LNEntes(iEnteEvents, entes);
+		
+		LNAccionesAtaque lnAcciones = new LNAccionesAtaque(lnEntes);
 		lnAcciones.appendAtaque(pers1, ata1);
 		lnAcciones.appendAtaque(pers1, ata1);
 		

@@ -72,9 +72,14 @@ public  class MapaMatrix extends Mapa<Integer, Integer>  {
 			for(int i = 0 ; i < length; i++) {
 				nPosition = mapa[i][j];
 				
-				if(nPosition != null) 
-					nChar = nPosition.hasEnte()  ? nPosition.getEnte().getShortName() :  EMPTY_STR;
-				
+				if(nPosition != null) {
+					if(nPosition.hasEnte()) {
+						Ente ente = nPosition.getEnte();
+						nChar =   ente.isDied() ? EMPTY_STR  : nPosition.getEnte().getShortName();
+					}
+					else
+						nChar =  EMPTY_STR;
+				}
 				else
 					nChar = EMPTY_STR;
 				exit += COLUM_STR + nChar;  

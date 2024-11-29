@@ -80,13 +80,12 @@ public class PL_ConsoleGamePlayerController implements Turnable{
 	
 	 //@Override
 	public void start(){
-        System.out.println(ConsoleGameControllerMessages.getPlayerTurnMessage(lnPlayer.getName()));
-
         int menuOption;
         if(lnPlayerGroup.isDone()) {
         	turnerEvent.onGiveUp();
         }
         else {
+        	System.out.println(ConsoleGameControllerMessages.getPlayerTurnMessage(lnPlayer.getName()));
         	lnPlayerGroup.resetNumActions();
             while(lnPlayerGroup.hasActions() && contin){
             	

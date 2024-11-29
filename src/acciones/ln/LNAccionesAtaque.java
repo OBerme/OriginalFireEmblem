@@ -6,16 +6,18 @@ import java.util.HashMap;
 
 import acciones.md.ataque.Ataque;
 import entes.IEnteEvents;
+import entes.ln.ILNEntes;
+import entes.ln.LNEntes;
 import entes.md.Ente;
 
 public class LNAccionesAtaque extends LNAccion implements ILNAccion{
-	private IEnteEvents[] enteEvents;
+	private ILNEntes lnEntes;
 	private HashMap<Ente, AtaqueDecorator> ataques;
 
     // Constructor de LNAtaque, acepta un ente y un ataque inicial
-    public LNAccionesAtaque(IEnteEvents[] enteEvents) {
+    public LNAccionesAtaque(ILNEntes lnEntes) {
         this.ataques = new HashMap<Ente, AtaqueDecorator>();
-        this.enteEvents = enteEvents;
+        this.lnEntes = lnEntes;
     }
 
     // Método para agregar un nuevo ataque al ataque decorador
@@ -72,16 +74,9 @@ public class LNAccionesAtaque extends LNAccion implements ILNAccion{
     	for(Ente nEnte : this.ataques.keySet()) {
     		AtaqueDecorator atack = this.ataques.get(nEnte);
     		int totalDamage = atack.getDamage();
-    		nEnte.setHp(nEnte.getHp() - totalDamage);
-    		if(nEnte.getHp() == 0) 
-    			onEnteDies(nEnte);
+    		lnEntes.reducirHp(nEnte, totalDamage);
     			
     	}
     }
-    
-    private void onEnteDies(Ente ente) {
-    	for(IEnteEvents nEnteEvents : this.enteEvents) {
-    		nEnteEvents.onEnteDies(ente);
-    	}
-    }
+   
 }
