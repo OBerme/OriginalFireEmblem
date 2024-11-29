@@ -1,13 +1,13 @@
 package menu.md.enums;
 
-public enum AttackMenuOptions {
+public enum AttackMenuOptionsMonstruo {
 	PHY("Physical attack",50),
 	MAG("Magical attack", 51);
 	
 	private final String message;
 	private final int option;
 
-	AttackMenuOptions(String message, int option) {
+	AttackMenuOptionsMonstruo(String message, int option) {
 		// TODO Auto-generated constructor stub
 		this.message = message;
 		this.option = option;

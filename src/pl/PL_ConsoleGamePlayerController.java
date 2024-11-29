@@ -237,7 +237,7 @@ public class PL_ConsoleGamePlayerController implements Turnable{
     		if(sEnteActi.hasActions()) {
             	Scanner sc = new Scanner(System.in);
     			int i=0;
-    			AttackMenu attackMenu = new AttackMenu();
+    			AttackMenu attackMenu = new AttackMenu(sEnte);
     			while(i != 50 && i != 51) {
     				System.out.println("Give me the attack");
     				attackMenu.showMenu();
