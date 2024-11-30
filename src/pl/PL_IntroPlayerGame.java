@@ -21,6 +21,8 @@ import group.ln.LNGroup;
 import group.md.Group;
 import group.md.Groupable;
 import mapa.ln.ILNMapaMatrixEntesGroup;
+import mapa.ln.IMapEvents;
+import mapa.ln.IMapIntegerEvents;
 import mapa.ln.LNMapaMatrixEntesGroup;
 import mapa.md.MapaMatrixEnteGroupActionable;
 import mapa.md.Posicion;
@@ -43,7 +45,7 @@ import turner.md.enums.TurnerEnumConstant;
 
 public class PL_IntroPlayerGame {
 	
-	private static final boolean DEBUG_MODE = false; //to avoid the starting message 
+	private static final boolean DEBUG_MODE = true; //to avoid the starting message 
 	private LNTurner lnTurner;
 	private List<LNGroup> lnGroups;
 	private static final int MAP_LENGTH = 4;
@@ -53,6 +55,8 @@ public class PL_IntroPlayerGame {
 	public PL_IntroPlayerGame() {
 		if(DEBUG_MODE) {
 			generateMokGame();	
+			new PL_Game(lnTurner, lnGroups);
+			
 		}
 		else {
 			DataScanner dataScanner = new DataScanner(OwnScanner.getInstance().getScn());
@@ -156,8 +160,8 @@ public class PL_IntroPlayerGame {
 		groups.add(new LNGroup(gr1, lnTurner));
 		groups.add(new LNGroup(gr2,lnTurner));
 		
-		
-		ILNMapaMatrixEntesGroup lnMapa = new LNMapaMatrixEntesGroup(mapa, groups);
+
+		ILNMapaMatrixEntesGroup lnMapa = new LNMapaMatrixEntesGroup(mapa, groups, new IMapIntegerEvents[0]);
 		return lnMapa;
 		
 	}

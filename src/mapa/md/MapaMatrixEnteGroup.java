@@ -2,12 +2,13 @@ package mapa.md;
 
 import java.util.List;
 
+import entes.IEnteEvents;
 import entes.md.Ente;
 import entes.md.SerVivo;
 import group.md.Group;
 import group.md.Groupable;
 
-public class MapaMatrixEnteGroup extends MapaMatrix {
+public class MapaMatrixEnteGroup extends MapaMatrix{
 	
 	protected List<Group> groups;
 	public MapaMatrixEnteGroup(int length, List<Group> groups) {
@@ -60,6 +61,7 @@ public class MapaMatrixEnteGroup extends MapaMatrix {
 		
 		return exit;
 	}
+
 
 	
 

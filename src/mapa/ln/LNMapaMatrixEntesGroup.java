@@ -2,19 +2,22 @@ package mapa.ln;
 
 import java.util.List;
 
+import entes.md.Ente;
 import group.ln.LNGroup;
 import group.md.Group;
 import mapa.md.MapaMatrixEnteGroup;
+import mapa.md.Posicion;
 import scanner.md.IGroupMap;
 
 public class LNMapaMatrixEntesGroup extends LNMapaMatrixEntes implements IGroupMap, ILNMapaMatrixEntesGroup{
 	private List<LNGroup> groups;
+	
 	private MapaMatrixEnteGroup mapaVectorGroup;
-	public LNMapaMatrixEntesGroup(MapaMatrixEnteGroup mapaVector, List<LNGroup> groups) {
-		super(mapaVector);
+	public LNMapaMatrixEntesGroup(MapaMatrixEnteGroup mapaVector, List<LNGroup> groups,
+			IMapEvents<Integer, Integer>[] mapEvents) {
+		super(mapaVector, mapEvents);
 		this.groups = groups;
 		this.mapaVectorGroup = mapaVector;
-		// TODO Auto-generated constructor stub
 	}
 	
 	@Override
@@ -22,4 +25,5 @@ public class LNMapaMatrixEntesGroup extends LNMapaMatrixEntes implements IGroupM
 		// TODO Auto-generated method stub
 		return this.mapaVectorGroup.getGroupMapString(sGroup);
 	}
+
 }

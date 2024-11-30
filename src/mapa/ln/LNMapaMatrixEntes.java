@@ -10,12 +10,14 @@ import mapa.md.Posicion;
 
 public class LNMapaMatrixEntes extends LNMapaMatrix 
 	implements ILNMapaMatrixEntes, IEnteCollection, IEnteNumberShowable, IEnteEvents{
-	
+	private IMapEvents<Integer, Integer>[] mapEvents;
 	private HashMap<Integer, Ente> entes;
-	public LNMapaMatrixEntes(MapaMatrix mapaVector) {
+	
+	public LNMapaMatrixEntes(MapaMatrix mapaVector, IMapEvents<Integer, Integer>[] mapEvents) {
 		super(mapaVector);
 		// TODO Auto-generated constructor stub
 		this.entes = new HashMap<Integer, Ente>();
+		this.mapEvents = mapEvents;
 	}
 
 	/**
@@ -31,13 +33,21 @@ public class LNMapaMatrixEntes extends LNMapaMatrix
 			}
 			else 
 				appendEnte(ente);
-			
+			onChangedPosition(posi);
 			setEntePosition(ente, posi);
 				
 			
 			return true;
 		}
 		return false;
+	}
+	
+	
+	
+	private void onChangedPosition(Posicion<Integer, Integer> posi) {
+		for(IMapEvents<Integer, Integer> nMapEvent : mapEvents) {
+			nMapEvent.onPositionChange(posi);
+		}
 	}
 	
 	
@@ -136,6 +146,12 @@ public class LNMapaMatrixEntes extends LNMapaMatrix
 	public void addEnte(Ente ente, Posicion<Integer, Integer> posi) {
 		this.entes.put(ente.getNumb(), ente);
 		setEntePosition(ente, posi);
+		
+	}
+
+	@Override
+	public void onEnteReciveAtack(Ente ente) {
+		// TODO Auto-generated method stub
 		
 	}
 

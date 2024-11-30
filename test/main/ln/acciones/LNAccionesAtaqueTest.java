@@ -21,6 +21,8 @@ import entes.ln.LNEntes;
 import entes.md.Ente;
 import entes.md.Persona;
 import mapa.ln.ILNMapaMatrixEntes;
+import mapa.ln.IMapEvents;
+import mapa.ln.IMapIntegerEvents;
 import mapa.ln.INLMapa;
 import mapa.ln.LNMapaMatrix;
 import mapa.ln.LNMapaMatrixEntes;
@@ -75,7 +77,7 @@ public class LNAccionesAtaqueTest {
 		
 		
 		MapaMatrix mapa = new MapaMatrix(length);
-		ILNMapaMatrixEntes lnMapa = new LNMapaMatrixEntes(mapa);
+		ILNMapaMatrixEntes lnMapa = new LNMapaMatrixEntes(mapa, new IMapIntegerEvents[0]);
 		
 		Ente pers1 = new Persona(200,"Oscar","O", new Estado(StateSerVivo.NORMAL), TurnerEnumConstant.SPEED_DIVIDER.getCost());
 		List<Ente> entes = new ArrayList<Ente>();

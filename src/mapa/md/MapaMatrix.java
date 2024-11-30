@@ -201,23 +201,13 @@ public  class MapaMatrix extends Mapa<Integer, Integer>  {
 				Ente nEnte = nPosition.getEnte();
 				if(nEnte.equals(ente)) {
 					position = nPosition;
+					break;
 				}	
 			}
 		}
 		return position;
 	}
 	
-	
-
-	/**
-	 * Pre : Ente should be not null and should be in the map
-	 */
-	@Override
-	public void onEnteDies(Ente ente) {
-		Posicion<Integer, Integer> position = getEntePosition(ente);
-		position.setEnte(null);		
-	}
-
 
 	
 	

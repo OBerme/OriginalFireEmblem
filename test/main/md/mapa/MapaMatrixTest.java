@@ -43,8 +43,8 @@ public class MapaMatrixTest {
 //		
 //		Posicion<Integer, Integer> position = new Posicion<Integer, Integer>(1, 1);
 //		
-//		Persona nP = new Persona(200, "Ronaldo","R", new Estado(StateSerVivo.NORMAL));
-//		lnMapa.moverEnte( nP, position);
+//		Persona nP = new Persona(200, "Ronaldo","R", new Estado(StateSerVivo.NORMAL),200);
+//		lnMapa.( nP, position);
 //		
 //		assertFalse( mapa.isEmptyPosicion(position), "The position is not empty");
 //		

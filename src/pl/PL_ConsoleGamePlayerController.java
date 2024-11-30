@@ -141,40 +141,7 @@ public class PL_ConsoleGamePlayerController implements Turnable{
         	System.out.println(sEnte.getStatus());
         }
         else if(menuOption == EnteMenuOptions.MOEN.getOption()){ //move ente 
-        	System.out.println("Give me the number of the ente");
-        	System.out.println(this.lnMapa.getGroupMapString(lnPlayerGroup.getGroup()));
-        	
-    		int numbEnte = this.scn.getInteger();
-        	Ente sEnte = lnMapa.getEnte(numbEnte);
-        	
-        	//to check if the ente is in the player lnPlayerGroup
-        	while( !((Groupable)sEnte).getGroup().equals(this.lnPlayerGroup.getGroup())){ 
-        		System.out.println("Please give a valid number");
-        		sEnte = lnMapa.getEnte(this.scn.getInteger());
-        	}
-        	
-        	if( (sEnte instanceof Movable && sEnte instanceof Actionable)) { //To pay the turn 
-        		Actionable sEnteActi = (Actionable) sEnte;
-        		if(sEnteActi.hasActions()) {
-        			System.out.println("Give me the new position");
-                	
-                	Posicion<Integer, Integer> nPosition = this.scn.getPosition();
-                	if(!this.lnMapa.moverEnte(sEnte, nPosition)) {
-                		System.out.println("You cant move to an ocuped position");
-                	}
-                	else {
-                		sEnteActi.subtractNumActions(TurnerEnumConstant.MOVE_COST.getCost());
-                		System.out.println("The player was moved");
-                	}
-        		}
-        		else
-        			System.out.println("The player can't moved");
-        		
-        	}
-        	else {
-        		System.out.println("The ente is very bigchungus and you can't move it");
-        	}
-        		
+        	moveEnte();	
         }
         else if(menuOption == EnteMenuOptions.ATEN.getOption()){ //move ente 
         	doAttack();
@@ -215,6 +182,42 @@ public class PL_ConsoleGamePlayerController implements Turnable{
 	private void setMovesAndAtacks() {
 		//lnAtack do all things
 		skipTurn();
+	}
+	
+	private void moveEnte() {
+		System.out.println("Give me the number of the ente");
+    	System.out.println(this.lnMapa.getGroupMapString(lnPlayerGroup.getGroup()));
+    	
+		int numbEnte = this.scn.getInteger();
+    	Ente sEnte = lnMapa.getEnte(numbEnte);
+    	
+    	//to check if the ente is in the player lnPlayerGroup
+    	while( !((Groupable)sEnte).getGroup().equals(this.lnPlayerGroup.getGroup())){ 
+    		System.out.println("Please give a valid number");
+    		sEnte = lnMapa.getEnte(this.scn.getInteger());
+    	}
+    	
+    	if( (sEnte instanceof Movable && sEnte instanceof Actionable)) { //To pay the turn 
+    		Actionable sEnteActi = (Actionable) sEnte;
+    		if(sEnteActi.hasActions()) {
+    			System.out.println("Give me the new position");
+            	
+            	Posicion<Integer, Integer> nPosition = this.scn.getPosition();
+            	if(!this.lnMapa.moverEnte(sEnte, nPosition)) {
+            		System.out.println("You cant move to an ocuped position");
+            	}
+            	else {
+            		sEnteActi.subtractNumActions(TurnerEnumConstant.MOVE_COST.getCost());
+            		System.out.println("The player was moved");
+            	}
+    		}
+    		else
+    			System.out.println("The player can't moved");
+    		
+    	}
+    	else {
+    		System.out.println("The ente is very bigchungus and you can't move it");
+    	}
 	}
 	private void doAttack() {
 		System.out.println("Give me the number of the ente");

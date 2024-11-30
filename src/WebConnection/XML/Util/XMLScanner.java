@@ -1,4 +1,4 @@
-package WebConnection.XML.XMLScanner;
+package WebConnection.XML.Util;
 
 import java.io.File;
 import java.net.Socket;

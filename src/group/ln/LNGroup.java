@@ -88,6 +88,12 @@ public class LNGroup implements IGroupEvents, ILNGroup, Actionable, IEnteEvents 
 			turnerEvents.onGiveUp();
 		}
 	}
+
+	@Override
+	public void onEnteReciveAtack(Ente ente) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 

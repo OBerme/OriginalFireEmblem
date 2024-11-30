@@ -19,13 +19,16 @@ public class LNEntes implements ILNEntes, IEnteEvents{
 	}
 	
 	public void reducirHp(Ente ente, int damage) {
-		if(ente.getHp() < damage)
+		if(ente.getHp() < damage) {
 			ente.setHp(0);
-		else
-			ente.setHp(ente.getHp() - damage);
-		
-		if(ente.getHp() == 0) 
 			onEnteDiesEnteEvents(ente);
+		}
+			
+		else {
+			ente.setHp(ente.getHp() - damage);
+			onEnteReciveAtackEvents(ente);
+		}
+			
 	}
 	
 	public void addEnte(Ente ente) {
@@ -38,10 +41,22 @@ public class LNEntes implements ILNEntes, IEnteEvents{
     	}
 	}
 	
+	private void onEnteReciveAtackEvents(Ente ente) {
+		for(IEnteEvents nEnteEvents : this.enteEvents) {
+    		nEnteEvents.onEnteReciveAtack(ente);
+    	}
+	}
+	
 	public void onEnteDies(Ente ente) {
     	if(entes.contains(ente)) {
     		entes.remove(ente);
     	}
     }
-	
+
+	@Override
+	public void onEnteReciveAtack(Ente ente) {
+		// TODO Auto-generated method stub
+		
+	}
+		
 }
