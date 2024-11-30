@@ -24,11 +24,15 @@ public class LNXmlStack implements IMapIntegerEvents , IEnteEvents{
 	
 	 public List<Ente> getEntes() {
 	    // TODO Auto-generated return
-	    return this.enteStack.getEntes();
+		List<Ente> entes =this.enteStack.getEntes();
+		this.enteStack.clearEntes();
+	    return entes; 
 	 }
 	 
 	 public List<PosicionXml> getPositionsXml(){
-			return this.positionStack.getPositionsXml();
+		List<PosicionXml> positionsXml = this.positionStack.getPositionsXml();
+		this.positionStack.clearPositions();
+		return positionsXml;
 	 }
 
 	@Override

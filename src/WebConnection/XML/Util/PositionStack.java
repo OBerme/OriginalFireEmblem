@@ -24,5 +24,9 @@ public class PositionStack implements IMapEvents<Integer, Integer> {
 		this.positionsChanged.add(posi);
 		
 	}
+	
+	public void clearPositions() {
+		this.positionsChanged.clear();
+	}
 
 }

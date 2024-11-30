@@ -37,5 +37,8 @@ public class EnteStack implements IEnteEvents {
 		} //else the ente is inside and the health will be modify automaticly
 		
 	}
+	public void clearEntes() {
+		this.entesChanged.clear();
+	}
 
 }
