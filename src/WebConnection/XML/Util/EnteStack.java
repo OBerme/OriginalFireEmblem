@@ -40,5 +40,15 @@ public class EnteStack implements IEnteEvents {
 	public void clearEntes() {
 		this.entesChanged.clear();
 	}
+	
+	public int getLength() {
+		return this.entesChanged.size();
+	}
+
+	@Override
+	public void onEnteChangeHp(Ente ente) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 import entes.Estado;
-import entes.StateSerVivo;
+import entes.ln.StateSerVivo;
 import entes.md.Persona;
 import mapa.ln.INLMapa;
 import mapa.ln.LNMapaMatrix;

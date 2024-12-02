@@ -1,5 +1,7 @@
 package entes;
 
+import entes.ln.StateSerVivo;
+
 public class Estado {
 	private StateSerVivo tipoEstado;
 	public Estado(StateSerVivo tipoEstado) {

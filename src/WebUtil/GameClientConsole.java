@@ -15,6 +15,7 @@ import java.net.UnknownHostException;
 import java.util.List;
 import java.util.Random;
 
+import WebConnection.IWebConnectionEvents;
 import WebUtil.controller.Client;
 import WebUtil.controller.IChatClientEvents;
 import WebUtil.controller.enums.ServerConfigurationsNum;
@@ -46,11 +47,15 @@ public class GameClientConsole extends BasicClientSocket implements IChatClientE
 	
 	private Player player;
 	
+	private IWebConnectionEvents iwebEvent;
+	private boolean waitingClient;
 	
-	public GameClientConsole() {
+	
+	public GameClientConsole(IWebConnectionEvents iwebEvent){
 		super();
+		this.iwebEvent = iwebEvent;
 		this.isConnectToClient = false;
-		
+		this.waitingClient = false;
 		if(DEBUG_MODE)print("Cliente iniciado!");
 	}
 	
@@ -216,7 +221,7 @@ public class GameClientConsole extends BasicClientSocket implements IChatClientE
 	}
 
 	public void waitForConnections() {
-		
+		this.waitingClient = true;
 		this.pW.println(TypeConnection.WOC.getMessageConnection());
 		this.pW.flush();
 		
@@ -254,6 +259,7 @@ public class GameClientConsole extends BasicClientSocket implements IChatClientE
 		updateInputsOutputs(); //to refresh the connection			
 		if(isConnectToClient()) {
 			//Say to the game start!
+			this.iwebEvent.onConnection(clientSocket, waitingClient, player);
 		}
 		else {
 			
@@ -270,11 +276,11 @@ public class GameClientConsole extends BasicClientSocket implements IChatClientE
 			
 			this.cCI.print("Perfecto\n"
 					+ "Todo listo! empecemos!");
-			this.player = new Player(id, name); //Generate teh player			
+			this.player = new Player(id, name); //Generate teh player		
+			this.cCI.start();
+			this.cCI.setConnectedClient(isConnectToClient);
 		}
-		this.cCI.start();
 		
-		this.cCI.setConnectedClient(isConnectToClient);
 			
 		
 	}
@@ -354,5 +360,6 @@ public class GameClientConsole extends BasicClientSocket implements IChatClientE
 	public Player getPlayer() {
 		return player;
 	}
+	
 }
 

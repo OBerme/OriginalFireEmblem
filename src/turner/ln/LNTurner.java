@@ -1,5 +1,9 @@
 package turner.ln;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import WebConnection.LNWebConnection;
 import turner.md.IGameEvent;
 import turner.md.ITurnerEvents;
 import turner.md.Turnable;
@@ -17,6 +21,25 @@ public class LNTurner implements ITurnerEvents{
 
 	public void start() {
 		run();
+	}
+	
+	public void waitForFirstTurn() {
+		List<Turnable> turnablesLeft = new ArrayList<>();
+		for(Turnable nTurnable : turner.getTurnables()) {
+			if(turner.isContin() && nTurnable instanceof LNWebConnection) {
+				((LNWebConnection) nTurnable).turnOtherPlayer();
+			}
+			else
+				turnablesLeft.add(nTurnable);
+				
+		}
+		//To do all the others one his turn
+		for(Turnable nTurnable : turnablesLeft) {
+			nTurnable.doTurn();
+		}
+		turner.onTurnPass();
+		run();
+		
 	}
 	
 	private void run() {

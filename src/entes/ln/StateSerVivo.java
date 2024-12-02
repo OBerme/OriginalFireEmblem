@@ -1,4 +1,4 @@
-package entes;
+package entes.ln;
 
 public enum StateSerVivo {
 	ENVENENADO("ENVENENADO"),

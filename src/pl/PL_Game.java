@@ -6,9 +6,9 @@ import java.util.List;
 import acciones.ln.LNAccionesAtaque;
 import entes.Estado;
 import entes.IEnteEvents;
-import entes.StateSerVivo;
 import entes.ln.ILNEntes;
 import entes.ln.LNEntes;
+import entes.ln.StateSerVivo;
 import entes.md.Ente;
 import entes.md.Monstruo;
 import entes.md.Persona;
@@ -43,6 +43,21 @@ public class PL_Game implements IGameEvent{
 		
 		this.lnTurner.start();
 	}
+	
+	public PL_Game(LNTurner lnTurner, List<LNGroup> lnGroups, boolean waitingClient) {
+		this.lnGroups = lnGroups;
+		this.lnTurner = lnTurner;
+		this.lnTurner.setGameEvent(this);
+		
+		if(!waitingClient) {
+			System.out.println("Waiting for the turn of the other player...");
+			this.lnTurner.waitForFirstTurn();
+		}
+		else
+			this.lnTurner.start();
+	}
+	
+	
 	
 
 

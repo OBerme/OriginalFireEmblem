@@ -58,5 +58,32 @@ public class LNEntes implements ILNEntes, IEnteEvents{
 		// TODO Auto-generated method stub
 		
 	}
+	
+	
+
+
+	//Pre: the ente should have a valid numb of an ente in the game
+	//Post: it will return the ente that has the same numb, null if the ente is not in the game
+	
+	public Ente getEnte(Ente ente) {
+		// TODO Auto-generated method stub
+		if(entes.contains(ente)) {
+			for(Ente nEnte : entes) {
+				if(nEnte.equals(ente)) {
+					return nEnte;
+				}
+			}
+		}
+		return null; 
+	}
+
+	@Override
+	public void onEnteChangeHp(Ente ente) {
+		Ente nEnte = getEnte(ente);
+		if(nEnte != null) {
+			nEnte.setHp(ente.getHp());
+		}
+		
+	}
 		
 }

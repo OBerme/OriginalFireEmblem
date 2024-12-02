@@ -1,7 +1,7 @@
 package mapa.md;
 
 import entes.Estado;
-import entes.StateSerVivo;
+import entes.ln.StateSerVivo;
 import entes.md.Ente;
 import entes.md.Monstruo;
 import entes.md.Persona;

@@ -29,6 +29,9 @@ public class LNXmlStack implements IMapIntegerEvents , IEnteEvents{
 	    return entes; 
 	 }
 	 
+	 
+	 //Pre:----
+	 //Post: it will return the list of posiicon xml, it could be null
 	 public List<PosicionXml> getPositionsXml(){
 		List<PosicionXml> positionsXml = this.positionStack.getPositionsXml();
 		this.positionStack.clearPositions();
@@ -48,6 +51,16 @@ public class LNXmlStack implements IMapIntegerEvents , IEnteEvents{
 	@Override
 	public void onPositionChange(Posicion<Integer, Integer> posicion) {
 		this.positionStack.onPositionChange(posicion);
+		
+	}
+	
+	public boolean hasSomething() {
+		return enteStack.getLength() > 0 || positionStack.getLength() > 0 ;
+	}
+
+	@Override
+	public void onEnteChangeHp(Ente ente) {
+		// TODO Auto-generated method stub
 		
 	}
 	  

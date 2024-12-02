@@ -9,7 +9,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import entes.Estado;
-import entes.StateSerVivo;
+import entes.ln.StateSerVivo;
 import entes.md.Ente;
 import entes.md.Persona;
 import mapa.md.PosicionXml;

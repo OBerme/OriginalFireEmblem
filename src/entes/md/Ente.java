@@ -78,9 +78,7 @@ public  class Ente implements Serializable{
 		
 		if(obj instanceof Ente) {
 			Ente eObj = (Ente) obj;
-			return eObj.getName().equals(getName()) 
-					&& eObj.getShortName().equals(getShortName()) 
-						&&  eObj.getNumb()== getNumb() ;
+			return  eObj.getNumb()== getNumb() ;
 		}
 		return false;
 	}

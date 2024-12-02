@@ -7,7 +7,7 @@ import java.net.UnknownHostException;
 
 import WebUtil.controller.enums.ServerConfigurationsNum;
 
-public abstract class BasicClientSocket {
+public abstract class BasicClientSocket extends Thread {
 	
 	protected  static final boolean DEBUG_MODE = true;
 	protected Socket clientSocket;
@@ -17,12 +17,21 @@ public abstract class BasicClientSocket {
 	public BasicClientSocket() {
 		try {
 			this.ip = InetAddress.getLocalHost();
-			getConnection();
+			
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
+	
+	public void run() {
+		getConnection();
+	}
+	
+	public void start() {
+		getConnection();
+	}
+	
 	//Pre: The interface should be created before start this method
 	protected void getConnection() {
 		try {

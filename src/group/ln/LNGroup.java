@@ -94,6 +94,12 @@ public class LNGroup implements IGroupEvents, ILNGroup, Actionable, IEnteEvents 
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void onEnteChangeHp(Ente ente) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 

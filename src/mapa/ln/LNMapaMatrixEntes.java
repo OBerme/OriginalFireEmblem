@@ -155,6 +155,12 @@ public class LNMapaMatrixEntes extends LNMapaMatrix
 		
 	}
 
+	@Override
+	public void onEnteChangeHp(Ente ente) {
+		// TODO Auto-generated method stub
+		
+	}
+
 	
 	
 }

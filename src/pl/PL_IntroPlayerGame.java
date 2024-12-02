@@ -1,18 +1,24 @@
 package pl;
 
+import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import WebConnection.IWebConnectionEvents;
+import WebConnection.LNWebConnection;
+import WebConnection.XML.Util.EnteStack;
+import WebConnection.XML.Util.PositionXmlStack;
+import WebConnection.XML.Util.ln.LNXmlStack;
 import WebUtil.BasicServer;
 import WebUtil.GameClientConsole;
 import WebUtil.GameServer;
 import acciones.ln.LNAccionesAtaque;
 import entes.Estado;
 import entes.IEnteEvents;
-import entes.StateSerVivo;
 import entes.ln.ILNEntes;
 import entes.ln.LNEntes;
+import entes.ln.StateSerVivo;
 import entes.md.Ente;
 import entes.md.Monstruo;
 import entes.md.Persona;
@@ -43,13 +49,13 @@ import turner.md.Turnable;
 import turner.md.Turner;
 import turner.md.enums.TurnerEnumConstant;
 
-public class PL_IntroPlayerGame {
+public class PL_IntroPlayerGame implements IWebConnectionEvents{
 	
-	private static final boolean DEBUG_MODE = true; //to avoid the starting message 
+	private static final boolean DEBUG_MODE = false; //to avoid the starting message 
 	private LNTurner lnTurner;
 	private List<LNGroup> lnGroups;
 	private static final int MAP_LENGTH = 4;
-	
+	private Player principalPlayer;
 	
 	
 	public PL_IntroPlayerGame() {
@@ -76,7 +82,7 @@ public class PL_IntroPlayerGame {
 			} 
 			else if (option == TypeGameMenuOptions.GWG.getOption()) { //Web server option
 				//The server shoudl be up!
-				GameClientConsole gameClientConsole = new GameClientConsole();
+				((Thread)new GameClientConsole(this)).start();
 			}
 		}
 		
@@ -137,6 +143,73 @@ public class PL_IntroPlayerGame {
 		
 		turnables.add((Turnable)consoleP1);
 		turnables.add((Turnable)consoleP2);
+		
+		tuner.setTurnables(turnables);
+	}
+	
+
+	private void generateMokGameWeb(boolean waitingPlayer, Socket socket) {
+		this.lnGroups = new ArrayList<LNGroup>();
+		
+		Player oscarP = new Player(1, "Osqui");
+		Player jojiP = new Player(2, "Joji");
+		
+		
+		SerVivo[] listPersonas  = getListPersonas();
+		
+		this.principalPlayer = oscarP;
+		Group oscarGroup = getFirstGroup(listPersonas, oscarP);
+		Group jojiGroup = getSecondGroup(listPersonas, jojiP);
+		LNPlayer oscar = new LNPlayer(new Player(1, "Oscar"));
+		
+		
+		
+		
+		Turner tuner = new Turner();
+		lnTurner = new LNTurner(tuner, null);
+		
+		LNGroup lnJojiGroup = new LNGroup(jojiGroup,lnTurner);
+		LNGroup lnOsquiGroup = new LNGroup(oscarGroup,lnTurner);
+		
+		lnGroups.add(lnJojiGroup);
+		lnGroups.add(lnOsquiGroup);
+		
+		ILNMapaMatrixEntesGroup lnMapa =  setUpGroupMap(MAP_LENGTH, oscarGroup, jojiGroup, lnTurner);
+		
+		PositionXmlStack posiStack = new PositionXmlStack();
+		EnteStack enteStack = new EnteStack();
+		LNXmlStack xmlStack = new LNXmlStack(posiStack,enteStack);
+		
+		IEnteEvents[] lnEnteEvents = new IEnteEvents[]{
+				(IEnteEvents)lnMapa,
+				(IEnteEvents)lnJojiGroup,
+				(IEnteEvents)lnOsquiGroup,
+				(IEnteEvents)xmlStack //added the stack to get record the game
+		};
+		
+		//ADD the entes created to LNEntes to control all off them
+		List<Ente> entes = new ArrayList<Ente>();
+		for(SerVivo nServivo : listPersonas) {
+			entes.add(nServivo);	
+		}
+		
+		ILNEntes lnEntes = new LNEntes(lnEnteEvents, entes); 
+		LNAccionesAtaque lnAccionesAtaque = new LNAccionesAtaque(lnEntes);
+		moverPlayersRandom(lnMapa,listPersonas);
+		
+		List<Turnable> turnables =   new ArrayList<>();
+		
+		
+		
+		PL_ConsoleGamePlayerController consoleP1 = waitingPlayer 
+				? new PL_ConsoleGamePlayerController(lnMapa , lnJojiGroup, lnTurner,new LNPlayer(jojiP),lnAccionesAtaque)  
+				: new PL_ConsoleGamePlayerController(lnMapa , lnOsquiGroup,lnTurner,new LNPlayer(oscarP),lnAccionesAtaque);
+		LNWebConnection webConnection =  new LNWebConnection(lnMapa, lnEntes,
+				xmlStack, socket, waitingPlayer ? oscarP  : jojiP);
+		
+		
+		turnables.add((Turnable)consoleP1);
+		turnables.add((Turnable)webConnection);
 		
 		tuner.setTurnables(turnables);
 	}
@@ -223,6 +296,17 @@ public class PL_IntroPlayerGame {
 //				new Monstruo(1200, "Alphish", "H", new Estado(StateSerVivo.NORMAL),TurnerEnumConstant.SPEED_DIVIDER.getCost()),
 //				new Persona(5000, "Varona", "V", new Estado(StateSerVivo.NORMAL),TurnerEnumConstant.SPEED_DIVIDER.getCost())
 		};
+	}
+
+	
+
+	@Override
+	public void onConnection(Socket socket, boolean waitingClient, Player player) {
+		generateMokGameWeb(waitingClient, socket);
+		this.principalPlayer.setName(player.getName());
+		new PL_Game(lnTurner, lnGroups, waitingClient);
+		
+		
 	}
 
 
