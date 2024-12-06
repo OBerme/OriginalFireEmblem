@@ -34,7 +34,7 @@ import mapa.md.Posicion;
 import mapa.md.PosicionXml;
 import turner.md.enums.TurnerEnumConstant;
 
-class LNWebConnectionTest {
+public class LNWebConnectionTest {
 	
 	@Test
 	public void testStackEntesAndPositionsChanged() {

@@ -34,7 +34,7 @@ public class LNWebConnection implements Turnable, IGameEvent{
 	private ILNEntes lnEntes;
 	
 	private LNXmlStack stack;
-	
+	private static final int BUFFER_SIZE = 2048;
 	
 	private DataInputStream dIS;
 	private DataOutputStream dOS;
@@ -54,32 +54,24 @@ public class LNWebConnection implements Turnable, IGameEvent{
 		this.stack = stack;
 		this.socket = socket;
 		this.rival = player;
-			try {	
-				this.dIS = new  DataInputStream(socket.getInputStream());
-				this.dOS = new  DataOutputStream(socket.getOutputStream());
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+		
+		try {
+			this.dIS = new  DataInputStream(socket.getInputStream());
+			this.dOS = new  DataOutputStream(socket.getOutputStream());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-    
-    public LNWebConnection(ILNMapaMatrixEntes mapaEntes, ILNEntes lnEntes, LNXmlStack stack) {
-		super();
-		this.mapaEntes = mapaEntes;
-		this.lnEntes = lnEntes;
-		this.stack = stack;
-    }
 		
-		
-		
-	
+	}
 
 
     //Pre: the stack should have something to send
 	//Post:
     private void sendGameXmlData() {
     	try {
-    		dOS.writeBoolean(stack.hasSomething());
+    		boolean wantSkip = !stack.hasSomething();
+    		dOS.writeBoolean(wantSkip);
     		dOS.flush();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -145,7 +137,7 @@ public class LNWebConnection implements Turnable, IGameEvent{
 
 	private void downloadXmlFile() {		
 		
-		try {
+		try (FileOutputStream fOS = new FileOutputStream(new File(getSaveFileName()))){
 			long size = dIS.readLong();
 			OutputStream oS = new FileOutputStream(new File(getSaveFileName()));
 	        if (size <= 0) {
@@ -154,31 +146,23 @@ public class LNWebConnection implements Turnable, IGameEvent{
 	        }
 
 	        // Definir un búfer constante de tamaño razonable (2 KB en este caso)
-	        byte[] buffer = new byte[2048];
+	        byte[] buffer = new byte[(int) Math.min(BUFFER_SIZE, size)];
+	        
 	        int length;
 	        long remainingSize = size;
 
 	        // Leer el archivo por bloques usando el búfer
 	        while (remainingSize > 0) {
-	            length = dIS.read(buffer, 0, (int) Math.min(buffer.length, remainingSize));
-	            oS.write(buffer,0, (int) Math.min(buffer.length, remainingSize));
+	            length = dIS.read(buffer, 0, (int) Math.min(BUFFER_SIZE, remainingSize));
 	            
-	            if (length == -1) {
-	                System.out.println("Se alcanzó el final del flujo antes de completar la descarga.");
-	                break; // Salir del bucle si no hay más datos que leer
-	            }
+	            fOS.write(buffer,0,(int) Math.min(buffer.length, remainingSize));
+	           
 
 	            // Actualizar el tamaño restante del archivo
 	            remainingSize -= length;
-
-	            // Procesar los datos leídos (por ejemplo, escribir en un archivo, etc.)
-	            // Aquí solo imprimimos la longitud de los datos leídos
-	            System.out.println("Leídos " + length + " bytes, restante: " + remainingSize + " bytes.");
-
-	            // Puedes añadir aquí la lógica para escribir los bytes a un archivo si es necesario
 	        }
-			oS.flush();
-			oS.close();
+	        
+	        fOS.flush();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
