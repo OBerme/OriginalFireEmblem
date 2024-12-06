@@ -6,11 +6,12 @@ import java.util.Stack;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 import mapa.ln.IMapEvents;
+import mapa.ln.IMapIntegerEvents;
 import mapa.md.Posicion;
 import mapa.md.PosicionXml;
 
 @objid ("f99a1ade-3081-4b49-905e-2266c8a1b699")
-public class PositionStack implements IMapEvents<Integer, Integer> {
+public class PositionStack implements IMapIntegerEvents{
 	protected Stack<Posicion<Integer, Integer>> positionsChanged;
 	public PositionStack() {
 		this.positionsChanged = new Stack<Posicion<Integer,Integer>>();

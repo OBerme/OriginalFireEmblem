@@ -71,10 +71,7 @@ public class LNAccionesAtaqueTest {
 	
 	@Test
 	public void testOnEnteDiesMap() {
-		
 		int length = 2;
-		
-		
 		
 		MapaMatrix mapa = new MapaMatrix(length);
 		ILNMapaMatrixEntes lnMapa = new LNMapaMatrixEntes(mapa, new IMapIntegerEvents[0]);

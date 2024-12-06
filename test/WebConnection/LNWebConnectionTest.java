@@ -2,12 +2,15 @@ package WebConnection;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.net.Socket;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
+
 import org.junit.jupiter.api.Test;
 
+import WebConnection.XML.GameXmlData;
 import WebConnection.XML.Util.EnteStack;
 import WebConnection.XML.Util.PositionXmlStack;
 import WebConnection.XML.Util.ln.LNXmlStack;
@@ -23,30 +26,28 @@ import entes.md.Ente;
 import entes.md.Monstruo;
 import entes.md.Persona;
 import entes.md.SerVivo;
-import group.ln.LNGroup;
-import group.md.Group;
 import mapa.ln.ILNMapaMatrixEntes;
-import mapa.ln.ILNMapaMatrixEntesGroup;
 import mapa.ln.IMapIntegerEvents;
 import mapa.ln.LNMapaMatrixEntes;
 import mapa.md.MapaMatrix;
-import pl.PL_ConsoleGamePlayerController;
-import player.ln.LNPlayer;
-import player.md.Player;
-import turner.ln.LNTurner;
-import turner.md.IGameEvent;
-import turner.md.Turnable;
-import turner.md.Turner;
+import mapa.md.Posicion;
+import mapa.md.PosicionXml;
 import turner.md.enums.TurnerEnumConstant;
 
 class LNWebConnectionTest {
 	
 	@Test
-	public void testEntesDamaged() {
-		
+	public void testStackEntesAndPositionsChanged() {
+
 		PositionXmlStack posiStack = new PositionXmlStack();
 		EnteStack enteStack = new EnteStack();
 		LNXmlStack xmlStack = new LNXmlStack(posiStack,enteStack);
+		
+		
+		MapaMatrix mapa = new MapaMatrix(2);
+		ILNMapaMatrixEntes lnMapa = new LNMapaMatrixEntes(mapa, new IMapIntegerEvents[] {posiStack});
+		
+		
 		
 //		int length = 2;
 //		MapaMatrix mapa = new MapaMatrix(length);
@@ -56,16 +57,20 @@ class LNWebConnectionTest {
 				(IEnteEvents)xmlStack //added the stack to get record the game
 		};
 		
+		SerVivo osqui = new Persona(200, "Oscar", "O", new Estado(StateSerVivo.NORMAL),TurnerEnumConstant.SPEED_DIVIDER.getCost());
 		List<Ente> entes = new ArrayList<Ente>();
 		for(SerVivo nServivo : new SerVivo[] {
-				new Persona(200, "Oscar", "O", new Estado(StateSerVivo.NORMAL),TurnerEnumConstant.SPEED_DIVIDER.getCost()),
+				osqui,
 				new Monstruo(1500, "Undyne", "U", new Estado(StateSerVivo.NORMAL),TurnerEnumConstant.SPEED_DIVIDER.getCost()),
 		}) {
 			
 			entes.add(nServivo);	
 		}
 		
+		lnMapa.moverEnte(osqui, new Posicion<Integer, Integer>(0, 0));
+		
 		ILNEntes lnEntes = new LNEntes(lnEnteEvents, entes); 
+		
 		
 		
 		LNAccionesAtaque lnAccionesAtaque = new LNAccionesAtaque(lnEntes);
@@ -73,9 +78,14 @@ class LNWebConnectionTest {
 		lnAccionesAtaque.doAtacks(); //kill the ente
 		
 		List<Ente> entesXml = xmlStack.getEntes();
+		List<PosicionXml> positionsXml = xmlStack.getPositionsXml();
 		
 		assertEquals(entesXml.size(), 1, "The list of entes is empty!");
-		
+		assertEquals(positionsXml.size(), 1, "The list of positions is empty!");	
 	}
+	
+	
+	
+	
 
 }

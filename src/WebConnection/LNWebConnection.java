@@ -54,16 +54,25 @@ public class LNWebConnection implements Turnable, IGameEvent{
 		this.stack = stack;
 		this.socket = socket;
 		this.rival = player;
-		
-		try {
-			this.dIS = new  DataInputStream(socket.getInputStream());
-			this.dOS = new  DataOutputStream(socket.getOutputStream());
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			try {	
+				this.dIS = new  DataInputStream(socket.getInputStream());
+				this.dOS = new  DataOutputStream(socket.getOutputStream());
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
+    
+    public LNWebConnection(ILNMapaMatrixEntes mapaEntes, ILNEntes lnEntes, LNXmlStack stack) {
+		super();
+		this.mapaEntes = mapaEntes;
+		this.lnEntes = lnEntes;
+		this.stack = stack;
+    }
 		
-	}
+		
+		
+	
 
 
     //Pre: the stack should have something to send
