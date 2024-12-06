@@ -181,9 +181,7 @@ public class GameClientConsole extends BasicClientSocket implements IChatClientE
 					connectToClient(nClient);
 					break;
 				}
-			}
-				
-					
+			}	
 		}
 		
 	}

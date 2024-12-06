@@ -1,10 +1,12 @@
 package WebConnection;
 
+import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.Socket;
@@ -178,13 +180,12 @@ public class LNWebConnection implements Turnable, IGameEvent{
 	            dOS.writeLong(length);  // Enviar el tamaño del archivo
 	            dOS.flush();
 
-	            // Enviar el contenido del archivo utilizando un búfer de bytes
-	            byte[] buffer = new byte[2048];  // Tamaño del búfer fijo
-	            int bytesRead;
 
-	            try (FileInputStream fis = new FileInputStream(file)) {
-	                while ((bytesRead = fis.read(buffer)) != -1) {
-						dOS.write(buffer, 0, bytesRead);
+	            try (BufferedReader bR = new BufferedReader(new FileReader(file))) {
+	            	String nLine = bR.readLine();
+	                while (nLine != null) {
+						dOS.writeBytes(nLine);
+						nLine = bR.readLine();
 	                }
 	                dOS.flush();
 	            }
