@@ -10,6 +10,9 @@ import WebUtil.controller.enums.ServerConfigurationsNum;
 public class GameServer extends BasicServer {
 	public static final boolean DEBUG_MODE = false;
 	public static final String FILE_PATH = "/home/stallman/eclipse/SIS/Pr2_Concur/txt1.txt";
+	public static GameServer gameServer;
+	
+	
 	
 	private List<Client> clientsWaiting;
 	
@@ -21,12 +24,22 @@ public class GameServer extends BasicServer {
 	public static final String EXIT_STRING = "";	
 	
 	
-	public GameServer() {
+	private GameServer() {
 		super();
+		
 		//init the objects
 		clientsWaiting = new ArrayList<Client>();
 		getConnection();
 		iniciarServidor();
+		
+	}
+	
+	public static GameServer getInstance() {
+		if(gameServer == null)
+			gameServer = new GameServer();
+		
+		return gameServer;
+			
 	}
 	
 	

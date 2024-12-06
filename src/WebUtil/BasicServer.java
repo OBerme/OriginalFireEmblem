@@ -6,14 +6,13 @@ import java.net.Socket;
 
 import WebUtil.controller.enums.ServerConfigurationsNum;
 
-public abstract class BasicServer {
-	protected static final boolean DEBUG_MODE = true;
+public abstract class BasicServer{
+	protected static final boolean DEBUG_MODE = false;
 	
 	public static final int PORT = ServerConfigurationsNum.SERVER_PORT.getNum();
 	protected boolean conti;
 	
 	private ServerSocket serverSocket;
-	
 	
 	public BasicServer() {
 		this.conti = true;
@@ -65,4 +64,6 @@ public abstract class BasicServer {
 			e.printStackTrace();
 		}
 	}
+	
+	
 }

@@ -25,10 +25,11 @@ public class GameServerThread extends Thread{
 	private GameServer server;
 	
 	private Client aClient;
-	
+	private boolean isWaiting;
 	public GameServerThread(Socket client, GameServer server) {
 		this.client = client;
 		this.server = server;
+		this.isWaiting = false;
 		
 	}	
 
@@ -46,18 +47,22 @@ public class GameServerThread extends Thread{
 			while(!wantsToDisconect(nLine)) {
 				if(isWaitForAnotherClient(nLine)){
 					server.addNewClient(aClient);
-					nLine = STR_DISCON;
+					isWaiting = true;
 				}
-				else {
+				else { //client not waiting
 					if(isGetListUsers(nLine)) {
 						sendListOfClients();
 					}
 //					else if(wantsDisconnect(nLine)) {
 //						server.removeClient(aClient);
 //					}
-					nLine = bR.readLine();
-				}			
+					
+				}	
+				nLine = bR.readLine();
 			}
+			
+			if(isWaiting)
+				server.removeClient(aClient);
 			
 			closeConnection();
 			

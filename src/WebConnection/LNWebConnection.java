@@ -14,6 +14,7 @@ import com.modeliosoft.modelio.javadesigner.annotations.objid;
 import WebConnection.XML.GameXmlData;
 import WebConnection.XML.XMLParser;
 import WebConnection.XML.Util.ln.LNXmlStack;
+import WebUtil.GameServer;
 import entes.IEnteEvents;
 import entes.ln.ILNEntes;
 import entes.md.Ente;
@@ -22,10 +23,11 @@ import mapa.ln.ILNMapaMatrixEntesGroup;
 import mapa.md.PosicionXml;
 import mapa.md.PositionTransformer;
 import player.md.Player;
+import turner.md.IGameEvent;
 import turner.md.Turnable;
 
 @objid ("0bdacb02-eacb-42de-991d-cd2f6c185712")
-public class LNWebConnection implements Turnable{
+public class LNWebConnection implements Turnable, IGameEvent{
 	
 	//to control the modifications of the map
 	private ILNMapaMatrixEntes mapaEntes;
@@ -39,6 +41,10 @@ public class LNWebConnection implements Turnable{
 	
 	private static final String DF_FILE_NAME = "tmpGameData.xml";
 	private Player rival;
+
+	@objid ("91ac6059-7837-4e75-a906-8dd46eea112c")
+    private Socket socket;
+	
 	
     public LNWebConnection(ILNMapaMatrixEntes mapaEntes, ILNEntes lnEntes, LNXmlStack stack, 
     		Socket socket, Player player) {
@@ -59,8 +65,6 @@ public class LNWebConnection implements Turnable{
 		
 	}
 
-	@objid ("91ac6059-7837-4e75-a906-8dd46eea112c")
-    private Socket socket;
 
     //Pre: the stack should have something to send
 	//Post:
@@ -176,6 +180,7 @@ public class LNWebConnection implements Turnable{
 	//Post it will send the length of the file and the file throw internet
 	private void sendFile(File file) {
 		 try {
+			 
 	            long length = file.length();
 	            dOS.writeLong(length);  // Enviar el tamaño del archivo
 	            dOS.flush();
@@ -203,11 +208,40 @@ public class LNWebConnection implements Turnable{
 		turnOtherPlayer(); //Change the map with the actions of the other player
 		
 	}
+	
+	
+	
+	private void closeConnections() {
+		try {
+			dIS.close();
+			dOS.close();			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				socket.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		
+		
+	}
 
 	@Override
 	public void skipTurn() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public void onGameEnds() {
+		sendGameXmlData(); //sends to other client the information
+		closeConnections();
 	}
     
     

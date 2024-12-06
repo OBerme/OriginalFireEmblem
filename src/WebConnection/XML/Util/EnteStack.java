@@ -20,7 +20,7 @@ public class EnteStack implements IEnteEvents {
     @objid ("5b8a8fdc-aa79-4b54-8d0e-81af1d976c8e")
     public List<Ente> getEntes() {
         // TODO Auto-generated return
-        return entesChanged;
+        return (List<Ente>)entesChanged.clone();
     }
 
 	@Override

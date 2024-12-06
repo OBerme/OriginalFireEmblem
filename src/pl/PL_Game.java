@@ -35,19 +35,24 @@ public class PL_Game implements IGameEvent{
 	
 	private LNTurner lnTurner;
 	private List<LNGroup> lnGroups;
+	private IGameEvent[] gameEvents;
 	
-	public PL_Game(LNTurner lnTurner, List<LNGroup> lnGroups) {
+	public PL_Game(LNTurner lnTurner, List<LNGroup> lnGroups,IGameEvent[] gameEvents) {
 		this.lnGroups = lnGroups;
 		this.lnTurner = lnTurner;
+		this.gameEvents = gameEvents;
 		this.lnTurner.setGameEvent(this);
+		
 		
 		this.lnTurner.start();
 	}
 	
-	public PL_Game(LNTurner lnTurner, List<LNGroup> lnGroups, boolean waitingClient) {
+	public PL_Game(LNTurner lnTurner, List<LNGroup> lnGroups, boolean waitingClient, IGameEvent[] gameEvents) {
 		this.lnGroups = lnGroups;
 		this.lnTurner = lnTurner;
+		this.gameEvents = gameEvents;
 		this.lnTurner.setGameEvent(this);
+		
 		
 		if(!waitingClient) {
 			System.out.println("Waiting for the turn of the other player...");
@@ -64,6 +69,11 @@ public class PL_Game implements IGameEvent{
 
 	@Override
 	public void onGameEnds() {
+		for(IGameEvent nIGame : gameEvents) { //Say to everyone that the game ends
+			nIGame.onGameEnds();
+		}
+		
+		
 		System.out.println("GameOver"
 				+ "\nThe winner is");
 		

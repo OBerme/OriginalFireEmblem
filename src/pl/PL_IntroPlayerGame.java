@@ -3,14 +3,14 @@ package pl;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
+
 
 import WebConnection.IWebConnectionEvents;
 import WebConnection.LNWebConnection;
 import WebConnection.XML.Util.EnteStack;
 import WebConnection.XML.Util.PositionXmlStack;
 import WebConnection.XML.Util.ln.LNXmlStack;
-import WebUtil.BasicServer;
+
 import WebUtil.GameClientConsole;
 import WebUtil.GameServer;
 import acciones.ln.LNAccionesAtaque;
@@ -45,6 +45,7 @@ import scanner.md.BasicScanner;
 import scanner.md.TypeGameScanner;
 import scanner.md.enums.TypeGameScannerOptions;
 import turner.ln.LNTurner;
+import turner.md.IGameEvent;
 import turner.md.Turnable;
 import turner.md.Turner;
 import turner.md.enums.TurnerEnumConstant;
@@ -56,12 +57,12 @@ public class PL_IntroPlayerGame implements IWebConnectionEvents{
 	private List<LNGroup> lnGroups;
 	private static final int MAP_LENGTH = 4;
 	private Player principalPlayer;
-	
+	private IGameEvent[] iGameEvents;
 	
 	public PL_IntroPlayerGame() {
 		if(DEBUG_MODE) {
 			generateMokGame();	
-			new PL_Game(lnTurner, lnGroups);
+			new PL_Game(lnTurner, lnGroups, iGameEvents);
 			
 		}
 		else {
@@ -78,10 +79,12 @@ public class PL_IntroPlayerGame implements IWebConnectionEvents{
 			if(option == TypeGameMenuOptions.GLG.getOption()) { //Get Local game
 				
 				generateMokGame();	
-				PL_Game pl_Game = new PL_Game(lnTurner, lnGroups);
+				this.iGameEvents  = new IGameEvent[0];
+				PL_Game pl_Game = new PL_Game(lnTurner, lnGroups,iGameEvents);
 			} 
 			else if (option == TypeGameMenuOptions.GWG.getOption()) { //Web server option
 				//The server shoudl be up!
+				
 				((Thread)new GameClientConsole(this)).start();
 			}
 		}
@@ -90,6 +93,7 @@ public class PL_IntroPlayerGame implements IWebConnectionEvents{
 	}
 	
 	private void generateMokGame() {
+		
 		this.lnGroups = new ArrayList<LNGroup>();
 		
 		Player oscarP = new Player(1, "Osqui");
@@ -206,7 +210,10 @@ public class PL_IntroPlayerGame implements IWebConnectionEvents{
 				: new PL_ConsoleGamePlayerController(lnMapa , lnOsquiGroup,lnTurner,new LNPlayer(oscarP),lnAccionesAtaque);
 		LNWebConnection webConnection =  new LNWebConnection(lnMapa, lnEntes,
 				xmlStack, socket, waitingPlayer ? oscarP  : jojiP);
-		
+		//Generate the array of game events
+		this.iGameEvents=  new IGameEvent[] {
+				webConnection
+		};
 		
 		turnables.add((Turnable)consoleP1);
 		turnables.add((Turnable)webConnection);
@@ -304,7 +311,7 @@ public class PL_IntroPlayerGame implements IWebConnectionEvents{
 	public void onConnection(Socket socket, boolean waitingClient, Player player) {
 		generateMokGameWeb(waitingClient, socket);
 		this.principalPlayer.setName(player.getName());
-		new PL_Game(lnTurner, lnGroups, waitingClient);
+		new PL_Game(lnTurner, lnGroups, waitingClient, iGameEvents);
 		
 		
 	}

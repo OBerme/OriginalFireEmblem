@@ -15,6 +15,8 @@ import java.net.UnknownHostException;
 import java.util.List;
 import java.util.Random;
 
+import javax.xml.bind.TypeConstraintException;
+
 import WebConnection.IWebConnectionEvents;
 import WebUtil.controller.Client;
 import WebUtil.controller.IChatClientEvents;
@@ -67,6 +69,23 @@ public class GameClientConsole extends BasicClientSocket implements IChatClientE
 	public void closeConnection() {
 		
 		try {
+			
+			dOS.close();
+			dIS.close();
+			pW.close();
+			clientSocket.close();
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	private void closeConnectionServer() {		
+		
+		try {
+			pW.println(TypeConnection.WD.getMessageConnection());
+			pW.flush();
 			
 			dOS.close();
 			dIS.close();
@@ -167,8 +186,6 @@ public class GameClientConsole extends BasicClientSocket implements IChatClientE
 					
 		}
 		
-		
-		
 	}
 	
 	
@@ -178,6 +195,8 @@ public class GameClientConsole extends BasicClientSocket implements IChatClientE
 		this.port = nClient.getPort();
 		this.isConnectToClient = true;
 		this.cCI.setConnectedClient(true);
+		
+		closeConnectionServer();
 		getConnection();
 	}
 
@@ -229,10 +248,18 @@ public class GameClientConsole extends BasicClientSocket implements IChatClientE
 				= new ServerSocket(ServerConfigurationsNum.
 						WAIT_CLIENT_PORT.getNum())){
 			
-			this.clientSocket = serSoc.accept();
+			Socket nClientSocket = serSoc.accept();
+			closeConnectionServer();
+			
+			this.clientSocket = nClientSocket;
+			
+			
 			
 			this.isConnectToClient = true;
 			this.cCI.setConnectedClient(true);
+			
+			
+			
 			onConnection();
 			
 		} catch (IOException e) {
