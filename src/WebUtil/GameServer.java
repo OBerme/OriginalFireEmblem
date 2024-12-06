@@ -8,7 +8,7 @@ import WebUtil.controller.Client;
 import WebUtil.controller.enums.ServerConfigurationsNum;
 
 public class GameServer extends BasicServer {
-	public static final boolean DEBUG_MODE = true;
+	public static final boolean DEBUG_MODE = false;
 	public static final String FILE_PATH = "/home/stallman/eclipse/SIS/Pr2_Concur/txt1.txt";
 	
 	private List<Client> clientsWaiting;
