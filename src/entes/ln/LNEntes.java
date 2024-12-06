@@ -2,6 +2,7 @@ package entes.ln;
 import java.util.ArrayList;
 import java.util.List;
 
+import WebConnection.XML.Util.ln.LNXmlStack;
 import acciones.md.ataque.*;
 import entes.IEnteEvents;
 import entes.md.Ente;
@@ -82,8 +83,24 @@ public class LNEntes implements ILNEntes, IEnteEvents{
 		Ente nEnte = getEnte(ente);
 		if(nEnte != null) {
 			nEnte.setHp(ente.getHp());
+			onEnteReciveAtackEvents(nEnte);
 		}
 		
 	}
+
+	@Override
+	public void changeEnte(Ente ente) {
+		Ente nEnte = getEnte(ente);
+		if(nEnte != null) {
+			nEnte.setHp(ente.getHp());
+			for(IEnteEvents nEnteEvents : this.enteEvents) {
+				if(!(nEnteEvents instanceof LNXmlStack))
+					nEnteEvents.onEnteReciveAtack(nEnte);	
+	    	}
+		}
+		
+	}
+
+	
 		
 }

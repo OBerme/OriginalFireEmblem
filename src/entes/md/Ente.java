@@ -19,9 +19,7 @@ public  class Ente implements Serializable{
 	}
 
 	public Ente(int hp, String name, String shortName) {
-		this.hp=hp;
-		this.name=name;
-		this.shortName = shortName;
+		this(hp, name, shortName,EnteCounter.getNextNumb());
 	}
 	
 

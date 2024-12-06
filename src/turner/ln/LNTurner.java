@@ -33,10 +33,7 @@ public class LNTurner implements ITurnerEvents{
 				turnablesLeft.add(nTurnable);
 				
 		}
-		//To do all the others one his turn
-		for(Turnable nTurnable : turnablesLeft) {
-			nTurnable.doTurn();
-		}
+		
 		turner.onTurnPass();
 		run();
 		

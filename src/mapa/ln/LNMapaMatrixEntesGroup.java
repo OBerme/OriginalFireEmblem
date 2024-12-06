@@ -25,5 +25,8 @@ public class LNMapaMatrixEntesGroup extends LNMapaMatrixEntes implements IGroupM
 		// TODO Auto-generated method stub
 		return this.mapaVectorGroup.getGroupMapString(sGroup);
 	}
+	
+	
+	
 
 }

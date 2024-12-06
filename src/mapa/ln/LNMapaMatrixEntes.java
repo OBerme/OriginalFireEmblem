@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import entes.IEnteEvents;
 import entes.md.Ente;
+import entes.md.EnteCounter;
 import mapa.md.MapaMatrix;
 import mapa.md.Posicion;
 
@@ -30,10 +31,10 @@ public class LNMapaMatrixEntes extends LNMapaMatrix
 			if(isEnteInMap(ente)) {
 				Posicion<Integer, Integer> lPosition = this.mapa.getEntePosition(ente);
 				lPosition.setEnte(null);
+				onChangedPosition(posi);
 			}
 			else 
 				appendEnte(ente);
-			onChangedPosition(posi);
 			setEntePosition(ente, posi);
 				
 			
@@ -52,7 +53,6 @@ public class LNMapaMatrixEntes extends LNMapaMatrix
 	
 	
 	private void appendEnte(Ente ente) {
-		ente.setNumb(entes.size()+1);
 		entes.put(ente.getNumb(), ente);
 	}
 	
@@ -151,13 +151,15 @@ public class LNMapaMatrixEntes extends LNMapaMatrix
 
 	@Override
 	public void onEnteReciveAtack(Ente ente) {
-		// TODO Auto-generated method stub
+		if(ente.isDied())
+			removeEnte(ente);
 		
 	}
 
 	@Override
 	public void onEnteChangeHp(Ente ente) {
-		// TODO Auto-generated method stub
+		if(ente.isDied())
+			removeEnte(ente);
 		
 	}
 

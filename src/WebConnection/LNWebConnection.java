@@ -35,13 +35,14 @@ public class LNWebConnection implements Turnable, IGameEvent{
 	private ILNMapaMatrixEntes mapaEntes;
 	private ILNEntes lnEntes;
 	
+	
 	private LNXmlStack stack;
 	private static final int BUFFER_SIZE = 2048;
 	
 	private DataInputStream dIS;
 	private DataOutputStream dOS;
 	
-	private static final String DF_FILE_NAME = "tmpGameData.xml";
+	private static final String DF_FILE_NAME = "tmpGameData";
 	private Player rival;
 
 	@objid ("91ac6059-7837-4e75-a906-8dd46eea112c")
@@ -93,7 +94,7 @@ public class LNWebConnection implements Turnable, IGameEvent{
     }
     
     private String getSaveFileName() {
-    	return DF_FILE_NAME + rival.getName();
+    	return DF_FILE_NAME + rival.getName() + ".xml";
     }
     
 	//Pre: the stack should have something to send
@@ -117,11 +118,11 @@ public class LNWebConnection implements Turnable, IGameEvent{
     	  
     	  //change the positions
     	  for(PosicionXml nPosition : gameXml.getMovedEntes()) {
-    		  mapaEntes.moverEnte(nPosition.getEnte(), PositionTransformer.getPosicion(nPosition));
+    		  mapaEntes.moverEnte(lnEntes.getEnte(nPosition.getEnte()), PositionTransformer.getPosicion(nPosition));
     	  }
     	  
     	  for(Ente nEnte : gameXml.getDamagedEntes()) {
-    		  lnEntes.onEnteChangeHp(nEnte);
+    		  lnEntes.changeEnte(nEnte);
     	  }  
       }
       
@@ -131,7 +132,7 @@ public class LNWebConnection implements Turnable, IGameEvent{
     	  downloadXmlFile();
     	  File file = new File(getSaveFileName());
     	  if(file.exists()) {
-    		  return XMLParser.getGameXmlData(DF_FILE_NAME);
+    		  return XMLParser.getGameXmlData(getSaveFileName());
     	  }
     	  return null;
       }
@@ -141,7 +142,7 @@ public class LNWebConnection implements Turnable, IGameEvent{
 		
 		try (FileOutputStream fOS = new FileOutputStream(new File(getSaveFileName()))){
 			long size = dIS.readLong();
-			OutputStream oS = new FileOutputStream(new File(getSaveFileName()));
+			
 	        if (size <= 0) {
 	            System.out.println("El tamaño del archivo no es válido o el archivo no existe.");
 	            return;
@@ -150,16 +151,13 @@ public class LNWebConnection implements Turnable, IGameEvent{
 	        // Definir un búfer constante de tamaño razonable (2 KB en este caso)
 	        byte[] buffer = new byte[(int) Math.min(BUFFER_SIZE, size)];
 	        
-	        int length;
+	        int length=0;
 	        long remainingSize = size;
 
 	        // Leer el archivo por bloques usando el búfer
-	        while (remainingSize > 0) {
-	            length = dIS.read(buffer, 0, (int) Math.min(BUFFER_SIZE, remainingSize));
-	            
-	            fOS.write(buffer,0,(int) Math.min(buffer.length, remainingSize));
-	           
-
+	        while (remainingSize > 0 && length != -1) {
+	        	length = dIS.read(buffer, 0, (int) Math.min(BUFFER_SIZE, remainingSize));
+	            fOS.write(buffer,0, (int) Math.min(BUFFER_SIZE, remainingSize));
 	            // Actualizar el tamaño restante del archivo
 	            remainingSize -= length;
 	        }
@@ -173,19 +171,23 @@ public class LNWebConnection implements Turnable, IGameEvent{
 	
 	//Pre: The file should exists
 	//Post it will send the length of the file and the file throw internet
-	private void sendFile(File file) {
+	public void sendFile(File file) {
 		 try {
 			 
 	            long length = file.length();
 	            dOS.writeLong(length);  // Enviar el tamaño del archivo
 	            dOS.flush();
 
-
-	            try (BufferedReader bR = new BufferedReader(new FileReader(file))) {
-	            	String nLine = bR.readLine();
-	                while (nLine != null) {
-						dOS.writeBytes(nLine);
-						nLine = bR.readLine();
+	            byte[] buffer =  new byte[(int)Math.min(length, BUFFER_SIZE)];
+	            try (FileInputStream fIS = new FileInputStream(file)) {
+	            	int readed = fIS.read(buffer);
+	                while (readed != -1 && length >0) {
+	                	
+	                	
+						dOS.write(buffer, 0 , (int)Math.min(length, BUFFER_SIZE));
+						
+						readed = fIS.read(buffer,0,(int)Math.min(length, BUFFER_SIZE));
+						length -= readed;
 	                }
 	                dOS.flush();
 	            }

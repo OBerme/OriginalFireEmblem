@@ -91,13 +91,15 @@ public class LNGroup implements IGroupEvents, ILNGroup, Actionable, IEnteEvents 
 
 	@Override
 	public void onEnteReciveAtack(Ente ente) {
-		// TODO Auto-generated method stub
+		if(ente.isDied())
+			onEnteDies(ente);
 		
 	}
 
 	@Override
 	public void onEnteChangeHp(Ente ente) {
-		// TODO Auto-generated method stub
+		if(ente.isDied())
+			onEnteDies(ente);
 		
 	}
 	

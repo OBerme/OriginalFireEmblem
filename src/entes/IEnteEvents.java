@@ -8,4 +8,5 @@ public interface IEnteEvents {
 
 	void onEnteReciveAtack(Ente ente);
 	void onEnteChangeHp(Ente ente);
+	
 }

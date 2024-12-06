@@ -117,7 +117,7 @@ public class PL_IntroPlayerGame implements IWebConnectionEvents{
 		lnGroups.add(lnJojiGroup);
 		lnGroups.add(lnOsquiGroup);
 		
-		ILNMapaMatrixEntesGroup lnMapa =  setUpGroupMap(MAP_LENGTH, oscarGroup, jojiGroup, lnTurner);
+		ILNMapaMatrixEntesGroup lnMapa =  setUpGroupMap(MAP_LENGTH, oscarGroup, jojiGroup, lnTurner, new IMapIntegerEvents[] {});
 		
 		IEnteEvents[] lnEnteEvents = new IEnteEvents[]{
 				(IEnteEvents)lnMapa,
@@ -152,7 +152,7 @@ public class PL_IntroPlayerGame implements IWebConnectionEvents{
 	}
 	
 
-	private void generateMokGameWeb(boolean waitingPlayer, Socket socket) {
+	private void generateMokGameWeb(boolean waitingPlayer, Socket socket, Player player) {
 		this.lnGroups = new ArrayList<LNGroup>();
 		
 		Player oscarP = new Player(1, "Osqui");
@@ -162,8 +162,10 @@ public class PL_IntroPlayerGame implements IWebConnectionEvents{
 		SerVivo[] listPersonas  = getListPersonas();
 		
 		this.principalPlayer = oscarP;
-		Group oscarGroup = getFirstGroup(listPersonas, oscarP);
-		Group jojiGroup = getSecondGroup(listPersonas, jojiP);
+		
+		
+		Group oscarGroup = getFirstGroup(listPersonas, !waitingPlayer ? player : oscarP);
+		Group jojiGroup = getSecondGroup(listPersonas, waitingPlayer ? player : jojiP);
 		LNPlayer oscar = new LNPlayer(new Player(1, "Oscar"));
 		
 		
@@ -176,13 +178,13 @@ public class PL_IntroPlayerGame implements IWebConnectionEvents{
 		LNGroup lnOsquiGroup = new LNGroup(oscarGroup,lnTurner);
 		
 		lnGroups.add(lnJojiGroup);
-		lnGroups.add(lnOsquiGroup);
-		
-		ILNMapaMatrixEntesGroup lnMapa =  setUpGroupMap(MAP_LENGTH, oscarGroup, jojiGroup, lnTurner);
+		lnGroups.add(lnOsquiGroup);		
 		
 		PositionXmlStack posiStack = new PositionXmlStack();
 		EnteStack enteStack = new EnteStack();
 		LNXmlStack xmlStack = new LNXmlStack(posiStack,enteStack);
+		
+		ILNMapaMatrixEntesGroup lnMapa =  setUpGroupMap(MAP_LENGTH, oscarGroup, jojiGroup, lnTurner, new IMapIntegerEvents[] {xmlStack});
 		
 		IEnteEvents[] lnEnteEvents = new IEnteEvents[]{
 				(IEnteEvents)lnMapa,
@@ -203,11 +205,12 @@ public class PL_IntroPlayerGame implements IWebConnectionEvents{
 		
 		List<Turnable> turnables =   new ArrayList<>();
 		
+		LNGroup seleGroup = waitingPlayer ? lnJojiGroup : lnOsquiGroup;
 		
-		
-		PL_ConsoleGamePlayerController consoleP1 = waitingPlayer 
-				? new PL_ConsoleGamePlayerController(lnMapa , lnJojiGroup, lnTurner,new LNPlayer(jojiP),lnAccionesAtaque)  
-				: new PL_ConsoleGamePlayerController(lnMapa , lnOsquiGroup,lnTurner,new LNPlayer(oscarP),lnAccionesAtaque);
+		PL_ConsoleGamePlayerController consoleP1 = 
+				new PL_ConsoleGamePlayerController(lnMapa ,seleGroup
+						, lnTurner,new LNPlayer(player),lnAccionesAtaque);
+				
 		LNWebConnection webConnection =  new LNWebConnection(lnMapa, lnEntes,
 				xmlStack, socket, waitingPlayer ? oscarP  : jojiP);
 		//Generate the array of game events
@@ -223,7 +226,7 @@ public class PL_IntroPlayerGame implements IWebConnectionEvents{
 	
 
 	
-	private static ILNMapaMatrixEntesGroup setUpGroupMap(int length, Group gr1, Group gr2,LNTurner lnTurner) {
+	private static ILNMapaMatrixEntesGroup setUpGroupMap(int length, Group gr1, Group gr2,LNTurner lnTurner, IMapIntegerEvents[] iMapEvents) {
 		
 		List<LNGroup> groups = new ArrayList();
 		List<Group> groupsR = new ArrayList();
@@ -241,7 +244,7 @@ public class PL_IntroPlayerGame implements IWebConnectionEvents{
 		groups.add(new LNGroup(gr2,lnTurner));
 		
 
-		ILNMapaMatrixEntesGroup lnMapa = new LNMapaMatrixEntesGroup(mapa, groups, new IMapIntegerEvents[0]);
+		ILNMapaMatrixEntesGroup lnMapa = new LNMapaMatrixEntesGroup(mapa, groups, iMapEvents);
 		return lnMapa;
 		
 	}
@@ -309,7 +312,7 @@ public class PL_IntroPlayerGame implements IWebConnectionEvents{
 
 	@Override
 	public void onConnection(Socket socket, boolean waitingClient, Player player) {
-		generateMokGameWeb(waitingClient, socket);
+		generateMokGameWeb(waitingClient, socket, player);
 		this.principalPlayer.setName(player.getName());
 		new PL_Game(lnTurner, lnGroups, waitingClient, iGameEvents);
 		
