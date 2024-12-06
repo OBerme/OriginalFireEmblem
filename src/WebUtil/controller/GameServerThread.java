@@ -44,7 +44,8 @@ public class GameServerThread extends Thread{
 			this.aClient = getClientData();
 			
 			nLine = bR.readLine();
-			while(!wantsToDisconect(nLine)) {
+			
+			while(nLine!=null && !wantsToDisconect(nLine)) {
 				if(isWaitForAnotherClient(nLine)){
 					server.addNewClient(aClient);
 					isWaiting = true;

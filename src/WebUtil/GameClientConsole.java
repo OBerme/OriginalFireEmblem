@@ -196,7 +196,9 @@ public class GameClientConsole extends BasicClientSocket implements IChatClientE
 		this.isConnectToClient = true;
 		this.cCI.setConnectedClient(true);
 		
-		closeConnectionServer();
+//		closeConnectionServer();
+		pW.println(TypeConnection.WD.getMessageConnection());
+		pW.flush();
 		getConnection();
 	}
 
