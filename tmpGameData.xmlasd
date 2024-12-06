@@ -3,11 +3,11 @@
     <damageEntes>
         <ente>
             <hp>0</hp>
-            <numb>1</numb>
+            <numb>4</numb>
         </ente>
         <ente>
             <hp>0</hp>
-            <numb>2</numb>
+            <numb>3</numb>
         </ente>
     </damageEntes>
     <movedEntes/>
