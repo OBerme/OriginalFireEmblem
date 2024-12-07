@@ -3,7 +3,7 @@ import WebUtil.GameServer;
 import pl.PL_IntroPlayerGame;
 
 
-public class Principal {
+public class MainClient {
 	
 	
 	public static void main(String[] args) {

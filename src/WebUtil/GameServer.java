@@ -16,15 +16,13 @@ public class GameServer extends BasicServer {
 	
 	private List<Client> clientsWaiting;
 	
-	public static void main(String[] args) {
-		new GameServer();
-	}
+
 	
 	//IO variables
 	public static final String EXIT_STRING = "";	
 	
 	
-	private GameServer() {
+	public GameServer() {
 		super();
 		
 		//init the objects
