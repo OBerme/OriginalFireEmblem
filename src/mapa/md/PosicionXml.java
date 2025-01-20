@@ -4,7 +4,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import entes.md.Ente;
 
-@XmlRootElement(name = "posicion")
+@XmlRootElement(name = "position")
 public class PosicionXml {
 
 	private int x;

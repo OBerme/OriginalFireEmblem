@@ -1,5 +1,8 @@
 package mapa.md;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
+
 import entes.IEnteEvents;
 import entes.md.Ente;
 import mapa.ln.IEnteCollection;
@@ -14,7 +17,7 @@ public abstract class Mapa<X, Y> {
 	
 
 	public Posicion<X,Y>[] getPosiciones() {
-		return posiciones;
+		return Arrays.copyOf(posiciones, posiciones.length) ;
 	}
 	
 	public abstract Posicion<X,Y> getPosicion(X x, Y y) ;
@@ -32,5 +35,7 @@ public abstract class Mapa<X, Y> {
 
 
 	public abstract String toStringNumberPositions() ;
+	
+	public abstract boolean hasPosition(Posicion<X, Y> posicion) ;
 
 }

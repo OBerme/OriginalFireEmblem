@@ -19,6 +19,15 @@ public class Posicion<X,Y> {
 		this.ente = ente;
 	}
 	
+	@Override
+	public boolean equals(Object obj) {
+		// TODO Auto-generated method stub
+		if(obj instanceof Posicion) {
+			Posicion<X, Y> objPosi = (Posicion<X, Y>)obj; 
+			return objPosi.getX().equals(getX()) && objPosi.getY().equals(getY());
+		}
+		return false;
+	}
 	
 	@Override
 	public String toString() {

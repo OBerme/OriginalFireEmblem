@@ -207,6 +207,16 @@ public  class MapaMatrix extends Mapa<Integer, Integer>  {
 		}
 		return position;
 	}
+
+	@Override
+	public boolean hasPosition(Posicion<Integer, Integer> posicion) {
+		// TODO Auto-generated method stub
+		
+		if(posicion.getX() >= 0 && posicion.getX() < posiciones.length) {
+			return posicion.getY() >= 0 && posicion.getY() < posiciones.length;
+		}
+		return false;	
+	}
 	
 
 	
