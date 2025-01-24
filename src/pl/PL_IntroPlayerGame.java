@@ -14,6 +14,8 @@ import WebConnection.XML.Util.ln.LNXmlStack;
 import WebUtil.GameClientConsole;
 import WebUtil.GameServer;
 import acciones.ln.LNAccionesAtaque;
+import acciones.md.ataque.Ataque;
+import acciones.md.ataque.Tipo;
 import entes.Estado;
 import entes.IEnteEvents;
 import entes.ln.ILNEntes;
@@ -295,14 +297,23 @@ public class PL_IntroPlayerGame implements IWebConnectionEvents{
 	}
 	
 	private static SerVivo[] getListPersonas() {
+		List<Ataque> ataquesN = new ArrayList<Ataque>();
+		ataquesN.add(new Ataque(1, "Gun atack", 50000, Tipo.FUEGO));
+		ataquesN.add(new Ataque(2, "Punietaso en las costillas", 200, Tipo.AGUA));
+		
+		List<Ataque> ataquesM = new ArrayList<Ataque>();
+		ataquesM.add(new Ataque(1, "Magical atack", 50000, Tipo.FUEGO));
+		ataquesM.add(new Ataque(2, "Garrazo en las costillas", 300, Tipo.FUEGO));
 		return new SerVivo[] {
-				new Persona(200, "Oscar", "O", new Estado(StateSerVivo.NORMAL),TurnerEnumConstant.SPEED_DIVIDER.getCost()),
-				new Monstruo(1500, "Undyne", "U", new Estado(StateSerVivo.NORMAL),TurnerEnumConstant.SPEED_DIVIDER.getCost()),
+				
+				
+				new Persona(200, "Oscar", "O", new Estado(StateSerVivo.NORMAL),TurnerEnumConstant.SPEED_DIVIDER.getCost(),ataquesN),
+				new Monstruo(1500, "Undyne", "U", new Estado(StateSerVivo.NORMAL),TurnerEnumConstant.SPEED_DIVIDER.getCost(),ataquesN),
 //				new Monstruo(2700, "Asgore", "A", new Estado(StateSerVivo.NORMAL),TurnerEnumConstant.SPEED_DIVIDER.getCost()),
 //				new Monstruo(200, "Sans", "S", new Estado(StateSerVivo.NORMAL),TurnerEnumConstant.SPEED_DIVIDER.getCost()),
 				
-				new Persona(700, "Joji", "J", new Estado(StateSerVivo.NORMAL),TurnerEnumConstant.SPEED_DIVIDER.getCost()),
-				new Monstruo(1200, "Muffet", "M", new Estado(StateSerVivo.NORMAL),TurnerEnumConstant.SPEED_DIVIDER.getCost()),
+				new Persona(700, "Joji", "J", new Estado(StateSerVivo.NORMAL),TurnerEnumConstant.SPEED_DIVIDER.getCost(),ataquesM),
+				new Monstruo(1200, "Muffet", "M", new Estado(StateSerVivo.NORMAL),TurnerEnumConstant.SPEED_DIVIDER.getCost(),ataquesM),
 //				new Monstruo(1200, "Alphish", "H", new Estado(StateSerVivo.NORMAL),TurnerEnumConstant.SPEED_DIVIDER.getCost()),
 //				new Persona(5000, "Varona", "V", new Estado(StateSerVivo.NORMAL),TurnerEnumConstant.SPEED_DIVIDER.getCost())
 		};

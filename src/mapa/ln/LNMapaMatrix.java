@@ -1,6 +1,7 @@
 package mapa.ln;
 
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import entes.md.Ente;
@@ -30,6 +31,13 @@ public class LNMapaMatrix extends LNMapa<Integer, Integer> implements ILNMapaMat
 	@Override
 	public String toStringNumberPositions() {
 		return this.mapa.toStringNumberPositions();
+	}
+
+
+	@Override
+	public Posicion<Integer, Integer>[] getPositions() {
+		// TODO Auto-generated method stub
+		return this.mapa.getPosiciones();
 	}
 
 }

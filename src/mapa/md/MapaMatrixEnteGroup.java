@@ -33,24 +33,7 @@ public class MapaMatrixEnteGroup extends MapaMatrix{
 			for(int x = 0 ; x < length; x++) {
 				nPosition = mapa[x][y];
 				
-				if(nPosition != null ) {
-					nChar = EMPTY_STR;
-					if(nPosition.hasEnte() ) {
-						Ente ente = nPosition.getEnte();
-						if(ente instanceof Groupable) {
-							Groupable nMember = (Groupable)ente;
-							if(nMember.getGroup().equals(sGroup))
-								nChar = ente.getNumb()+"";
-						}
-					}
-					
-						
-				}
-					
-				
-				else
-					nChar = EMPTY_STR;
-				exit += COLUM_STR + nChar;  
+				exit += COLUM_STR + ((PosicionGroupable<Integer, Integer>)nPosition).getRepresentation(sGroup);  
 				exit+= ( x +1 ) == length  ? COLUM_STR : "";
 			}
 			exit += "\n";

@@ -29,28 +29,8 @@ public class MapaMatrixEnteGroupActionable extends MapaMatrixEnteGroup{
 			exit += "\n";
 			
 			for(int x = 0 ; x < length; x++) {
-				nPosition = mapa[x][y];
-				
-				if(nPosition != null ) {
-					nChar = EMPTY_STR;
-					if(nPosition.hasEnte() ) {
-						Ente ente = nPosition.getEnte();
-						if(ente instanceof Groupable) {
-							Groupable nMember = (Groupable)ente;
-							if(nMember.getGroup().equals(sGroup)) {
-								if(nMember instanceof Actionable) {
-									Actionable nActiona = (Actionable) nMember;
-									nChar = nActiona.hasActions() ? ente.getNumb()+"" : "X";
-								}
-							}								
-						}
-					}						
-				}
-					
-				
-				else
-					nChar = EMPTY_STR;
-				exit += COLUM_STR + nChar;  
+				nPosition = mapa[x][y];				
+				exit += COLUM_STR + ((PosicionGroupableActionable<Integer, Integer>)nPosition).getRepresentation();  
 				exit+= ( x +1 ) == length  ? COLUM_STR : "";
 			}
 			exit += "\n";

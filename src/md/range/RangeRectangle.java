@@ -11,7 +11,7 @@ public final class RangeRectangle {
 	//Post: it will return a positions with the max position as x = witdh + posi.X and y = height + posi.Y 
 	public  static final List<Posicion<Integer, Integer>> getPositions(Posicion<Integer, Integer> posi, Mapa<Integer, Integer> map, int width, int height) {
 //		Posicion<Integer, Integer>[] positions = new Posicion[(int)Math.pow(radio, 2)];
-				List<Posicion<Integer, Integer>> positions = new ArrayList<Posicion<Integer,Integer>>();
+		List<Posicion<Integer, Integer>> positions = new ArrayList();
 		
 		int fheight = posi.getY()+height;
 		int fwidth = posi.getX()+width;

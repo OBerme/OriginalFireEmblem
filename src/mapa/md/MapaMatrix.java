@@ -9,47 +9,45 @@ import entes.md.Persona;
 public  class MapaMatrix extends Mapa<Integer, Integer>  {
 	protected static final String ROW_STR = "-";
 	protected static final String COLUM_STR = "|";
-	protected static final String EMPTY_STR = " ";
+	
 	
 	
 	protected Posicion<Integer, Integer>[][] mapa;
 	protected int length;
 
 	public MapaMatrix(int length) {
-		this.posiciones = new Posicion[length*length];
 		this.mapa = generateEmptyMap(length);
+		this.posiciones = convertMapToFlatMap(mapa);
 		this.length = length;
 	}
 	
-//	private Posicion<Integer, Integer>[][] generateMapaWithEntes(int length){
-//		Posicion nPosi = null;
-//		
-//		Posicion<Integer, Integer>[][] eMap = new Posicion[length][length];
-//		
-//		for(int i = 0 ; i < length; i++) {
-//			for(int j = 0 ; j < length; j++) {
-//				nPosi = new Posicion<Integer, Integer>(i, j, new Monstruo(200, "Mounstruo", "M", new Estado(StateSerVivo.NORMAL)));
-//				posiciones[i*length+j] = nPosi;
-//				eMap[i][j] = nPosi;
-//			}
-//			
-//		}
-//		return eMap;
-//	}
-	
-	
+	//Pre: the length should be more than 0 = lenght > 0
+	//Post: it will return a map
 	private Posicion<Integer, Integer>[][] generateEmptyMap(int length){
 		Posicion<Integer, Integer>[][] eMap = new Posicion[length][length];
 		
 		for(int i = 0 ; i < length; i++) {
-			for(int j = 0 ; j < length; j++) {
-				
-				posiciones[i*length+j] = null;
-				eMap[i][j] = null;
+			for(int j = 0 ; j < length; j++) {				
+				eMap[i][j] = new Posicion<Integer, Integer>(i, j);
 			}
 			
 		}
 		return eMap;
+	}
+	
+	//Pre: the matrixMap should have the same height in all the rows
+	//Post: I will return a map with the same items as the matrix map,
+	//		  it will not modified the original matrixMap
+	private static Posicion<Integer, Integer>[] convertMapToFlatMap(Posicion<Integer, Integer>[][] matrixMap){
+		int width = matrixMap.length;
+		int height = matrixMap[0].length;
+		Posicion<Integer, Integer>[] flatMap = new Posicion[width*height];		
+		for(int i = 0 ; i < width; i++) {
+			for(int j = 0 ; j < height; j++) {
+				flatMap[i*width+j] = matrixMap[i][j];
+			}
+		}
+		return flatMap;
 	}
 	
 	public Posicion<Integer, Integer>[][] getMapa() {
@@ -71,18 +69,7 @@ public  class MapaMatrix extends Mapa<Integer, Integer>  {
 			
 			for(int i = 0 ; i < length; i++) {
 				nPosition = mapa[i][j];
-				
-				if(nPosition != null) {
-					if(nPosition.hasEnte()) {
-						Ente ente = nPosition.getEnte();
-						nChar =   ente.isDied() ? EMPTY_STR  : nPosition.getEnte().getShortName();
-					}
-					else
-						nChar =  EMPTY_STR;
-				}
-				else
-					nChar = EMPTY_STR;
-				exit += COLUM_STR + nChar;  
+				exit += COLUM_STR + nPosition.getRepresentation();  
 				exit+= ( i +1 ) == length  ? COLUM_STR : "";
 			}
 			exit += "\n";
@@ -108,15 +95,8 @@ public  class MapaMatrix extends Mapa<Integer, Integer>  {
 			exit += "\n";
 			
 			for(int i = 0 ; i < length; i++) {
-				nPosition = mapa[i][j];
-				
-				if(nPosition != null) 
-					nChar = nPosition.hasEnte()  ? nPosition.getEnte().getNumb()+"" :  EMPTY_STR ;
-				
-				else
-					nChar = EMPTY_STR;
-				exit += COLUM_STR + nChar;  
-				exit+= ( i +1 ) == length  ? COLUM_STR : "";
+				exit += COLUM_STR + mapa[i][j].getRepresentation();  
+				exit += ( i +1 ) == length  ? COLUM_STR : "";
 			}
 			exit += "\n";
 		}

@@ -1,6 +1,12 @@
 package pl;
 
+import java.util.List;
+
+import acciones.md.ataque.Ataque;
+import entes.Atacable;
 import entes.md.Ente;
+import group.md.Group;
+import group.md.Groupable;
 import mapa.ln.IEnteCollection;
 import mapa.md.Posicion;
 import scanner.ln.LNDataScanner;
@@ -27,8 +33,63 @@ public class PL_GameScanner {
 		return dataScanner.confirms();
 	}
 	
-	 public Ente getEnte() {
-		return enteScanner.getEnte();
+	public Ataque getAtack(Atacable atacable) {
+		System.out.println("Give me the attack");
+		List<Ataque> ataques = atacable.getAtacks();
+		
+		for(Ataque nAta : ataques) {
+			System.out.println(nAta);
+		}
+		int iAtack = this.dataScanner.getInteger();
+		
+		Ataque sAtack = null;
+		for(Ataque nAta : ataques) {
+			if(nAta.getNum() == iAtack)
+				sAtack = nAta;
+		}
+		if(sAtack != null)
+			return sAtack;
+		System.out.println("Please give me a valid attack");
+		return getAtack(atacable);
+	}
+	
+	 public Ente getEnte(Group playerGroup) {
+		System.out.println("Give the number of the ente");
+		Ente sEnte = enteScanner.getEnte();
+		
+		if(sEnte instanceof Groupable) {
+			//to check if the ente is in the player lnPlayerGroup
+			if(((Groupable)sEnte).getGroup().equals(playerGroup)){
+				return sEnte;
+			}
+			System.out.println("You need to choose a ente from your group");
+			return getEnte(playerGroup);
+		}
+		else {
+			System.out.println("You need to choose a ente from a group");
+			return getEnte(playerGroup);
+		}
+		
+	 }
+	 
+
+	 public Ente getEnemyEnte(Group playerGroup) {
+		System.out.println("Give the number of the ente");
+		Ente sEnte = enteScanner.getEnte();
+		
+		if(sEnte instanceof Groupable) {
+			//to check if the ente is in the player lnPlayerGroup
+			if(!((Groupable)sEnte).getGroup().equals(playerGroup)){
+				return sEnte;
+			}
+			System.out.println("You need to choose a ente from the other group");
+			return getEnte(playerGroup);
+		}
+		else {
+			System.out.println("You need to choose a ente from a group");
+			return getEnte(playerGroup);
+		}
+		
 	 }
 	 
 	 public Posicion<Integer, Integer> getPosition() {

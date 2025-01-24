@@ -19,7 +19,7 @@ public class EnteScanner extends BasicScanner {
 
 	// Método para obtener un ente
     public Ente getEnte() {
-    	System.out.println("Give the number of the ente");
+    	
     	int number = dataScanner.getInteger();
     	
         // Sin implementación

@@ -7,5 +7,5 @@ public abstract class LNMapa<X, Y>
 	protected Mapa<X, Y> mapa;
 	
 	
-
+	
 }

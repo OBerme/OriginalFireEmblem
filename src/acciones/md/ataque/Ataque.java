@@ -4,11 +4,13 @@ import acciones.md.Accion;
 import entes.md.Ente;
 
 public class Ataque extends Accion {
+	private int num;
     private int fuerza;
     private Tipo tipo;
 
-    public Ataque(String name, int fuerza, Tipo tipo) {
+    public Ataque(int num ,String name, int fuerza, Tipo tipo) {
         super(name);
+        this.num = num;
         this.fuerza = fuerza;
         this.tipo = tipo;
     }
@@ -23,6 +25,16 @@ public class Ataque extends Accion {
     
     public int getDamage() {
     	return fuerza;
+    }
+    
+    public int getNum() {
+		return num;
+	}
+
+	@Override
+    public String toString() {
+    	// TODO Auto-generated method stub
+    	return num + "º " + name + " fuerza  "+ fuerza + " tipo " + tipo;
     }
     
     @Override

@@ -16,7 +16,7 @@ public class LNEnteScanner extends LNDataScanner implements ILNEnteScanner{
 
 	    public Ente getEnte() {
 	        // Sin implementación
-	    	System.out.println("Give me the number of the ente");
-	        return null;
+	    	
+	        return enteScanner.getEnte();
 	    }
 }
