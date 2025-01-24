@@ -166,7 +166,7 @@ public  class MapaMatrix extends Mapa<Integer, Integer>  {
 		// TODO Auto-generated method stub
 		Posicion<Integer, Integer> aPosi = getPosicion(posicion.getX(), posicion.getY());
 		
-		return aPosi == null || !(aPosi.getEnte() instanceof Persona);
+		return aPosi.isEmpty();
 	}
 	
 	/**
@@ -178,9 +178,8 @@ public  class MapaMatrix extends Mapa<Integer, Integer>  {
 	public Posicion<Integer, Integer> getEntePosition(Ente ente){
 		Posicion<Integer, Integer> position = null;
 		for(Posicion<Integer, Integer> nPosition : posiciones) {
-			if(nPosition != null && nPosition.hasEnte()) {
-				if(nPosition.getEnte() instanceof Ente) {
-					Ente nEnte = (Ente) nPosition.getEnte();
+			if( nPosition.hasSomething() && nPosition.getSomething() instanceof Ente) {
+					Ente nEnte = (Ente) nPosition.getSomething();
 					if(nEnte.equals(ente)) {
 						position = nPosition;
 						break;
@@ -188,7 +187,7 @@ public  class MapaMatrix extends Mapa<Integer, Integer>  {
 				}
 				
 			}
-		}
+		
 		return position;
 	}
 

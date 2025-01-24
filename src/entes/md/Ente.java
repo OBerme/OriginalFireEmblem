@@ -2,9 +2,11 @@ package entes.md;
 
 import java.io.Serializable;
 
+import mapa.md.Consolable;
+import mapa.md.IPositionable;
 import presentation.graphicOptions.Menuable;
 
-public  class Ente implements Serializable{
+public  class Ente implements Serializable, IPositionable, Consolable{
 	protected int hp;
 	protected String name;
 	protected String shortName;
@@ -81,6 +83,12 @@ public  class Ente implements Serializable{
 			return  eObj.getNumb()== getNumb() ;
 		}
 		return false;
+	}
+
+	@Override
+	public String getRepresentation() {
+		// TODO Auto-generated method stub
+		return getShortName();
 	}
 	
 }

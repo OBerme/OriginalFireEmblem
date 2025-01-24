@@ -8,7 +8,7 @@ import turner.md.Actionable;
 public class Posicion<X,Y> {
 	protected X x;
 	protected Y y;
-	protected Ente positionable;
+	protected IPositionable positionable;
 	public static final String EMPTY_STR = " ";
 	public static final String WITHOUT_ACTIONS = "X";
 	
@@ -17,7 +17,7 @@ public class Posicion<X,Y> {
 		this(x, y, null);
 	}
 	
-	public Posicion(X x, Y y, Ente positionable) {
+	public Posicion(X x, Y y, IPositionable positionable) {
 		super();
 		this.x = x;
 		this.y = y;
@@ -52,25 +52,32 @@ public class Posicion<X,Y> {
 	public void setY(Y y) {
 		this.y = y;
 	}
-//	public IPositionable getEnte() {
-//		return positionable;
-//	}
-	public void setEnte(Ente ente) {
-		this.positionable = ente;
+
+	public boolean hasConsolable() {
+		return hasSomething() && getSomething() instanceof Consolable;
+		
 	}
 	
-	public boolean hasEnte() {
-		if(positionable != null)
-			return -positionable.hasEnte();
-		return false;	
+	public boolean hasSomething() {
+		return positionable !=null;
+	}
+	
+	public IPositionable getSomething() {
+		return positionable;
+	}
+	public void setEnte(IPositionable positionable) {
+		this.positionable = positionable;
 	}
 	
 	public String getRepresentation() {
-		if(hasEnte()) {
-			return this.positionable.getShortName();
-		}
-			
+		if(hasConsolable()) 
+			return ((Consolable)this.positionable).getRepresentation();			
 		return EMPTY_STR;
+	}
+	
+	public boolean isEmpty() {
+		return hasSomething();
+				
 	}
 	
 }

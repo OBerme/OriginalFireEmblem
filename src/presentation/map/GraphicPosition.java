@@ -10,6 +10,7 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 
 import entes.md.GraphicEnte;
+import mapa.md.IPositionable;
 import mapa.md.Posicion;
 import presentation.graphicOptions.IDrawable;
 import presentation.graphicOptions.Menuable;
@@ -22,7 +23,7 @@ public class GraphicPosition<X, Y> extends Posicion<X, Y>{
 	//Pre: The ente 
 	public GraphicPosition(X x, Y y, Image cellImage, GraphicEnte gEnte, GraphicMap<X, Y> map) {
 		super(x, y);
-		this.positionable = gEnte.getEnte();
+		this.positionable =(IPositionable)gEnte.getEnte();
 		this.gEnte = gEnte;
 		
 		this.cellImage =cellImage;

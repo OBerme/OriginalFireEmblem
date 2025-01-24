@@ -1,6 +1,6 @@
 package mapa.md;
 
-import entes.md.IPositionable;
+import entes.md.Ente;
 import group.md.Group;
 import group.md.Groupable;
 import turner.md.Actionable;
@@ -12,14 +12,14 @@ public class PosicionGroupable<X, Y> extends Posicion<X, Y> {
 		// TODO Auto-generated constructor stub
 	}
 
-	public String getRepresentation(Group sGroup) {
+	public String getNum(Group sGroup) {
 		
-		if(hasEnte() ) {
-			IPositionable ente = getEnte();
+		if(hasConsolable()) {
+			Ente ente = (Ente) getSomething();
 			if(ente instanceof Groupable) {
 				Groupable nMember = (Groupable)ente;
 				if(nMember.getGroup().equals(sGroup))
-					return ente.getNumb()+"";
+					return nMember.getGRepresentation()+"";
 			}
 		}
 		return  EMPTY_STR;

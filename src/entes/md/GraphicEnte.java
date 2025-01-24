@@ -1,9 +1,10 @@
 package entes.md;
 
+import mapa.md.IPositionable;
 import presentation.graphicOptions.IDrawable;
 import presentation.graphicOptions.Menuable;
 
-public class GraphicEnte implements IDrawable {
+public class GraphicEnte implements IDrawable, IPositionable {
 	
 	protected String pathImage;
 	protected Ente ente;

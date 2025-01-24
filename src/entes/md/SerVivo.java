@@ -67,4 +67,9 @@ public class SerVivo extends Ente implements Groupable, Actionable, Movable{
 		this.numTurns = dNumTurns;
 		
 	}
+	@Override
+	public String getGRepresentation() {
+		// TODO Auto-generated method stub
+		return numb+"";
+	}
 }

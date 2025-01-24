@@ -12,9 +12,9 @@ public class PosicionGroupableActionable<X, Y> extends PosicionGroupable<X, Y> {
 		// TODO Auto-generated constructor stub
 	}
 
-	public String getRepresentation(Group sGroup) {
-		if(hasEnte() ) {
-			Ente ente = getEnte();
+	public String getNum(Group sGroup) {
+		if(hasSomething() && getSomething() instanceof Ente) {
+			Ente ente = (Ente)getSomething();
 			if(ente instanceof Groupable) {
 				Groupable nMember = (Groupable)ente;
 				if(nMember.getGroup().equals(sGroup)) {
