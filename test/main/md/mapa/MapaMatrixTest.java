@@ -19,8 +19,8 @@ public class MapaMatrixTest {
 		int length = 3;
 		MapaMatrix mapa = new MapaMatrix(length);
 		
-		assertEquals( mapa.getHigh(),length, "The high its correct");
-		assertEquals( mapa.getLength(),length, "The length its correct");
+		assertEquals( mapa.getHeight(),length, "The high its correct");
+		assertEquals( mapa.getWidth(),length, "The length its correct");
 	}
 	
 	@Test

@@ -11,9 +11,9 @@ import mapa.ln.IEnteCollection;
 public abstract class Mapa<X, Y> {
 	protected Posicion<X,Y>[] posiciones;
 	
-	public int getLength() {
-		return posiciones.length;
-	}
+	public abstract int getWidth() ;
+	
+	public abstract int getHeight();
 	
 
 	public Posicion<X,Y>[] getPosiciones() {
@@ -37,5 +37,10 @@ public abstract class Mapa<X, Y> {
 	public abstract String toStringNumberPositions() ;
 	
 	public abstract boolean hasPosition(Posicion<X, Y> posicion) ;
+
+
+
+
+	
 
 }

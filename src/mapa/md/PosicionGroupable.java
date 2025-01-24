@@ -1,6 +1,6 @@
 package mapa.md;
 
-import entes.md.Ente;
+import entes.md.IPositionable;
 import group.md.Group;
 import group.md.Groupable;
 import turner.md.Actionable;
@@ -15,7 +15,7 @@ public class PosicionGroupable<X, Y> extends Posicion<X, Y> {
 	public String getRepresentation(Group sGroup) {
 		
 		if(hasEnte() ) {
-			Ente ente = getEnte();
+			IPositionable ente = getEnte();
 			if(ente instanceof Groupable) {
 				Groupable nMember = (Groupable)ente;
 				if(nMember.getGroup().equals(sGroup))

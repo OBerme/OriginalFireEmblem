@@ -135,11 +135,12 @@ public  class MapaMatrix extends Mapa<Integer, Integer>  {
 		return exit;
 	}
 	
-	public int getLength() {
+	@Override
+	public int getWidth() {
 		return this.length;
 	}
-	
-	public int getHigh() {
+	@Override
+	public int getHeight() {
 		return this.length;
 	}
 
@@ -178,11 +179,14 @@ public  class MapaMatrix extends Mapa<Integer, Integer>  {
 		Posicion<Integer, Integer> position = null;
 		for(Posicion<Integer, Integer> nPosition : posiciones) {
 			if(nPosition != null && nPosition.hasEnte()) {
-				Ente nEnte = nPosition.getEnte();
-				if(nEnte.equals(ente)) {
-					position = nPosition;
-					break;
-				}	
+				if(nPosition.getEnte() instanceof Ente) {
+					Ente nEnte = (Ente) nPosition.getEnte();
+					if(nEnte.equals(ente)) {
+						position = nPosition;
+						break;
+					}	
+				}
+				
 			}
 		}
 		return position;
@@ -197,6 +201,7 @@ public  class MapaMatrix extends Mapa<Integer, Integer>  {
 		}
 		return false;	
 	}
+
 	
 
 	

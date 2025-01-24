@@ -1,6 +1,7 @@
 package presentation.map;
 
 import java.awt.Graphics;
+import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.font.NumericShaper.Range;
@@ -28,6 +29,22 @@ public class GraphicMapInteger extends GraphicMap<Integer, Integer> implements P
 	public GraphicMapInteger(INLMapa<Integer, Integer> map) {
 		super();
 		this.map = map;
+		this.setLayout(new GridLayout(map.getWidth(), map.getHeight()));
+		
+	}
+	
+	private void createCells() {
+		// Crear botones para cada celda de la cuadrícula
+		for(Posicion<Integer, Integer> nPosi : positions) {
+			if(nPosi != null) {
+				if(nPosi.hasEnte()) {
+					g.drawImage(new ImageIcon("entew.png").getImage(), REC_WIDTH*nPosi.getX(), REC_HEIGHT*nPosi.getY(), REC_WIDTH, REC_HEIGHT, this);	
+				}	
+			}
+			else {
+				g.drawImage(new ImageIcon("casilla.png").getImage(), REC_WIDTH*nPosi.getX(), REC_HEIGHT*nPosi.getY(), REC_WIDTH, REC_HEIGHT, this);
+			}
+		}
 	}
 
 	@Override
@@ -61,16 +78,17 @@ public class GraphicMapInteger extends GraphicMap<Integer, Integer> implements P
 		
 	}
 
-	@Override
-	public void showMenu(Menu menu) {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
 	public void showPlayers(Group group) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public Menu getMenu() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 

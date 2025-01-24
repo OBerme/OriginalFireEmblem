@@ -10,6 +10,7 @@ public interface INLMapa<X, Y> {
 	
 	String getMapaDesing();
 	Posicion<Integer, Integer>[] getPositions();
-	
+	int getHeight();
+	int getWidth();
 	
 }

@@ -40,4 +40,16 @@ public class LNMapaMatrix extends LNMapa<Integer, Integer> implements ILNMapaMat
 		return this.mapa.getPosiciones();
 	}
 
+
+	@Override
+	public int getHeight() {
+		return this.mapa.getHeight();
+	}
+
+
+	@Override
+	public int getWidth() {
+		return this.mapa.getWidth();
+	}
+
 }

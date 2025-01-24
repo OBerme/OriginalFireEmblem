@@ -2,6 +2,8 @@ package entes.md;
 
 import java.io.Serializable;
 
+import presentation.graphicOptions.Menuable;
+
 public  class Ente implements Serializable{
 	protected int hp;
 	protected String name;

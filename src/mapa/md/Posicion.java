@@ -6,9 +6,9 @@ import group.md.Groupable;
 import turner.md.Actionable;
 
 public class Posicion<X,Y> {
-	private X x;
-	private Y y;
-	private Ente ente;
+	protected X x;
+	protected Y y;
+	protected Ente positionable;
 	public static final String EMPTY_STR = " ";
 	public static final String WITHOUT_ACTIONS = "X";
 	
@@ -17,11 +17,11 @@ public class Posicion<X,Y> {
 		this(x, y, null);
 	}
 	
-	public Posicion(X x, Y y, Ente ente) {
+	public Posicion(X x, Y y, Ente positionable) {
 		super();
 		this.x = x;
 		this.y = y;
-		this.ente = ente;
+		this.positionable = positionable;
 	}
 	
 	@Override
@@ -52,20 +52,22 @@ public class Posicion<X,Y> {
 	public void setY(Y y) {
 		this.y = y;
 	}
-	public Ente getEnte() {
-		return ente;
-	}
+//	public IPositionable getEnte() {
+//		return positionable;
+//	}
 	public void setEnte(Ente ente) {
-		this.ente = ente;
+		this.positionable = ente;
 	}
 	
 	public boolean hasEnte() {
-		return ente != null;
+		if(positionable != null)
+			return -positionable.hasEnte();
+		return false;	
 	}
 	
 	public String getRepresentation() {
 		if(hasEnte()) {
-			return this.ente.getShortName();
+			return this.positionable.getShortName();
 		}
 			
 		return EMPTY_STR;
