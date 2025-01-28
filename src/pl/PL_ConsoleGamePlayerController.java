@@ -223,8 +223,7 @@ public class PL_ConsoleGamePlayerController implements Turnable{
     	}
 	}
 	private void doAttack() {
-		System.out.println(this.lnMapa.getEnteDesingNumber());
-		Ente sEnte = scn.getEnte(this.lnPlayerGroup.getGroup());
+		Ente sEnte = getPlayerEnte();
 		
     	if( (sEnte instanceof Actionable )) { //To pay the turn 
     		Actionable sEnteActi = (Actionable) sEnte;
@@ -236,6 +235,7 @@ public class PL_ConsoleGamePlayerController implements Turnable{
     				Ente eneEnte = this.scn.getEnemyEnte(lnPlayerGroup.getGroup());
     				Ataque cAtack = this.scn.getAtack((Atacable)sEnte);
     				lnAccionesAtaque.appendAtaque(eneEnte, cAtack);
+    				sEnteActi.subtractNumActions(cAtack.getCost());
     			}
     			else
     				System.out.println("The player is a fucking big chungus and can't do more atacks");

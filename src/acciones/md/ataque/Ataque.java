@@ -2,17 +2,24 @@ package acciones.md.ataque;
 
 import acciones.md.Accion;
 import entes.md.Ente;
+import turner.md.enums.TurnerEnumConstant;
 
 public class Ataque extends Accion {
 	private int num;
     private int fuerza;
     private Tipo tipo;
-
+    private int cost;
+    
     public Ataque(int num ,String name, int fuerza, Tipo tipo) {
+      this(num,name, fuerza, tipo, TurnerEnumConstant.MOVE_COST.getCost());
+    }
+    
+    public Ataque(int num ,String name, int fuerza, Tipo tipo, int cost) {
         super(name);
         this.num = num;
         this.fuerza = fuerza;
         this.tipo = tipo;
+        this.cost = cost;
     }
 
     public int getFuerza() {
@@ -31,11 +38,17 @@ public class Ataque extends Accion {
 		return num;
 	}
 
+	public int getCost() {
+		return cost;
+	}
+
 	@Override
     public String toString() {
     	// TODO Auto-generated method stub
     	return num + "º " + name + " fuerza  "+ fuerza + " tipo " + tipo;
     }
+	
+	
     
     @Override
     public boolean equals(Object obj) {
@@ -50,4 +63,7 @@ public class Ataque extends Accion {
 
 		return false;
     }
+    
+    
+    
 }
