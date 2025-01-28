@@ -131,14 +131,13 @@ public class PL_ConsoleGamePlayerController implements Turnable{
 	public void doMenuOption(int menuOption) {
         //---------------------------ENTE OPTIONS--------------------------
         if(menuOption == EnteMenuOptions.SHEN.getOption()) { //Show number of the entes
-        	System.out.println(this.lnMapa.getNumberEntesDesing());
+        	System.out.println(this.lnMapa.getGroupMapStringNum(this.lnPlayerGroup.getGroup()));
         }
         else if(menuOption == EnteMenuOptions.DAEN.getOption())  { //Status of the ente
         	System.out.println("Give me the number of the ente");
-        	System.out.println(this.lnMapa.getNumberEntesDesing());
+        	System.out.println(this.lnMapa.getEnteDesingNumber());
 
-        	int numbEnte = this.scn.getInteger();
-        	Ente sEnte = lnMapa.getEnte(numbEnte);
+        	Ente sEnte =  scn.getAnyEnte();
         	System.out.println(sEnte.getStatus());
         }
         else if(menuOption == EnteMenuOptions.MOEN.getOption()){ //move ente 
@@ -148,7 +147,7 @@ public class PL_ConsoleGamePlayerController implements Turnable{
         	doAttack();
         }
         else if(menuOption == PositionMenuOptions.SHPO.getOption()) {
-        	System.out.println(this.lnMapa.toStringNumberPositions());
+        	System.out.println(this.lnMapa.getEnteDesingNumber());
         }
         //---------------------------GROUP OPTIONS--------------------------
         else if(menuOption == GroupMenuOptions.SHEN.getOption()) { //Show entes LNGroup of the player
@@ -186,38 +185,15 @@ public class PL_ConsoleGamePlayerController implements Turnable{
 	}
 	//Pre: ---
 	//Post: it will return a valid ente 
-	private Ente getEnte() {
+	private Ente getPlayerEnte() {
 		System.out.println("Give me the number of the ente");
-    	System.out.println(this.lnMapa.getGroupMapStringNum(lnPlayerGroup.getGroup()));
-    	Ente sEnte = null;
-		int numbEnte = this.scn.getInteger();
-		
-		boolean isValidEnte = false;
-		
-		while(!isValidEnte) {
-			while(numbEnte < 0 ) {
-				System.out.println("Please give a valid number");
-				numbEnte = this.scn.getInteger();
-			}
-			
-			sEnte = lnMapa.getEnte(numbEnte);
-	    	if(sEnte == null) {
-				
-	    		System.out.println("Please give a valid ente");
-			}	
-	    	else isValidEnte = true;
-	    	
-		}
-		return sEnte;
+    	System.out.println(this.lnMapa.getGroupMapStringNum(lnPlayerGroup.getGroup()));		
+		return scn.getEnte(this.lnPlayerGroup.getGroup());
 	}
 	
 	private void moveEnte() {
-		Ente sEnte = getEnte();
+		Ente sEnte = getPlayerEnte();
     	//to check if the ente is in the player lnPlayerGroup
-    	while( !((Groupable)sEnte).getGroup().equals(this.lnPlayerGroup.getGroup())){ 
-    		System.out.println("Please give a valid number");
-    		sEnte = lnMapa.getEnte(this.scn.getInteger());
-    	}
     	
     	if( (sEnte instanceof Movable && sEnte instanceof Actionable)) { //To pay the turn 
     		Actionable sEnteActi = (Actionable) sEnte;
@@ -247,15 +223,16 @@ public class PL_ConsoleGamePlayerController implements Turnable{
     	}
 	}
 	private void doAttack() {
-		System.out.println(this.lnMapa.getGroupMapString(lnPlayerGroup.getGroup()));
-		Ente sEnte = this.scn.getEnte(this.lnPlayerGroup.getGroup());
+		System.out.println(this.lnMapa.getEnteDesingNumber());
+		Ente sEnte = scn.getEnte(this.lnPlayerGroup.getGroup());
+		
     	if( (sEnte instanceof Actionable )) { //To pay the turn 
     		Actionable sEnteActi = (Actionable) sEnte;
     		
     		Ataque aChoice;
     		if(sEnteActi.hasActions()) {
     			if(sEnte instanceof Atacable) {
-    				System.out.println(this.lnMapa.getNumberEntesDesing());
+    				System.out.println(this.lnMapa.getEnteDesingNumber());
     				Ente eneEnte = this.scn.getEnemyEnte(lnPlayerGroup.getGroup());
     				Ataque cAtack = this.scn.getAtack((Atacable)sEnte);
     				lnAccionesAtaque.appendAtaque(eneEnte, cAtack);
@@ -265,6 +242,8 @@ public class PL_ConsoleGamePlayerController implements Turnable{
     		}
     		else
     			System.out.println("The player is a fucking panza and can't do more actions");
-    	}		
+    	}
+    	else
+    		System.out.println("The ente can't attack!");
 	}
 }

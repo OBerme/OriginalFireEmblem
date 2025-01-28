@@ -72,6 +72,18 @@ public class PL_GameScanner {
 		
 	 }
 	 
+	 
+	 public Ente getAnyEnte() {
+		System.out.println("Give the number of the ente");
+		
+		Ente sEnte = enteScanner.getEnte();
+		while(sEnte == null) {
+			System.out.println("Please give a valid ente");	
+			sEnte = enteScanner.getEnte();
+		}
+		return sEnte;
+	 }
+	 
 
 	 public Ente getEnemyEnte(Group playerGroup) {
 		System.out.println("Give the number of the ente");

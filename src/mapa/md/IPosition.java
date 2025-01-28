@@ -7,4 +7,6 @@ public interface IPosition<X, Y> {
 	 X getX();
 	 Y getY();
 	void setSomething(IPositionable positi);
+	String getRepresentation();
+	String getRepresentationNumber();
 }

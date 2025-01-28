@@ -69,9 +69,17 @@ public class Posicion<X,Y> implements IPosition<X, Y>{
 		this.positionable = positionable;
 	}
 	
+	@Override
 	public String getRepresentation() {
 		if(hasConsolable()) 
 			return ((Consolable)this.positionable).getRepresentation();			
+		return EMPTY_STR;
+	}
+	
+	@Override
+	public String getRepresentationNumber() {
+		if(hasConsolable()) 
+			return ((Consolable)this.positionable).getRepresentationNumber();			
 		return EMPTY_STR;
 	}
 	

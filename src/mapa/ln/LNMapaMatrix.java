@@ -12,11 +12,9 @@ import mapa.md.Posicion;
 public class LNMapaMatrix extends LNMapa<Integer, Integer> implements ILNMapaMatrix{	
 	public LNMapaMatrix(MapaMatrix mapaVector) {
 		super();
-		this.mapa = mapaVector;
-		
+		this.mapa = mapaVector;	
 	}
 	
-
 	@Override
 	public String getMapaDesing() {
 		// TODO Auto-generated method stub
@@ -30,7 +28,7 @@ public class LNMapaMatrix extends LNMapa<Integer, Integer> implements ILNMapaMat
 
 
 	@Override
-	public String toStringNumberPositions() {
+	public String getEnteDesingNumber() {
 		return this.mapa.toStringNumberPositions();
 	}
 
@@ -51,6 +49,32 @@ public class LNMapaMatrix extends LNMapa<Integer, Integer> implements ILNMapaMat
 	@Override
 	public int getWidth() {
 		return this.mapa.getWidth();
+	}
+
+	@Override
+	public boolean isEmptyPosition(Integer x, Integer y) {
+		return mapa.isEmptyPosicion(AbstractFactoryPositionInteger.getPosition(x, y,(MapaMatrix)mapa));
+	}
+	
+
+
+	@Override
+	public boolean isValidPosition(Integer x, Integer y) {
+		// TODO Auto-generated method stub
+		return this.mapa.hasPosition(x,y) && isEmptyPosition(x, y);
+	}
+	
+
+	@Override
+	public String getErrorMessageInvalidPosition(Integer x, Integer y) {
+		// TODO Auto-generated method stub
+		if(!this.mapa.hasPosition(x,y) ) 
+			return "The positions dosen't exists";
+		
+		else if (!isEmptyPosition(x, y)) 
+			return "The position it's ocupped";
+		
+		return "Something went wrong";
 	}
 
 }

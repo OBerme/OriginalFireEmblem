@@ -90,5 +90,17 @@ public  class Ente implements Serializable, IPositionable, Consolable{
 		// TODO Auto-generated method stub
 		return getShortName();
 	}
+
+	@Override
+	public String getRepresentationNum() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getRepresentationNumber() {
+		// TODO Auto-generated method stub
+		return this.numb+"";
+	}
 	
 }

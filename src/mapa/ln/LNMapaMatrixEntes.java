@@ -8,10 +8,11 @@ import entes.md.Ente;
 import entes.md.EnteCounter;
 import mapa.md.IPosition;
 import mapa.md.MapaMatrix;
+import mapa.md.MapaMatrixEnte;
 import mapa.md.Posicion;
 
 public class LNMapaMatrixEntes extends LNMapaMatrix 
-	implements ILNMapaMatrixEntes, IEnteCollection, IEnteNumberShowable, IEnteEvents{
+	implements ILNMapaMatrixEntes, IEnteCollection, IEnteEvents{
 	private IMapEvents<Integer, Integer>[] mapEvents;
 	private HashMap<Integer, Ente> entes;
 	
@@ -21,36 +22,6 @@ public class LNMapaMatrixEntes extends LNMapaMatrix
 		this.entes = new HashMap<Integer, Ente>();
 		this.mapEvents = mapEvents;
 	}
-	
-	public boolean isEmptyPosition(Integer x, Integer y) {
-		return mapa.isEmptyPosicion(AbstractFactoryPositionInteger.getPosition(x, y,(MapaMatrix)mapa));
-	}
-	
-
-	/**
-	 * Pre: Ente no tiene que ser null, 
-	 * 	posicion tiene que ser una posicion valida del mapa
-	 */
-	@Override
-	public boolean moverEnte(Ente ente, Integer x, Integer y) {
-		IPosition<Integer, Integer> aPosi = AbstractFactoryPositionInteger.getPosition(x, y,(MapaMatrix)mapa);
-		if(mapa.isEmptyPosicion(aPosi)) {
-			if(isEnteInMap(ente)) {
-				IPosition<Integer, Integer> lPosition = this.mapa.getEntePosition(ente);
-				lPosition.setSomething(null);
-				onChangedPosition(aPosi);
-			}
-			else 
-				appendEnte(ente);
-			setEntePosition(ente, aPosi);
-				
-			
-			return true;
-		}
-		return false;
-	}
-	
-	
 	
 	private void onChangedPosition(IPosition<Integer, Integer> posi) {
 		for(IMapEvents<Integer, Integer> nMapEvent : mapEvents) {
@@ -87,11 +58,6 @@ public class LNMapaMatrixEntes extends LNMapaMatrix
 
 
 
-	@Override
-	public String getNumberEntesDesing() {
-		return mapa.toStringWithNumber();
-		
-	}
 
 	@Override
 	public String getMapaDesing() {
@@ -123,6 +89,30 @@ public class LNMapaMatrixEntes extends LNMapaMatrix
 	@Override
 	public void removeEnteFromPosition(Posicion<Integer, Integer> posi) {
 		posi.setSomething(null);	
+	}
+	
+
+	/**
+	 * Pre: Ente no tiene que ser null, 
+	 * 	posicion tiene que ser una posicion valida del mapa
+	 */
+	@Override
+	public boolean moverEnte(Ente ente, Integer x, Integer y) {
+		IPosition<Integer, Integer> aPosi = AbstractFactoryPositionInteger.getPosition(x, y,(MapaMatrix)mapa);
+		if(mapa.isEmptyPosicion(aPosi)) {
+			if(isEnteInMap(ente)) {
+				IPosition<Integer, Integer> lPosition = this.mapa.getEntePosition(ente);
+				lPosition.setSomething(null);
+				onChangedPosition(aPosi);
+			}
+			else 
+				appendEnte(ente);
+			setEntePosition(ente, aPosi);
+				
+			
+			return true;
+		}
+		return false;
 	}
 	
 	
@@ -172,23 +162,11 @@ public class LNMapaMatrixEntes extends LNMapaMatrix
 	}
 
 	@Override
-	public boolean isValidPosition(Integer x, Integer y) {
+	public String getEnteDesingNumber() {
 		// TODO Auto-generated method stub
-		return this.mapa.hasPosition(x,y) && isEmptyPosition(x, y);
+		return ((MapaMatrixEnte)mapa).getEnteDesingNumber();
 	}
-	
 
-	@Override
-	public String getErrorMessageInvalidPosition(Integer x, Integer y) {
-		// TODO Auto-generated method stub
-		if(!this.mapa.hasPosition(x,y) ) 
-			return "The positions dosen't exists";
-		
-		else if (!isEmptyPosition(x, y)) 
-			return "The position it's ocupped";
-		
-		return "Something went wrong";
-	}
 
 	
 	

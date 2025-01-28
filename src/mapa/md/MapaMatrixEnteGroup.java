@@ -8,7 +8,7 @@ import entes.md.SerVivo;
 import group.md.Group;
 import group.md.Groupable;
 
-public class MapaMatrixEnteGroup extends MapaMatrix{
+public class MapaMatrixEnteGroup extends MapaMatrixEnte{
 	
 	protected List<Group> groups;
 	public MapaMatrixEnteGroup(int length, List<Group> groups) { 
