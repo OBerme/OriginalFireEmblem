@@ -19,8 +19,11 @@ import group.md.Group;
 import mapa.ln.ILNMapaMatrixEntesGroup;
 import mapa.ln.IMapEvents;
 import mapa.ln.LNMapaMatrixEntesGroup;
+import mapa.md.IPosition;
 import mapa.md.MapaMatrixEnteGroupActionable;
 import mapa.md.Posicion;
+import mapa.md.PosicionGroupable;
+import mapa.md.PosicionGroupableActionable;
 import presentation.map.GraphicMap;
 import presentation.map.GraphicMapInteger;
 import presentation.map.GraphicPosition;
@@ -38,12 +41,13 @@ public class PresentationMain {
 		List<Group> groupsR = new ArrayList();
 //		groups.add(new Group())
 		
-		Posicion<Integer, Integer>[][] positions = new GraphicPosition[length][length];
+		IPosition<Integer, Integer>[][] positions = new GraphicPosition[length][length];
 		GraphicMapInteger gMap = null;
 		 
 		for(int i = 0 ; i < length; i++) {
 			for(int j = 0 ; j < length; j++) {	
-				positions[i][j] = new GraphicPosition<Integer, Integer>(i, j, null, 
+				positions[i][j] = new GraphicPosition<Integer, Integer>(
+						new PosicionGroupableActionable<Integer, Integer>(i, j), 
 						PDefaultValues.getPathImage("casilla.png"), gMap);
 			}
 		}

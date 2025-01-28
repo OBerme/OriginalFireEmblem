@@ -14,7 +14,7 @@ public class MapaMatrixEnteGroupActionable extends MapaMatrixEnteGroup{
 		// TODO Auto-generated constructor stub
 	}
 	
-	public MapaMatrixEnteGroupActionable(Posicion[][] positions, List<Group> groups) {
+	public MapaMatrixEnteGroupActionable(IPosition<Integer, Integer>[][] positions, List<Group> groups) {
 		super(positions, groups);
 	}
 	
