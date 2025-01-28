@@ -139,8 +139,6 @@ public class PL_IntroPlayerGame implements IWebConnectionEvents{
 		
 		List<Turnable> turnables =   new ArrayList<>();
 		
-		
-		
 		PL_ConsoleGamePlayerController consoleP1 = new PL_ConsoleGamePlayerController(
 				lnMapa , lnJojiGroup, lnTurner,new LNPlayer(jojiP),lnAccionesAtaque);
 		
@@ -203,6 +201,9 @@ public class PL_IntroPlayerGame implements IWebConnectionEvents{
 		
 		ILNEntes lnEntes = new LNEntes(lnEnteEvents, entes); 
 		LNAccionesAtaque lnAccionesAtaque = new LNAccionesAtaque(lnEntes);
+		
+		
+		
 		moverPlayersRandom(lnMapa,listPersonas);
 		
 		List<Turnable> turnables =   new ArrayList<>();
@@ -252,18 +253,23 @@ public class PL_IntroPlayerGame implements IWebConnectionEvents{
 	}
 	
 	private static void moverPlayersRandom(ILNMapaMatrixEntesGroup lnMapa, SerVivo[] listPersonas) {
-		int x = 0;
-		int y = 0;
-		for(SerVivo nSVivo : listPersonas) {
-			
-			lnMapa.moverEnte(nSVivo, new Posicion<Integer, Integer>(x, y));
-			
-			if(x != 0 && x % (MAP_LENGTH-1) == 0) {
-				x = 0;
-				y++;
-			}
-			else x++;
-		}
+//		int x = 0;
+//		int y = 0;
+		lnMapa.moverEnte(listPersonas[0], 0, 0);
+		lnMapa.moverEnte(listPersonas[1], 0, 1);
+		lnMapa.moverEnte(listPersonas[2], 3, 0);
+		lnMapa.moverEnte(listPersonas[3], 3, 1);
+//		
+//		for(SerVivo nSVivo : listPersonas) {
+//			
+//			
+//			
+//			if(x != 0 && x % (MAP_LENGTH-1) == 0) {
+//				x = 0;
+//				y++;
+//			}
+//			else x++;
+//		}
 	}
 	
 	private static Group getFirstGroup(SerVivo[] listPersonas, Player player) {

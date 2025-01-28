@@ -24,5 +24,11 @@ public class GraphicEnte implements IDrawable, IPositionable {
 		// TODO Auto-generated method stub
 		return pathImage;
 	}
+	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return ente.toString();
+	}
 
 }

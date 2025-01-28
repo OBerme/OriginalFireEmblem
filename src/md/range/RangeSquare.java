@@ -3,14 +3,15 @@ package md.range;
 import java.util.ArrayList;
 import java.util.List;
 
+import mapa.md.IPosition;
 import mapa.md.Mapa;
 import mapa.md.Posicion;
 
 public final class RangeSquare {
 
-	public  static final List<Posicion<Integer, Integer>> getPositions(Posicion<Integer, Integer> posi, Mapa<Integer, Integer> map, Integer radio) {
+	public  static final List<IPosition<Integer, Integer>> getPositions(Posicion<Integer, Integer> posi, Mapa<Integer, Integer> map, Integer radio) {
 //		Posicion<Integer, Integer>[] positions = new Posicion[(int)Math.pow(radio, 2)];
-				List<Posicion<Integer, Integer>> positions = new ArrayList<Posicion<Integer,Integer>>();
+				List<IPosition<Integer, Integer>> positions = new ArrayList<IPosition<Integer,Integer>>();
 		
 		Posicion<Integer, Integer> initPosition = new Posicion<Integer, Integer>(posi.getX()-radio, posi.getY() - radio);
 		for(int y = initPosition.getY(); y <= posi.getY() + radio; y++) {

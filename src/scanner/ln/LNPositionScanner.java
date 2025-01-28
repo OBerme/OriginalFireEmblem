@@ -1,5 +1,6 @@
 package scanner.ln;
 
+import mapa.md.IPosition;
 import mapa.md.Posicion;
 import scanner.md.DataScanner;
 import scanner.md.PositionScanner;

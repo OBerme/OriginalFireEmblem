@@ -81,7 +81,7 @@ public class PL_ConsoleGamePlayerController implements Turnable{
 	}
 	
 	 //@Override
-	public void start(){
+	public void start(){//it shows first after do a menu option or something like this
         int menuOption;
         if(lnPlayerGroup.isDone()) {
         	turnerEvent.onGiveUp();
@@ -184,14 +184,35 @@ public class PL_ConsoleGamePlayerController implements Turnable{
 		//lnAtack do all things
 		skipTurn();
 	}
+	//Pre: ---
+	//Post: it will return a valid ente 
+	private Ente getEnte() {
+		System.out.println("Give me the number of the ente");
+    	System.out.println(this.lnMapa.getGroupMapStringNum(lnPlayerGroup.getGroup()));
+    	Ente sEnte = null;
+		int numbEnte = this.scn.getInteger();
+		
+		boolean isValidEnte = false;
+		
+		while(!isValidEnte) {
+			while(numbEnte < 0 ) {
+				System.out.println("Please give a valid number");
+				numbEnte = this.scn.getInteger();
+			}
+			
+			sEnte = lnMapa.getEnte(numbEnte);
+	    	if(sEnte == null) {
+				
+	    		System.out.println("Please give a valid ente");
+			}	
+	    	else isValidEnte = true;
+	    	
+		}
+		return sEnte;
+	}
 	
 	private void moveEnte() {
-		System.out.println("Give me the number of the ente");
-    	System.out.println(this.lnMapa.getGroupMapString(lnPlayerGroup.getGroup()));
-    	
-		int numbEnte = this.scn.getInteger();
-    	Ente sEnte = lnMapa.getEnte(numbEnte);
-    	
+		Ente sEnte = getEnte();
     	//to check if the ente is in the player lnPlayerGroup
     	while( !((Groupable)sEnte).getGroup().equals(this.lnPlayerGroup.getGroup())){ 
     		System.out.println("Please give a valid number");
@@ -203,14 +224,19 @@ public class PL_ConsoleGamePlayerController implements Turnable{
     		if(sEnteActi.hasActions()) {
     			System.out.println("Give me the new position");
             	
-            	Posicion<Integer, Integer> nPosition = this.scn.getPosition();
-            	if(!this.lnMapa.moverEnte(sEnte, nPosition)) {
-            		System.out.println("You cant move to an ocuped position");
+            	Posicion<Integer, Integer> nPosition = this.scn.getPosition(); //DEPRECATED TODO
+            	
+            	while(!this.lnMapa.isValidPosition(nPosition.getX(), nPosition.getY()) ) {
+        			System.out.println(this.lnMapa.
+        					getErrorMessageInvalidPosition(nPosition.getX(), nPosition.getY()));
+                		
+        			System.out.println("Please give a valid position");
+            		nPosition = this.scn.getPosition();
             	}
-            	else {
-            		sEnteActi.subtractNumActions(TurnerEnumConstant.MOVE_COST.getCost());
-            		System.out.println("The player was moved");
-            	}
+            			
+    			this.lnMapa.moverEnte(sEnte, nPosition.getX(), nPosition.getY());
+        		sEnteActi.subtractNumActions(TurnerEnumConstant.MOVE_COST.getCost());
+        		System.out.println("The player was moved");
     		}
     		else
     			System.out.println("The player can't moved");

@@ -22,12 +22,17 @@
 	</natures>
 	<linkedResources>
 		<link>
+			<name>bluesky.png</name>
+			<type>1</type>
+			<locationURI>PARENT-3-PROJECT_LOC/Downloads/Trash/game/bluesky.png</locationURI>
+		</link>
+		<link>
 			<name>casilla.png</name>
 			<type>1</type>
 			<locationURI>PARENT-3-PROJECT_LOC/Downloads/Trash/game/casilla.png</locationURI>
 		</link>
 		<link>
-			<name>ente.png</name>
+			<name>monster.png</name>
 			<type>1</type>
 			<locationURI>PARENT-3-PROJECT_LOC/Downloads/Trash/game/ente.png</locationURI>
 		</link>

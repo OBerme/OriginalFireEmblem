@@ -16,7 +16,7 @@ public class DataScanner extends BasicScanner {
     public String getLine() {
     	String exit =null;
         try{
-        	exit= scn.next();
+        	exit= scn.nextLine();
         	if(exit == null) {
         		
         		return getLine();

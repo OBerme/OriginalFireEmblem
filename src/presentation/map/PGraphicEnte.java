@@ -16,6 +16,7 @@ import entes.md.GraphicEnte;
 import entes.md.GraphicSerVivo;
 import menu.md.Menu;
 import presentation.graphicOptions.Menuable;
+import presentation.main.PDefaultValues;
 
 public class PGraphicEnte<X, Y> extends JButton {
 	private GraphicEnte gEnte;
@@ -24,13 +25,16 @@ public class PGraphicEnte<X, Y> extends JButton {
 	public PGraphicEnte(GraphicEnte gEnte, GraphicMap<X, Y> gMap) {
 		//Set up the graphic options
 		setIcon(new ImageIcon(gEnte.getPathImage()));
+		setBackground(PDefaultValues.D_CELL_COLOR_DESA);
 		addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				if(gEnte instanceof Menuable) {
-					System.out.println("Graphic ente actived " + ((Menuable)gEnte).getMenu());
+					
+					System.out.println("Graphic ente actived " + gEnte.toString());
+					setBackground(PDefaultValues.D_CELL_COLOR_ACTI);
 				}
 			}
 		});

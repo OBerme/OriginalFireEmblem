@@ -17,12 +17,6 @@ public class Persona extends SerVivo implements Atacable{
 		this.atacks = atacks;
 		// TODO Auto-generated constructor stub
 	}
-
-	@Override
-	public String toString() {
-		// TODO Auto-generated method stub
-		return shortName;
-	}
 	
 	@Override
 	public boolean equals(Object obj) {

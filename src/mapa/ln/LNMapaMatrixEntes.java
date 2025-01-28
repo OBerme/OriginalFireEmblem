@@ -6,6 +6,7 @@ import java.util.HashMap;
 import entes.IEnteEvents;
 import entes.md.Ente;
 import entes.md.EnteCounter;
+import mapa.md.IPosition;
 import mapa.md.MapaMatrix;
 import mapa.md.Posicion;
 
@@ -20,22 +21,28 @@ public class LNMapaMatrixEntes extends LNMapaMatrix
 		this.entes = new HashMap<Integer, Ente>();
 		this.mapEvents = mapEvents;
 	}
+	
+	public boolean isEmptyPosition(Integer x, Integer y) {
+		return mapa.isEmptyPosicion(AbstractFactoryPositionInteger.getPosition(x, y,(MapaMatrix)mapa));
+	}
+	
 
 	/**
 	 * Pre: Ente no tiene que ser null, 
 	 * 	posicion tiene que ser una posicion valida del mapa
 	 */
 	@Override
-	public boolean moverEnte(Ente ente, Posicion<Integer, Integer> posi) {
-		if(mapa.isEmptyPosicion(posi)) {
+	public boolean moverEnte(Ente ente, Integer x, Integer y) {
+		IPosition<Integer, Integer> aPosi = AbstractFactoryPositionInteger.getPosition(x, y,(MapaMatrix)mapa);
+		if(mapa.isEmptyPosicion(aPosi)) {
 			if(isEnteInMap(ente)) {
-				Posicion<Integer, Integer> lPosition = this.mapa.getEntePosition(ente);
-				lPosition.setEnte(null);
-				onChangedPosition(posi);
+				IPosition<Integer, Integer> lPosition = this.mapa.getEntePosition(ente);
+				lPosition.setSomething(null);
+				onChangedPosition(aPosi);
 			}
 			else 
 				appendEnte(ente);
-			setEntePosition(ente, posi);
+			setEntePosition(ente, aPosi);
 				
 			
 			return true;
@@ -45,7 +52,7 @@ public class LNMapaMatrixEntes extends LNMapaMatrix
 	
 	
 	
-	private void onChangedPosition(Posicion<Integer, Integer> posi) {
+	private void onChangedPosition(IPosition<Integer, Integer> posi) {
 		for(IMapEvents<Integer, Integer> nMapEvent : mapEvents) {
 			nMapEvent.onPositionChange(posi);
 		}
@@ -68,7 +75,8 @@ public class LNMapaMatrixEntes extends LNMapaMatrix
 		return false;
 	}
 
-
+	//Pre: the number shoudl be >= 0
+	//Post: return nulls if the number of the ente is not in the map
 	@Override
 	public Ente getEnte(int number) {
 		if(entes.containsKey(number)) {
@@ -102,8 +110,8 @@ public class LNMapaMatrixEntes extends LNMapaMatrix
 	
 
 
-	protected void setEntePosition(Ente ente, Posicion<Integer, Integer> posi) {
-		posi.setEnte(ente);
+	protected void setEntePosition(Ente ente, IPosition<Integer, Integer> posi) {
+		posi.setSomething(ente);
 		mapa.setPosicion(posi);
 	}
 	
@@ -114,29 +122,29 @@ public class LNMapaMatrixEntes extends LNMapaMatrix
 	 */
 	@Override
 	public void removeEnteFromPosition(Posicion<Integer, Integer> posi) {
-		posi.setEnte(null);	
+		posi.setSomething(null);	
 	}
 	
 	
 
 	@Override
 	public boolean removeEnte(Ente ente) {
-		Posicion<Integer,Integer> fPosition = null;
-		for(Posicion<Integer, Integer> nPosi : mapa.getPosiciones()) {
-			if(nPosi != null) {
-				if(nPosi.getEnte() != null) {
-					if(nPosi.getEnte().equals(ente)) {
+		IPosition<Integer,Integer> fPosition = null;
+		for(IPosition<Integer, Integer> nPosi : mapa.getPosiciones()) {
+			if(nPosi.hasSomething() && nPosi.getSomething() instanceof Ente) {
+				Ente nEnte = (Ente)nPosi.getSomething();
+					if(nEnte.equals(ente)) {
 						fPosition = nPosi;
 						break;
 					}
 				}
 			}
-		}
+		
 		if(fPosition == null)
 			return false;
 		
 		//Change the value of ente
-		fPosition.setEnte(null);
+		fPosition.setSomething(null);
 		this.entes.remove(ente.getNumb());
 		
 		return true;
@@ -161,6 +169,25 @@ public class LNMapaMatrixEntes extends LNMapaMatrix
 		if(ente.isDied())
 			removeEnte(ente);
 		
+	}
+
+	@Override
+	public boolean isValidPosition(Integer x, Integer y) {
+		// TODO Auto-generated method stub
+		return this.mapa.hasPosition(x,y) && isEmptyPosition(x, y);
+	}
+	
+
+	@Override
+	public String getErrorMessageInvalidPosition(Integer x, Integer y) {
+		// TODO Auto-generated method stub
+		if(!this.mapa.hasPosition(x,y) ) 
+			return "The positions dosen't exists";
+		
+		else if (!isEmptyPosition(x, y)) 
+			return "The position it's ocupped";
+		
+		return "Something went wrong";
 	}
 
 	

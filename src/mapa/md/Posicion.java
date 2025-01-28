@@ -5,7 +5,7 @@ import group.md.Group;
 import group.md.Groupable;
 import turner.md.Actionable;
 
-public class Posicion<X,Y> {
+public class Posicion<X,Y> implements IPosition<X, Y>{
 	protected X x;
 	protected Y y;
 	protected IPositionable positionable;
@@ -59,13 +59,13 @@ public class Posicion<X,Y> {
 	}
 	
 	public boolean hasSomething() {
-		return positionable !=null;
+		return positionable != null;
 	}
 	
 	public IPositionable getSomething() {
 		return positionable;
 	}
-	public void setEnte(IPositionable positionable) {
+	public void setSomething(IPositionable positionable) {
 		this.positionable = positionable;
 	}
 	
@@ -76,8 +76,9 @@ public class Posicion<X,Y> {
 	}
 	
 	public boolean isEmpty() {
-		return hasSomething();
+		return !hasSomething();
 				
 	}
+
 	
 }

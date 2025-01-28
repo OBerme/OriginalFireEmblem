@@ -14,13 +14,17 @@ public class MapaMatrixEnteGroupActionable extends MapaMatrixEnteGroup{
 		// TODO Auto-generated constructor stub
 	}
 	
+	public MapaMatrixEnteGroupActionable(Posicion[][] positions, List<Group> groups) {
+		super(positions, groups);
+	}
+	
 
 	public String getGroupMapString(Group sGroup) {
 		// TODO Auto-generated method stub
 
 		String exit = "";
 		String nChar = "";
-		Posicion<Integer, Integer> nPosition;
+		IPosition<Integer, Integer> nPosition;
 		int countCharsEachPosition = 3;
 		for(int y = 0 ; y < length; y++) {
 			for(int x = 0 ; x < length*countCharsEachPosition; x++) {

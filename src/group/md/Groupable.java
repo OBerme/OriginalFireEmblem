@@ -3,6 +3,7 @@ package group.md;
 public interface Groupable {
     void setGroup(Group group);
     Group getGroup();
+    int getNum();
     boolean isDone();
     String getGRepresentation();
 }

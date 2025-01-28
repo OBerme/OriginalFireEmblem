@@ -12,7 +12,7 @@ public  class MapaMatrix extends Mapa<Integer, Integer>  {
 	
 	
 	
-	protected Posicion<Integer, Integer>[][] mapa;
+	protected IPosition<Integer, Integer>[][] mapa;
 	protected int length;
 
 	public MapaMatrix(int length) {
@@ -21,10 +21,16 @@ public  class MapaMatrix extends Mapa<Integer, Integer>  {
 		this.length = length;
 	}
 	
+	public MapaMatrix(IPosition<Integer, Integer>[][] positions) {
+		this.mapa = positions;
+		this.posiciones = convertMapToFlatMap(mapa);
+		this.length = positions.length;
+	}
+	
 	//Pre: the length should be more than 0 = lenght > 0
 	//Post: it will return a map
-	private Posicion<Integer, Integer>[][] generateEmptyMap(int length){
-		Posicion<Integer, Integer>[][] eMap = new Posicion[length][length];
+	private IPosition<Integer, Integer>[][] generateEmptyMap(int length){
+		IPosition<Integer, Integer>[][] eMap = new IPosition[length][length];
 		
 		for(int i = 0 ; i < length; i++) {
 			for(int j = 0 ; j < length; j++) {				
@@ -38,10 +44,10 @@ public  class MapaMatrix extends Mapa<Integer, Integer>  {
 	//Pre: the matrixMap should have the same height in all the rows
 	//Post: I will return a map with the same items as the matrix map,
 	//		  it will not modified the original matrixMap
-	private static Posicion<Integer, Integer>[] convertMapToFlatMap(Posicion<Integer, Integer>[][] matrixMap){
+	private static IPosition<Integer, Integer>[] convertMapToFlatMap(IPosition<Integer, Integer>[][] matrixMap){
 		int width = matrixMap.length;
 		int height = matrixMap[0].length;
-		Posicion<Integer, Integer>[] flatMap = new Posicion[width*height];		
+		IPosition<Integer, Integer>[] flatMap = new IPosition[width*height];		
 		for(int i = 0 ; i < width; i++) {
 			for(int j = 0 ; j < height; j++) {
 				flatMap[i*width+j] = matrixMap[i][j];
@@ -50,7 +56,7 @@ public  class MapaMatrix extends Mapa<Integer, Integer>  {
 		return flatMap;
 	}
 	
-	public Posicion<Integer, Integer>[][] getMapa() {
+	public IPosition<Integer, Integer>[][] getMapa() {
 		return mapa;
 	}
 	
@@ -59,7 +65,7 @@ public  class MapaMatrix extends Mapa<Integer, Integer>  {
 		
 		String exit = "";
 		String nChar = "";
-		Posicion<Integer, Integer> nPosition;
+		IPosition<Integer, Integer> nPosition;
 		int countCharsEachPosition = 3;
 		for(int j = 0 ; j < length; j++) {
 			for(int i = 0 ; i < length*countCharsEachPosition; i++) {
@@ -69,7 +75,7 @@ public  class MapaMatrix extends Mapa<Integer, Integer>  {
 			
 			for(int i = 0 ; i < length; i++) {
 				nPosition = mapa[i][j];
-				exit += COLUM_STR + nPosition.getRepresentation();  
+				exit += COLUM_STR + ((Posicion<Integer,Integer>)nPosition).getRepresentation();  
 				exit+= ( i +1 ) == length  ? COLUM_STR : "";
 			}
 			exit += "\n";
@@ -95,7 +101,7 @@ public  class MapaMatrix extends Mapa<Integer, Integer>  {
 			exit += "\n";
 			
 			for(int i = 0 ; i < length; i++) {
-				exit += COLUM_STR + mapa[i][j].getRepresentation();  
+				exit += COLUM_STR + ((Posicion<Integer,Integer>)mapa[i][j]).getRepresentation();  
 				exit += ( i +1 ) == length  ? COLUM_STR : "";
 			}
 			exit += "\n";
@@ -145,26 +151,26 @@ public  class MapaMatrix extends Mapa<Integer, Integer>  {
 	}
 
 	@Override
-	public Posicion<Integer, Integer> getPosicion(Integer x, Integer y) {
+	public IPosition<Integer, Integer> getPosicion(Integer x, Integer y) {
 		// TODO Auto-generated method stub
 		return mapa[x][y];
 	}
 
 	@Override
-	public void setPosicion(Posicion<Integer, Integer> posicion) {
+	public void setPosicion(IPosition<Integer, Integer> posicion) {
 		setPosicion(posicion.getX(), posicion.getY(), posicion);
 	}
 	
 	@Override
-	public void setPosicion(Integer x, Integer y, Posicion<Integer, Integer> posicion) {
+	public void setPosicion(Integer x, Integer y, IPosition<Integer, Integer> posicion) {
 		this.mapa[x][y] = posicion;
 		this.posiciones[x*length+y] = posicion;
 	}
 
 	@Override
-	public boolean isEmptyPosicion(Posicion<Integer, Integer> posicion) {
+	public boolean isEmptyPosicion(IPosition<Integer, Integer> posicion) {
 		// TODO Auto-generated method stub
-		Posicion<Integer, Integer> aPosi = getPosicion(posicion.getX(), posicion.getY());
+		IPosition<Integer, Integer> aPosi = getPosicion(posicion.getX(), posicion.getY());
 		
 		return aPosi.isEmpty();
 	}
@@ -175,9 +181,9 @@ public  class MapaMatrix extends Mapa<Integer, Integer>  {
 	 * @return The position which the ente is right now 
 	 *  null if the ente is not in the map
 	 */
-	public Posicion<Integer, Integer> getEntePosition(Ente ente){
-		Posicion<Integer, Integer> position = null;
-		for(Posicion<Integer, Integer> nPosition : posiciones) {
+	public IPosition<Integer, Integer> getEntePosition(Ente ente){
+		IPosition<Integer, Integer> position = null;
+		for(IPosition<Integer, Integer> nPosition : posiciones) {
 			if( nPosition.hasSomething() && nPosition.getSomething() instanceof Ente) {
 					Ente nEnte = (Ente) nPosition.getSomething();
 					if(nEnte.equals(ente)) {
@@ -192,11 +198,11 @@ public  class MapaMatrix extends Mapa<Integer, Integer>  {
 	}
 
 	@Override
-	public boolean hasPosition(Posicion<Integer, Integer> posicion) {
+	public boolean hasPosition(Integer x, Integer y) {
 		// TODO Auto-generated method stub
 		
-		if(posicion.getX() >= 0 && posicion.getX() < posiciones.length) {
-			return posicion.getY() >= 0 && posicion.getY() < posiciones.length;
+		if(x >= 0 && x < length) {
+			return y >= 0 && y < length;
 		}
 		return false;	
 	}

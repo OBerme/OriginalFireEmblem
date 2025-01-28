@@ -3,15 +3,16 @@ package md.range;
 import java.util.ArrayList;
 import java.util.List;
 
+import mapa.md.IPosition;
 import mapa.md.Mapa;
 import mapa.md.Posicion;
 
 public final class RangeRectangle {	
 	//Pre: the width and height should be width != height and both > 0, the posi and map should be not null
 	//Post: it will return a positions with the max position as x = witdh + posi.X and y = height + posi.Y 
-	public  static final List<Posicion<Integer, Integer>> getPositions(Posicion<Integer, Integer> posi, Mapa<Integer, Integer> map, int width, int height) {
+	public  static final List<IPosition<Integer, Integer>> getPositions(Posicion<Integer, Integer> posi, Mapa<Integer, Integer> map, int width, int height) {
 //		Posicion<Integer, Integer>[] positions = new Posicion[(int)Math.pow(radio, 2)];
-		List<Posicion<Integer, Integer>> positions = new ArrayList();
+		List<IPosition<Integer, Integer>> positions = new ArrayList();
 		
 		int fheight = posi.getY()+height;
 		int fwidth = posi.getX()+width;

@@ -72,4 +72,9 @@ public class SerVivo extends Ente implements Groupable, Actionable, Movable{
 		// TODO Auto-generated method stub
 		return numb+"";
 	}
+	@Override
+	public int getNum() {
+		// TODO Auto-generated method stub
+		return this.numb;
+	}
 }

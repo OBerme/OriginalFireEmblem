@@ -25,6 +25,18 @@ public class LNMapaMatrixEntesGroup extends LNMapaMatrixEntes implements IGroupM
 		// TODO Auto-generated method stub
 		return this.mapaVectorGroup.getGroupMapString(sGroup);
 	}
+
+	@Override
+	public String getGroupMapStringNum(Group group) {
+		// TODO Auto-generated method stub
+		return this.mapaVectorGroup.getGroupMapStringNumber(group);
+	}
+
+	@Override
+	public boolean hasPosition(Integer x, Integer y) {
+		// TODO Auto-generated method stub
+		return this.mapa.hasPosition(x, y);
+	}
 	
 	
 	

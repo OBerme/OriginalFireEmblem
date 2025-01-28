@@ -1,14 +1,15 @@
 package mapa.ln;
 
 import entes.md.Ente;
+import mapa.md.IPosition;
 import mapa.md.Posicion;
 
 public interface ILNMapaMatrixEntes extends ILNMapaMatrix{
 	public boolean isEnteInMap(Ente ente);
 	public String getNumberEntesDesing();
 	public Ente getEnte(int number);
-	
-	boolean moverEnte(Ente ente, Posicion<Integer, Integer> posi);
+	boolean isValidPosition( Integer x, Integer y);
+	boolean moverEnte(Ente ente, Integer x, Integer y);
 	
 	void addEnte(Ente ente, Posicion<Integer, Integer> posi);
 	boolean removeEnte(Ente ente);

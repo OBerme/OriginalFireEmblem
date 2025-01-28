@@ -5,6 +5,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import entes.md.Ente;
+import mapa.md.IPosition;
 import mapa.md.MapaMatrix;
 import mapa.md.Posicion;
 
@@ -35,7 +36,7 @@ public class LNMapaMatrix extends LNMapa<Integer, Integer> implements ILNMapaMat
 
 
 	@Override
-	public Posicion<Integer, Integer>[] getPositions() {
+	public IPosition<Integer, Integer>[] getPositions() {
 		// TODO Auto-generated method stub
 		return this.mapa.getPosiciones();
 	}
