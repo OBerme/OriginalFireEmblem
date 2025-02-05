@@ -14,19 +14,30 @@ import mapa.md.IPosition;
 import mapa.md.IPositionable;
 import mapa.md.Posicion;
 import presentation.graphicOptions.IDrawable;
+import presentation.graphicOptions.IShowMenus;
 import presentation.graphicOptions.Menuable;
+import presentation.main.IPController;
+import presentation.main.PController;
 import presentation.main.PDefaultValues;
+import presentation.menu.PMenuAbstractFactory;
 
-public class GraphicPosition<X, Y> implements IPosition<X, Y>{
+public class GraphicPositionInteger implements IPosition<Integer, Integer>{
 	private ImageIcon cellImage;
-	private GraphicMap<X, Y> map;
-	private Posicion<X, Y> positi;
+	private IShowMenus isMenu;
+	private IPosition<Integer, Integer> positi;
+	private IPController ipContro;
+	private IPPPositionSubjectData pPSubject;
+	
 	//Pre: The ente 
-	public GraphicPosition(Posicion<X, Y> positi,  String cellImage,  GraphicMap<X, Y> map) {
+	public GraphicPositionInteger(IPosition<Integer, Integer> positi, 
+			String cellImage,  IShowMenus isMenu,IPController ipContro, IPPPositionSubjectData pPSubject) {
 		this.positi = positi;
 		
+		
 		this.cellImage = new ImageIcon(cellImage);
-		this.map = map;
+		this.isMenu = isMenu;
+		this.ipContro =ipContro;
+		this.pPSubject = pPSubject;;
 		// TODO Auto-generated constructor stub
 	}
 	
@@ -48,6 +59,7 @@ public class GraphicPosition<X, Y> implements IPosition<X, Y>{
 		button.setIcon(cellImage);
 		button.setBackground(PDefaultValues.D_CELL_COLOR_DESA);
 		button.addActionListener(e -> {
+			pPSubject.setsPosi(this);
 			System.out.println(this.toString());
 			button.setBackground(PDefaultValues.D_CELL_COLOR_ACTI);
 		});
@@ -58,7 +70,8 @@ public class GraphicPosition<X, Y> implements IPosition<X, Y>{
 	}
 	
 	private JButton getEnteCell() {
-		return new PGraphicEnte((GraphicEnte)positi.getSomething(), map);
+		GraphicEnte gE = (GraphicEnte)positi.getSomething();
+		return new PGraphicEnte(gE,isMenu);
 	}
 	
 	@Override
@@ -94,16 +107,30 @@ public class GraphicPosition<X, Y> implements IPosition<X, Y>{
 
 
 	@Override
-	public X getX() {
+	public Integer getX() {
 		// TODO Auto-generated method stub
 		return positi.getX();
 	}
 
 
 	@Override
-	public Y getY() {
+	public Integer getY() {
 		// TODO Auto-generated method stub
 		return positi.getY();
+	}
+
+
+	@Override
+	public String getRepresentation() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public String getRepresentationNumber() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

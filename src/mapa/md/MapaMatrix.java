@@ -14,10 +14,15 @@ public  class MapaMatrix extends Mapa<Integer, Integer>  {
 	
 	protected IPosition<Integer, Integer>[][] mapa;
 	protected int length;
+	
+	public MapaMatrix() {
+		this.length = 0;
+		this.mapa = null;
+		this.posiciones = null;
+	}
 
 	public MapaMatrix(int length) {
-		this.mapa = generateEmptyMap(length);
-		this.posiciones = convertMapToFlatMap(mapa);
+		generatePositions(length);
 		this.length = length;
 	}
 	
@@ -26,6 +31,14 @@ public  class MapaMatrix extends Mapa<Integer, Integer>  {
 		this.posiciones = convertMapToFlatMap(mapa);
 		this.length = positions.length;
 	}
+	
+	
+	private void generatePositions(int length) {
+		this.mapa = generateEmptyMap(length);
+		this.posiciones = convertMapToFlatMap(mapa);
+	}
+	
+	
 	
 	//Pre: the length should be more than 0 = lenght > 0
 	//Post: it will return a map

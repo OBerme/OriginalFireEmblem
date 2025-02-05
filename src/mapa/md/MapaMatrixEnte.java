@@ -15,6 +15,12 @@ public class MapaMatrixEnte extends MapaMatrix{
 	}
 	
 
+	public MapaMatrixEnte() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+
 	public String getEnteDesingNumber() {
 		// TODO Auto-generated method stub
 

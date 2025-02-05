@@ -23,6 +23,11 @@ public class MapaMatrixEnteGroup extends MapaMatrixEnte{
 		this.groups = groups;
 	}
 	
+	public MapaMatrixEnteGroup() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 	//Pre: the length should be more than 0 = lenght > 0
 	//Post: it will return a map with PosicionGroupableActionable positions xd
 	private static IPosition<Integer, Integer>[][] generateEmptyMap(int length){

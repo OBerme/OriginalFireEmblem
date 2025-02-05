@@ -19,6 +19,11 @@ public class MapaMatrixEnteGroupActionable extends MapaMatrixEnteGroup{
 	}
 	
 
+	public MapaMatrixEnteGroupActionable() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 	public String getGroupMapString(Group sGroup) {
 		// TODO Auto-generated method stub
 

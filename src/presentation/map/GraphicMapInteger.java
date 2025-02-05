@@ -16,18 +16,17 @@ import mapa.ln.LNMapa;
 import mapa.md.IPosition;
 import mapa.md.Posicion;
 import menu.md.Menu;
+import presentation.graphicOptions.IShowMenus;
 import presentation.graphicOptions.Menuable;
 import presentation.graphicOptions.Playable;
 import presentation.graphicOptions.Rangeable;
 import presentation.main.PDefaultValues;
+import presentation.menu.PMenu;
 
-public class GraphicMapInteger extends GraphicMap<Integer, Integer> implements Playable, Menuable, Rangeable{
+public class GraphicMapInteger extends GraphicMap<Integer, Integer> 
+	implements Playable, Rangeable{
 
 	private INLMapa<Integer, Integer> map;
-	
-	
-	
-	
 	public GraphicMapInteger(INLMapa<Integer, Integer> map) {
 		super();
 		this.map = map;
@@ -49,7 +48,7 @@ public class GraphicMapInteger extends GraphicMap<Integer, Integer> implements P
 	private void createCells() {
 		// Crear botones para cada celda de la cuadrícula
 		for(IPosition<Integer, Integer> nPosi : map.getPositions()) {
-			GraphicPosition<Integer, Integer> nGPosi = ((GraphicPosition<Integer, Integer>)nPosi);
+			GraphicPositionInteger nGPosi = ((GraphicPositionInteger)nPosi);
 			
 			this.add(nGPosi.getGraphicRepresentation());
 			
@@ -79,11 +78,6 @@ public class GraphicMapInteger extends GraphicMap<Integer, Integer> implements P
 		
 	}
 
-	@Override
-	public Menu getMenu() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 	
 
 }

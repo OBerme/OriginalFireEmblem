@@ -16,6 +16,7 @@ import entes.md.Persona;
 import entes.md.SerVivo;
 import group.ln.LNGroup;
 import group.md.Group;
+import mapa.ln.AbstractFactoryPositionInteger;
 import mapa.ln.ILNMapaMatrixEntesGroup;
 import mapa.ln.IMapEvents;
 import mapa.ln.LNMapaMatrixEntesGroup;
@@ -24,9 +25,13 @@ import mapa.md.MapaMatrixEnteGroupActionable;
 import mapa.md.Posicion;
 import mapa.md.PosicionGroupable;
 import mapa.md.PosicionGroupableActionable;
+import presentation.graphicOptions.IShowMenus;
 import presentation.map.GraphicMap;
 import presentation.map.GraphicMapInteger;
-import presentation.map.GraphicPosition;
+import presentation.map.GraphicPositionInteger;
+import presentation.map.IPPPositionSubjectData;
+import presentation.map.IPPositionSubject;
+import presentation.menu.PMenuAbstractFactory;
 import turner.md.enums.TurnerEnumConstant;
 
 public class PresentationMain {
@@ -41,14 +46,23 @@ public class PresentationMain {
 		List<Group> groupsR = new ArrayList();
 //		groups.add(new Group())
 		
-		IPosition<Integer, Integer>[][] positions = new GraphicPosition[length][length];
+		MapaMatrixEnteGroupActionable mapa = new MapaMatrixEnteGroupActionable();
+		
+		
+		IPController crontoller = new PController();
+		IPPPositionSubjectData obserPosition = null;
+		
 		GraphicMapInteger gMap = null;
 		 
+		IPosition<Integer, Integer>[][] positions = new GraphicPositionInteger[length][length];
 		for(int i = 0 ; i < length; i++) {
 			for(int j = 0 ; j < length; j++) {	
-				positions[i][j] = new GraphicPosition<Integer, Integer>(
-						new PosicionGroupableActionable<Integer, Integer>(i, j), 
-						PDefaultValues.getPathImage("casilla.png"), gMap);
+				positions[i][j] = new GraphicPositionInteger(
+						AbstractFactoryPositionInteger.getPosition(i, j, mapa),
+						PDefaultValues.getPathImage("casilla.png"),
+						crontoller, //IShowMenus
+						crontoller,
+						obserPosition);
 			}
 		}
 		
@@ -60,28 +74,36 @@ public class PresentationMain {
 		ataquesM.add(new Ataque(1, "Magical atack", 50000, Tipo.FUEGO));
 		ataquesM.add(new Ataque(2, "Garrazo en las costillas", 300, Tipo.FUEGO));
 		
-		((GraphicPosition<Integer,Integer>)positions[2][2]).setSomething(new GraphicPersona(
-				new Persona(200, "Oscar", "O", new Estado(StateSerVivo.NORMAL),TurnerEnumConstant.SPEED_DIVIDER.getCost(),ataquesN),
-				PDefaultValues.getPathImage("bluesky.png"), null)); //TODO
-				
-		((GraphicPosition<Integer,Integer>)positions[3][2]).setSomething(new GraphicPersona(
-				new Persona(700, "Joji", "J", new Estado(StateSerVivo.NORMAL),TurnerEnumConstant.SPEED_DIVIDER.getCost(),ataquesM),
-				PDefaultValues.getPathImage("jiji.png"), null)); //TODO
+		Persona oscar = new Persona(200, "Oscar", "O", new Estado(StateSerVivo.NORMAL),TurnerEnumConstant.SPEED_DIVIDER.getCost(),ataquesN);
+		((GraphicPositionInteger)positions[2][2]).setSomething(
+				new GraphicPersona(oscar,
+					PDefaultValues.getPathImage("bluesky.png"),
+					PMenuAbstractFactory.getDefaultMenuEnte(oscar, crontoller))); //TODO
 		
-		((GraphicPosition<Integer,Integer>)positions[2][3]).setSomething(new GraphicMonstruo(
-				new Monstruo(1500, "Undyne", "U", new Estado(StateSerVivo.NORMAL),TurnerEnumConstant.SPEED_DIVIDER.getCost(),ataquesN),
-				PDefaultValues.getPathImage("monster.png"), null)); //TODO
+		Persona jiji = new Persona(700, "Joji", "J", new Estado(StateSerVivo.NORMAL),TurnerEnumConstant.SPEED_DIVIDER.getCost(),ataquesM);
+		((GraphicPositionInteger)positions[3][2]).setSomething(new GraphicPersona(
+				jiji,
+				PDefaultValues.getPathImage("jiji.png"), 
+				PMenuAbstractFactory.getDefaultMenuEnte(jiji, crontoller))); //TODO
 		
-		((GraphicPosition<Integer,Integer>)positions[3][3]).setSomething(new GraphicMonstruo(
-				new Monstruo(2700, "Asgore", "A", new Estado(StateSerVivo.NORMAL),TurnerEnumConstant.SPEED_DIVIDER.getCost(),ataquesN),
-				PDefaultValues.getPathImage("monster.png"), null)); //TODO
+		Monstruo undy = new Monstruo(1500, "Undyne", "U", new Estado(StateSerVivo.NORMAL),TurnerEnumConstant.SPEED_DIVIDER.getCost(),ataquesN);
+		((GraphicPositionInteger)positions[2][3]).setSomething(new GraphicMonstruo(
+				undy,
+				PDefaultValues.getPathImage("monster.png"), 
+				PMenuAbstractFactory.getDefaultMenuEnte(undy, crontoller))); //TODO
 		
-		MapaMatrixEnteGroupActionable mapa = new MapaMatrixEnteGroupActionable(positions, groupsR);
+		Monstruo asgor =new Monstruo(2700, "Asgore", "A", new Estado(StateSerVivo.NORMAL),TurnerEnumConstant.SPEED_DIVIDER.getCost(),ataquesN);
+		((GraphicPositionInteger)positions[3][3]).setSomething(new GraphicMonstruo(
+				asgor,
+				PDefaultValues.getPathImage("monster.png"), 
+				PMenuAbstractFactory.getDefaultMenuEnte(asgor, crontoller))); //TODO
 		
+		mapa = new MapaMatrixEnteGroupActionable(positions, groupsR);
 		ILNMapaMatrixEntesGroup lnMapa = new LNMapaMatrixEntesGroup(mapa, null,null );
         // Crear el panel de dibujo
 		
 		gMap = new GraphicMapInteger(lnMapa);
+		
         frame.add(gMap);
         
         frame.setSize(gMap.getWidth(), gMap.getHeight());
