@@ -1,11 +1,11 @@
 package presentation.menu;
 
-import presentation.main.IPController;
+import presentation.main.IPEnteController;
 import presentation.main.PController;
 
 public class POpMoveEnte extends POption{
 
-	public POpMoveEnte(IPController pcontro) {
+	public POpMoveEnte(IPEnteController pcontro) {
 		super("Move", pcontro);
 		// TODO Auto-generated constructor stub
 	}

@@ -16,7 +16,7 @@ import mapa.md.Posicion;
 import presentation.graphicOptions.IDrawable;
 import presentation.graphicOptions.IShowMenus;
 import presentation.graphicOptions.Menuable;
-import presentation.main.IPController;
+import presentation.main.IPEnteController;
 import presentation.main.PController;
 import presentation.main.PDefaultValues;
 import presentation.menu.PMenuAbstractFactory;
@@ -25,12 +25,12 @@ public class GraphicPositionInteger implements IPosition<Integer, Integer>{
 	private ImageIcon cellImage;
 	private IShowMenus isMenu;
 	private IPosition<Integer, Integer> positi;
-	private IPController ipContro;
+	private IPEnteController ipContro;
 	private IPPPositionSubjectData pPSubject;
 	
 	//Pre: The ente 
 	public GraphicPositionInteger(IPosition<Integer, Integer> positi, 
-			String cellImage,  IShowMenus isMenu,IPController ipContro, IPPPositionSubjectData pPSubject) {
+			String cellImage,  IShowMenus isMenu,IPEnteController ipContro, IPPPositionSubjectData pPSubject) {
 		this.positi = positi;
 		
 		

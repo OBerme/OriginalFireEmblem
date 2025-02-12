@@ -7,12 +7,12 @@ import acciones.md.ataque.Ataque;
 import entes.Atacable;
 import entes.Movable;
 import entes.md.Ente;
-import presentation.main.IPController;
+import presentation.main.IPEnteController;
 import presentation.main.PController;
 import turner.md.Actionable;
 
 public class PMenuAbstractFactory {
-	public static PMenu getDefaultMenuEnte(Ente ente, IPController pContro) {
+	public static PMenu getDefaultMenuEnte(Ente ente, IPEnteController pContro) {
 		List<IPOption> options = new ArrayList<IPOption>();
 		if(ente instanceof Actionable) {
 			if(ente instanceof Movable) {
@@ -29,7 +29,7 @@ public class PMenuAbstractFactory {
 		return new PMenu(options);
 	}
 	
-	public static PMenu getDefaultMenuCell(IPController pContro) {
+	public static PMenu getDefaultMenuCell(IPEnteController pContro) {
 		List<IPOption> options = new ArrayList<IPOption>();
 		return new PMenu(options);
 	}

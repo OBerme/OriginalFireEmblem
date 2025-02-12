@@ -29,8 +29,10 @@ import presentation.graphicOptions.IShowMenus;
 import presentation.map.GraphicMap;
 import presentation.map.GraphicMapInteger;
 import presentation.map.GraphicPositionInteger;
+import presentation.map.IObserver;
 import presentation.map.IPPPositionSubjectData;
 import presentation.map.IPPositionSubject;
+import presentation.map.PPositionData;
 import presentation.menu.PMenuAbstractFactory;
 import turner.md.enums.TurnerEnumConstant;
 
@@ -48,9 +50,16 @@ public class PresentationMain {
 		
 		MapaMatrixEnteGroupActionable mapa = new MapaMatrixEnteGroupActionable();
 		
+		//controls set up
+		IPController controller = null;
+		IPEnteController entContro = (IPEnteController)controller; 
+		IShowMenus menuContro = (IShowMenus)controller; 
 		
-		IPController crontoller = new PController();
-		IPPPositionSubjectData obserPosition = null;
+		List<IObserver> observers = new ArrayList<IObserver>();
+		
+		IPPPositionSubjectData obserPosition = new PPositionData(observers);
+		
+		
 		
 		GraphicMapInteger gMap = null;
 		 
@@ -60,8 +69,8 @@ public class PresentationMain {
 				positions[i][j] = new GraphicPositionInteger(
 						AbstractFactoryPositionInteger.getPosition(i, j, mapa),
 						PDefaultValues.getPathImage("casilla.png"),
-						crontoller, //IShowMenus
-						crontoller,
+						menuContro, //IShowMenus
+						entContro,
 						obserPosition);
 			}
 		}
@@ -75,34 +84,38 @@ public class PresentationMain {
 		ataquesM.add(new Ataque(2, "Garrazo en las costillas", 300, Tipo.FUEGO));
 		
 		Persona oscar = new Persona(200, "Oscar", "O", new Estado(StateSerVivo.NORMAL),TurnerEnumConstant.SPEED_DIVIDER.getCost(),ataquesN);
+		
 		((GraphicPositionInteger)positions[2][2]).setSomething(
 				new GraphicPersona(oscar,
 					PDefaultValues.getPathImage("bluesky.png"),
-					PMenuAbstractFactory.getDefaultMenuEnte(oscar, crontoller))); //TODO
+					PMenuAbstractFactory.getDefaultMenuEnte(oscar, entContro))); //TODO
 		
 		Persona jiji = new Persona(700, "Joji", "J", new Estado(StateSerVivo.NORMAL),TurnerEnumConstant.SPEED_DIVIDER.getCost(),ataquesM);
 		((GraphicPositionInteger)positions[3][2]).setSomething(new GraphicPersona(
 				jiji,
 				PDefaultValues.getPathImage("jiji.png"), 
-				PMenuAbstractFactory.getDefaultMenuEnte(jiji, crontoller))); //TODO
+				PMenuAbstractFactory.getDefaultMenuEnte(jiji, entContro))); //TODO
 		
 		Monstruo undy = new Monstruo(1500, "Undyne", "U", new Estado(StateSerVivo.NORMAL),TurnerEnumConstant.SPEED_DIVIDER.getCost(),ataquesN);
 		((GraphicPositionInteger)positions[2][3]).setSomething(new GraphicMonstruo(
 				undy,
 				PDefaultValues.getPathImage("monster.png"), 
-				PMenuAbstractFactory.getDefaultMenuEnte(undy, crontoller))); //TODO
+				PMenuAbstractFactory.getDefaultMenuEnte(undy, entContro))); //TODO
 		
 		Monstruo asgor =new Monstruo(2700, "Asgore", "A", new Estado(StateSerVivo.NORMAL),TurnerEnumConstant.SPEED_DIVIDER.getCost(),ataquesN);
 		((GraphicPositionInteger)positions[3][3]).setSomething(new GraphicMonstruo(
 				asgor,
 				PDefaultValues.getPathImage("monster.png"), 
-				PMenuAbstractFactory.getDefaultMenuEnte(asgor, crontoller))); //TODO
+				PMenuAbstractFactory.getDefaultMenuEnte(asgor, entContro))); //TODO
 		
 		mapa = new MapaMatrixEnteGroupActionable(positions, groupsR);
 		ILNMapaMatrixEntesGroup lnMapa = new LNMapaMatrixEntesGroup(mapa, null,null );
         // Crear el panel de dibujo
 		
 		gMap = new GraphicMapInteger(lnMapa);
+		
+		controller = new PController(gMap, obserPosition);
+		observers.add((IObserver)controller);
 		
         frame.add(gMap);
         
