@@ -33,6 +33,7 @@ import presentation.map.IObserver;
 import presentation.map.IPPPositionSubjectData;
 import presentation.map.IPPositionSubject;
 import presentation.map.PPositionData;
+import presentation.menu.PMenu;
 import presentation.menu.PMenuAbstractFactory;
 import turner.md.enums.TurnerEnumConstant;
 
@@ -51,7 +52,7 @@ public class PresentationMain {
 		MapaMatrixEnteGroupActionable mapa = new MapaMatrixEnteGroupActionable();
 		
 		//controls set up
-		IPController controller = null;
+		IPController controller = new PController();
 		IPEnteController entContro = (IPEnteController)controller; 
 		IShowMenus menuContro = (IShowMenus)controller; 
 		
@@ -84,11 +85,11 @@ public class PresentationMain {
 		ataquesM.add(new Ataque(2, "Garrazo en las costillas", 300, Tipo.FUEGO));
 		
 		Persona oscar = new Persona(200, "Oscar", "O", new Estado(StateSerVivo.NORMAL),TurnerEnumConstant.SPEED_DIVIDER.getCost(),ataquesN);
-		
+		PMenu menuOscar = PMenuAbstractFactory.getDefaultMenuEnte(oscar, entContro);
 		((GraphicPositionInteger)positions[2][2]).setSomething(
 				new GraphicPersona(oscar,
 					PDefaultValues.getPathImage("bluesky.png"),
-					PMenuAbstractFactory.getDefaultMenuEnte(oscar, entContro))); //TODO
+					menuOscar)); //TODO
 		
 		Persona jiji = new Persona(700, "Joji", "J", new Estado(StateSerVivo.NORMAL),TurnerEnumConstant.SPEED_DIVIDER.getCost(),ataquesM);
 		((GraphicPositionInteger)positions[3][2]).setSomething(new GraphicPersona(
@@ -114,7 +115,9 @@ public class PresentationMain {
 		
 		gMap = new GraphicMapInteger(lnMapa);
 		
-		controller = new PController(gMap, obserPosition);
+		controller.setgMap(gMap);
+		controller.setPosiProductor(obserPosition);
+		
 		observers.add((IObserver)controller);
 		
         frame.add(gMap);

@@ -12,7 +12,7 @@ public class POpMoveEnte extends POption{
 
 	@Override
 	public void doAction() {
-		pcontro.moveEnte();
+		((IPEnteController)pcontro).moveEnte();
 	}
 	
 }

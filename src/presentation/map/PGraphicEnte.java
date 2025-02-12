@@ -34,25 +34,28 @@ public class PGraphicEnte<X, Y> extends JButton implements Menuable{
 		setIcon(new ImageIcon(gEnte.getPathImage()));
 		setBackground(PDefaultValues.D_CELL_COLOR_DESA);
 		
-		addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				if(gEnte instanceof Menuable) {
-					Menuable eMenu =  (Menuable)gEnte;
-					if(active = !active) {
-						isMenu.showMenu(eMenu.getMenu());
-					}
-					setBackground(active ? 
-							PDefaultValues.D_CELL_COLOR_ACTI : PDefaultValues.D_CELL_COLOR_DESA);
-				}
-			}
-		});
-		
 		this.gEnte = gEnte;
 		this.isMenu = isMenu;
 		this.active = false;
+		
+		addActionListener(e -> {
+			// TODO Auto-generated method stub
+			if(this.gEnte instanceof Menuable) {
+				Menuable eMenu =  (Menuable)this.gEnte;
+				active = !active;
+				
+				if(active) {
+					PMenu menu = eMenu.getMenu();
+					
+					this.isMenu.showMenu(menu);
+				}
+				
+				setBackground(active ? 
+						PDefaultValues.D_CELL_COLOR_ACTI : PDefaultValues.D_CELL_COLOR_DESA);
+			}
+		});
+		
+		
 	}
 
 
@@ -64,5 +67,13 @@ public class PGraphicEnte<X, Y> extends JButton implements Menuable{
 			return eMenu.getMenu();
 		}
 		return PMenuAbstractFactory.getDefaultMenuCell(null);
+	}
+
+
+	@Override
+	public void update() {
+		active = false;
+		// TODO Auto-generated method stub
+		
 	}
 }

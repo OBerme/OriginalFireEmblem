@@ -29,6 +29,7 @@ public class PMenu extends JPanel {
             JButton button = createMenuButton(nOption);
             add(button); // Agregar al panel
         }
+        this.options = options;
 	}
 
 	private JButton createMenuButton(IPOption nOption) {

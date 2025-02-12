@@ -21,12 +21,14 @@ import presentation.main.PController;
 import presentation.main.PDefaultValues;
 import presentation.menu.PMenuAbstractFactory;
 
-public class GraphicPositionInteger implements IPosition<Integer, Integer>{
+public class GraphicPositionInteger implements IPosition<Integer, Integer>, IPositionObserver{
 	private ImageIcon cellImage;
 	private IShowMenus isMenu;
 	private IPosition<Integer, Integer> positi;
 	private IPEnteController ipContro;
 	private IPPPositionSubjectData pPSubject;
+	
+	private boolean active;
 	
 	//Pre: The ente 
 	public GraphicPositionInteger(IPosition<Integer, Integer> positi, 
@@ -38,7 +40,8 @@ public class GraphicPositionInteger implements IPosition<Integer, Integer>{
 		this.isMenu = isMenu;
 		this.ipContro =ipContro;
 		this.pPSubject = pPSubject;;
-		// TODO Auto-generated constructor stub
+		
+		this.active = false;
 	}
 	
 	
@@ -59,15 +62,24 @@ public class GraphicPositionInteger implements IPosition<Integer, Integer>{
 		button.setIcon(cellImage);
 		button.setBackground(PDefaultValues.D_CELL_COLOR_DESA);
 		button.addActionListener(e -> {
-			pPSubject.setsPosi(this);
-			System.out.println(this.toString());
-			button.setBackground(PDefaultValues.D_CELL_COLOR_ACTI);
+			
+
+			public void onClickedPosition() {
+				
+				active = !active;
+				button.setBackground(active ? 
+						PDefaultValues.D_CELL_COLOR_ACTI : PDefaultValues.D_CELL_COLOR_DESA);
+				
+				//Say that the button was clicked
+				pPSubject.setsPosi(this);
+			}
 		});
 			
 			
 		
 		return button;
 	}
+	
 	
 	private JButton getEnteCell() {
 		GraphicEnte gE = (GraphicEnte)positi.getSomething();
@@ -131,6 +143,14 @@ public class GraphicPositionInteger implements IPosition<Integer, Integer>{
 	public String getRepresentationNumber() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+
+	@Override
+	public void update() {
+		// TODO Auto-generated method stub
+		active = false;
+		
 	}
 
 }

@@ -16,15 +16,19 @@ import presentation.menu.PMenu;
 @objid ("65c28fdb-6a52-451e-9c89-e87930998704")
 public class PController implements IPEnteController, IShowMenus, IPositionObserver, IPController{
 	private IGraphicMap gMap;
-	private GraphicPositionInteger sGPosi;
 	private IPPPositionSubjectData posiProductor; // observer pattern to catch the position selected
    
 	
     public PController(IGraphicMap gMap, IPPPositionSubjectData posiProductor) {
 		super();
 		this.gMap = gMap;
-		this.sGPosi = sGPosi;
 		this.posiProductor = posiProductor;
+	}
+
+    //Pre: ---
+    //Post: it will do some exceptions if you dont use the setGMap and setIPositionObserver
+	public PController() {
+		this(null, null);
 	}
 
 	@objid ("40aa2939-d55e-42b6-867d-03835d5581f0")
@@ -51,6 +55,19 @@ public class PController implements IPEnteController, IShowMenus, IPositionObser
 		System.out.println("Position update! " + posiProductor.getPosi());
 		
 	}
+
+	@Override
+	public void setgMap(IGraphicMap gMap) {
+		this.gMap = gMap;
+	}
+
+	@Override
+	public void setPosiProductor(IPPPositionSubjectData posiProductor) {
+		this.posiProductor = posiProductor;
+	}
+	
+	
+	
 
 
 }
