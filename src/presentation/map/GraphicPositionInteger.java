@@ -102,6 +102,16 @@ public class GraphicPositionInteger implements IGraphicPosition<Integer, Integer
 		return cellImage;
 	}
 
-
+	@Override
+	public boolean equals(Object obj) {
+		// TODO Auto-generated method stub
+		if(obj == null) return false;
+		
+		if(obj instanceof GraphicPositionInteger) {
+			GraphicPositionInteger gpi = (GraphicPositionInteger)obj;
+			return gpi.getX().equals(getX()) && gpi.getY().equals(getY());
+		}
+		return false;
+	}
 
 }

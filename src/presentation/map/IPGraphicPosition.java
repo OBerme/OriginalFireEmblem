@@ -2,7 +2,11 @@ package presentation.map;
 
 import javax.swing.JComponent;
 
-public interface IPGraphicPosition<X, Y> {
+import mapa.md.IPosition;
+
+public interface IPGraphicPosition<X, Y>{
+
+	void activePosition();
 
 
 }

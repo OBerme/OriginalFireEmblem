@@ -73,7 +73,7 @@ public class PresentationMain {
 			for(int j = 0 ; j < length; j++) {	
 				
 				IPosition<Integer, Integer> nPositi = new GraphicPositionInteger(
-						AbstractFactoryPositionInteger.getPosition(i, j, mapa),
+						AbstractFactoryPositionInteger.getPositionInteger(i, j, mapa),
 						PDefaultValues.getPathImage("casilla.png"),
 						menuContro); //IShowMenus
 				positions[i][j] = nPositi;

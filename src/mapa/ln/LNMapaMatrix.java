@@ -3,11 +3,14 @@ package mapa.ln;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
 
 import entes.md.Ente;
+import mapa.md.IMapa;
 import mapa.md.IPosition;
 import mapa.md.MapaMatrix;
 import mapa.md.Posicion;
+import md.range.RangeDiagonal;
 
 public class LNMapaMatrix extends LNMapa<Integer, Integer> implements ILNMapaMatrix{	
 	public LNMapaMatrix(MapaMatrix mapaVector) {
@@ -53,7 +56,7 @@ public class LNMapaMatrix extends LNMapa<Integer, Integer> implements ILNMapaMat
 
 	@Override
 	public boolean isEmptyPosition(Integer x, Integer y) {
-		return mapa.isEmptyPosicion(AbstractFactoryPositionInteger.getPosition(x, y,(MapaMatrix)mapa));
+		return mapa.isEmptyPosicion(AbstractFactoryPositionInteger.getPositionInteger(x, y,(MapaMatrix)mapa));
 	}
 	
 
@@ -76,5 +79,12 @@ public class LNMapaMatrix extends LNMapa<Integer, Integer> implements ILNMapaMat
 		
 		return "Something went wrong";
 	}
+
+	@Override
+	public List<IPosition<Integer, Integer>> getRangeDiagonal(Integer x, Integer y, Integer radio) {
+		// TODO Auto-generated method stub
+		return RangeDiagonal.getPositions(AbstractFactoryPositionInteger.getPositionInteger(x, y, mapa), mapa, radio);
+	}
+
 
 }

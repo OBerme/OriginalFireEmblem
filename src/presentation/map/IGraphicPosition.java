@@ -10,5 +10,5 @@ public interface IGraphicPosition<X, Y> extends IPosition<X, Y> {
 
 	Icon getCellImage();
 
-
+	
 }

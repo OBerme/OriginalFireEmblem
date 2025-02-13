@@ -162,12 +162,8 @@ public  class MapaMatrix extends Mapa<Integer, Integer>  {
 	public int getHeight() {
 		return this.length;
 	}
+	
 
-	@Override
-	public IPosition<Integer, Integer> getPosicion(Integer x, Integer y) {
-		// TODO Auto-generated method stub
-		return mapa[x][y];
-	}
 
 	@Override
 	public void setPosicion(IPosition<Integer, Integer> posicion) {
@@ -183,7 +179,7 @@ public  class MapaMatrix extends Mapa<Integer, Integer>  {
 	@Override
 	public boolean isEmptyPosicion(IPosition<Integer, Integer> posicion) {
 		// TODO Auto-generated method stub
-		IPosition<Integer, Integer> aPosi = getPosicion(posicion.getX(), posicion.getY());
+		IPosition<Integer, Integer> aPosi = getPosition(posicion.getX(), posicion.getY());
 		
 		return aPosi.isEmpty();
 	}
@@ -210,21 +206,22 @@ public  class MapaMatrix extends Mapa<Integer, Integer>  {
 		return position;
 	}
 
+	
+
+
+	@Override
+	public IPosition<Integer, Integer> getPosition(Integer x, Integer y) {
+		// TODO Auto-generated method stub
+		return mapa[x][y];
+	}
+
+
 	@Override
 	public boolean hasPosition(Integer x, Integer y) {
 		// TODO Auto-generated method stub
-		
 		if(x >= 0 && x < length) {
 			return y >= 0 && y < length;
 		}
 		return false;	
 	}
-
-	
-
-	
-	
-	
-	
-
 }

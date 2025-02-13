@@ -5,6 +5,7 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.font.NumericShaper.Range;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
@@ -57,6 +58,9 @@ public class GraphicMapInteger extends GraphicMap<Integer, Integer>
 				this.add((JComponent)gPositions[x][y]);
 			}
 		}
+		List<IPosition<Integer, Integer>>  positions = map.getRangeDiagonal(2, 2, 1);
+		AbstractPositionModifier.activateGraphicPositions(positions, gPositions);
+		
 	}
 
 	@Override

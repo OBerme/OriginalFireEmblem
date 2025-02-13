@@ -6,6 +6,7 @@ import java.util.HashMap;
 import entes.IEnteEvents;
 import entes.md.Ente;
 import entes.md.EnteCounter;
+import mapa.md.IMapEnte;
 import mapa.md.IPosition;
 import mapa.md.MapaMatrix;
 import mapa.md.MapaMatrixEnte;
@@ -98,10 +99,10 @@ public class LNMapaMatrixEntes extends LNMapaMatrix
 	 */
 	@Override
 	public boolean moverEnte(Ente ente, Integer x, Integer y) {
-		IPosition<Integer, Integer> aPosi = AbstractFactoryPositionInteger.getPosition(x, y,(MapaMatrix)mapa);
+		IPosition<Integer, Integer> aPosi = AbstractFactoryPositionInteger.getPositionInteger(x, y,(MapaMatrix)mapa);
 		if(mapa.isEmptyPosicion(aPosi)) {
 			if(isEnteInMap(ente)) {
-				IPosition<Integer, Integer> lPosition = this.mapa.getEntePosition(ente);
+				IPosition<Integer, Integer> lPosition = ((IMapEnte<Integer, Integer>)this.mapa).getEntePosition(ente);
 				lPosition.setSomething(null);
 				onChangedPosition(aPosi);
 			}

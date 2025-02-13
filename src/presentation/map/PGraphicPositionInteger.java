@@ -45,9 +45,15 @@ public class PGraphicPositionInteger extends JButton implements IPGraphicPositio
 		}
 	}
 	
+	@Override
+	public void activePosition() {
+		active = !active;
+		setBackground(active ? 
+				PDefaultValues.D_CELL_COLOR_ACTI : PDefaultValues.D_CELL_COLOR_DESA);
+	}
+	
 	
 	protected void onClickedPosition() {
-		
 		active = !active;
 		setBackground(active ? 
 				PDefaultValues.D_CELL_COLOR_ACTI : PDefaultValues.D_CELL_COLOR_DESA);
@@ -55,5 +61,24 @@ public class PGraphicPositionInteger extends JButton implements IPGraphicPositio
 		//Say that the button was clicked
 		pSubject.setsPosi(gPosition);
 	}
+	
+	
+	
+	public IGraphicPosition<Integer, Integer> getgPosition() {
+		return gPosition;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		// TODO Auto-generated method stub
+		if(obj == null) return false;
+		
+		if(obj instanceof PGraphicPositionInteger) {
+			PGraphicPositionInteger pgpI = (PGraphicPositionInteger)obj;
+			return pgpI.getgPosition().equals(getgPosition());
+		}
+		return false;
+	}
+	
 	
 }

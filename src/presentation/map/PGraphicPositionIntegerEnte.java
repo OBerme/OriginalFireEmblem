@@ -56,10 +56,9 @@ public class PGraphicPositionIntegerEnte extends PGraphicPositionInteger impleme
 	
 
 	protected void onClickedPosition() {
-		
+		super.onClickedPosition();
 		if(this.gEnte instanceof Menuable) {
 			Menuable eMenu =  (Menuable)this.gEnte;
-			active = !active;
 			
 			if(active) {
 				PMenu menu = eMenu.getMenu();
@@ -67,7 +66,6 @@ public class PGraphicPositionIntegerEnte extends PGraphicPositionInteger impleme
 				this.isMenu.showMenu(menu);
 			}
 		}
-		super.onClickedPosition();
 		
 	}	
 }
