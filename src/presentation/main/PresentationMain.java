@@ -9,6 +9,7 @@ import acciones.md.ataque.Ataque;
 import acciones.md.ataque.Tipo;
 import entes.Estado;
 import entes.ln.StateSerVivo;
+import entes.md.GraphicEnte;
 import entes.md.GraphicMonstruo;
 import entes.md.GraphicPersona;
 import entes.md.Monstruo;
@@ -29,9 +30,13 @@ import presentation.graphicOptions.IShowMenus;
 import presentation.map.GraphicMap;
 import presentation.map.GraphicMapInteger;
 import presentation.map.GraphicPositionInteger;
+import presentation.map.IGraphicPosition;
 import presentation.map.IObserver;
+import presentation.map.IPGraphicPosition;
 import presentation.map.IPPPositionSubjectData;
 import presentation.map.IPPositionSubject;
+import presentation.map.PGraphicPositionInteger;
+import presentation.map.PGraphicPositionIntegerEnte;
 import presentation.map.PPositionData;
 import presentation.menu.PMenu;
 import presentation.menu.PMenuAbstractFactory;
@@ -58,21 +63,26 @@ public class PresentationMain {
 		
 		List<IObserver> observers = new ArrayList<IObserver>();
 		
-		IPPPositionSubjectData obserPosition = new PPositionData(observers);
-		
-		
+		IPPPositionSubjectData subObserPositi = new PPositionData(observers);
 		
 		GraphicMapInteger gMap = null;
 		 
 		IPosition<Integer, Integer>[][] positions = new GraphicPositionInteger[length][length];
+		IPGraphicPosition<Integer, Integer>[][] gPositions = new PGraphicPositionInteger[length][length];
 		for(int i = 0 ; i < length; i++) {
 			for(int j = 0 ; j < length; j++) {	
-				positions[i][j] = new GraphicPositionInteger(
+				
+				IPosition<Integer, Integer> nPositi = new GraphicPositionInteger(
 						AbstractFactoryPositionInteger.getPosition(i, j, mapa),
 						PDefaultValues.getPathImage("casilla.png"),
-						menuContro, //IShowMenus
-						entContro,
-						obserPosition);
+						menuContro); //IShowMenus
+				positions[i][j] = nPositi;
+				
+				
+				gPositions[i][j] = new PGraphicPositionInteger(
+						(GraphicPositionInteger)nPositi, subObserPositi);
+				 
+				observers.add((IObserver)gPositions[i][j]);
 			}
 		}
 		
@@ -84,39 +94,68 @@ public class PresentationMain {
 		ataquesM.add(new Ataque(1, "Magical atack", 50000, Tipo.FUEGO));
 		ataquesM.add(new Ataque(2, "Garrazo en las costillas", 300, Tipo.FUEGO));
 		
+		//Oscar
 		Persona oscar = new Persona(200, "Oscar", "O", new Estado(StateSerVivo.NORMAL),TurnerEnumConstant.SPEED_DIVIDER.getCost(),ataquesN);
 		PMenu menuOscar = PMenuAbstractFactory.getDefaultMenuEnte(oscar, entContro);
-		((GraphicPositionInteger)positions[2][2]).setSomething(
-				new GraphicPersona(oscar,
-					PDefaultValues.getPathImage("bluesky.png"),
-					menuOscar)); //TODO
+		GraphicEnte gPerson = new GraphicPersona(oscar,
+				PDefaultValues.getPathImage("bluesky.png"),
+				menuOscar);
 		
+		((GraphicPositionInteger)positions[2][2]).setSomething(gPerson); //TODO
+		
+		gPositions[2][2] = new PGraphicPositionIntegerEnte(((GraphicPositionInteger)positions[2][2]),
+				subObserPositi, gPerson, menuContro);
+		
+		observers.add((IObserver)gPositions[2][2]);
+		
+		//JIJI
 		Persona jiji = new Persona(700, "Joji", "J", new Estado(StateSerVivo.NORMAL),TurnerEnumConstant.SPEED_DIVIDER.getCost(),ataquesM);
-		((GraphicPositionInteger)positions[3][2]).setSomething(new GraphicPersona(
+		
+		
+		gPerson = new GraphicPersona(
 				jiji,
 				PDefaultValues.getPathImage("jiji.png"), 
-				PMenuAbstractFactory.getDefaultMenuEnte(jiji, entContro))); //TODO
+				PMenuAbstractFactory.getDefaultMenuEnte(jiji, entContro));
 		
+		((GraphicPositionInteger)positions[3][2]).setSomething(gPerson); //TODO
+		
+		gPositions[3][2] = new PGraphicPositionIntegerEnte(((GraphicPositionInteger)positions[3][2]),
+				subObserPositi, gPerson, menuContro);
+		observers.add((IObserver)gPositions[3][2]);
+		
+		//Undyne
 		Monstruo undy = new Monstruo(1500, "Undyne", "U", new Estado(StateSerVivo.NORMAL),TurnerEnumConstant.SPEED_DIVIDER.getCost(),ataquesN);
-		((GraphicPositionInteger)positions[2][3]).setSomething(new GraphicMonstruo(
+		gPerson = new GraphicMonstruo(
 				undy,
 				PDefaultValues.getPathImage("monster.png"), 
-				PMenuAbstractFactory.getDefaultMenuEnte(undy, entContro))); //TODO
+				PMenuAbstractFactory.getDefaultMenuEnte(undy, entContro));
+		((GraphicPositionInteger)positions[2][3]).setSomething(gPerson); //TODO
 		
+		gPositions[2][3] = new PGraphicPositionIntegerEnte(((GraphicPositionInteger)positions[2][3]),
+				subObserPositi, gPerson, menuContro);
+		observers.add((IObserver)gPositions[2][3]);
+		
+		//ASGORE
 		Monstruo asgor =new Monstruo(2700, "Asgore", "A", new Estado(StateSerVivo.NORMAL),TurnerEnumConstant.SPEED_DIVIDER.getCost(),ataquesN);
-		((GraphicPositionInteger)positions[3][3]).setSomething(new GraphicMonstruo(
+		gPerson = new GraphicMonstruo(
 				asgor,
 				PDefaultValues.getPathImage("monster.png"), 
-				PMenuAbstractFactory.getDefaultMenuEnte(asgor, entContro))); //TODO
+				PMenuAbstractFactory.getDefaultMenuEnte(asgor, entContro));
+		((GraphicPositionInteger)positions[3][3]).setSomething(gPerson); //TODO
 		
+		gPositions[3][3] = new PGraphicPositionIntegerEnte(((GraphicPositionInteger)positions[3][3]),
+				subObserPositi, gPerson, menuContro);
+		observers.add((IObserver)gPositions[3][3]);
+		
+		//SET UP THE MAP
 		mapa = new MapaMatrixEnteGroupActionable(positions, groupsR);
 		ILNMapaMatrixEntesGroup lnMapa = new LNMapaMatrixEntesGroup(mapa, null,null );
         // Crear el panel de dibujo
 		
-		gMap = new GraphicMapInteger(lnMapa);
+		gMap = new GraphicMapInteger(lnMapa, gPositions);
 		
 		controller.setgMap(gMap);
-		controller.setPosiProductor(obserPosition);
+		controller.setPosiProductor(subObserPositi);
 		
 		observers.add((IObserver)controller);
 		
@@ -127,4 +166,5 @@ public class PresentationMain {
         // Mostrar la ventana
         frame.setVisible(true);
 	}
+	
 }

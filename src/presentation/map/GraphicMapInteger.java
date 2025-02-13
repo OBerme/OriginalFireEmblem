@@ -27,14 +27,19 @@ public class GraphicMapInteger extends GraphicMap<Integer, Integer>
 	implements Playable, Rangeable{
 
 	private INLMapa<Integer, Integer> map;
-	public GraphicMapInteger(INLMapa<Integer, Integer> map) {
+	private IPGraphicPosition<Integer, Integer>[][] gPositions;
+	
+	
+	
+	public GraphicMapInteger(INLMapa<Integer, Integer> map, IPGraphicPosition<Integer, Integer>[][] gPositions) {
 		super();
 		this.map = map;
+		this.gPositions = gPositions;
 		this.setLayout(new GridLayout(map.getWidth(), map.getHeight()));
 		
 		createCells();
-		
 	}
+	
 	
 	public int getWidth() {
 		return this.map.getWidth()*PDefaultValues.REC_WIDTH;
@@ -47,11 +52,10 @@ public class GraphicMapInteger extends GraphicMap<Integer, Integer>
 
 	private void createCells() {
 		// Crear botones para cada celda de la cuadrícula
-		for(IPosition<Integer, Integer> nPosi : map.getPositions()) {
-			GraphicPositionInteger nGPosi = ((GraphicPositionInteger)nPosi);
-			
-			this.add(nGPosi.getGraphicRepresentation());
-			
+		for(int x = 0; x < gPositions.length; x++) {
+			for(int y = 0; y < gPositions[0].length; y++) {
+				this.add((JComponent)gPositions[x][y]);
+			}
 		}
 	}
 

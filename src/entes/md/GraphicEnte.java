@@ -1,5 +1,7 @@
 package entes.md;
 
+import javax.swing.JComponent;
+
 import mapa.md.IPositionable;
 import presentation.graphicOptions.IDrawable;
 import presentation.graphicOptions.Menuable;
@@ -29,6 +31,11 @@ public class GraphicEnte implements IDrawable, IPositionable {
 	public String toString() {
 		// TODO Auto-generated method stub
 		return ente.toString();
+	}
+
+	public JComponent getRepresentation() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

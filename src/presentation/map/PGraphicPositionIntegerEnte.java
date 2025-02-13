@@ -9,6 +9,7 @@ import java.awt.event.MouseListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JPanel;
 
 import entes.md.Ente;
@@ -22,40 +23,17 @@ import presentation.main.PDefaultValues;
 import presentation.menu.PMenu;
 import presentation.menu.PMenuAbstractFactory;
 
-public class PGraphicEnte<X, Y> extends JButton implements Menuable{
+public class PGraphicPositionIntegerEnte extends PGraphicPositionInteger implements Menuable{
 	private GraphicEnte gEnte;
 	private IShowMenus isMenu;
-	
-	private boolean active;
-	
-	
-	public PGraphicEnte(GraphicEnte gEnte, IShowMenus isMenu) {
-		//Set up the graphic options
-		setIcon(new ImageIcon(gEnte.getPathImage()));
-		setBackground(PDefaultValues.D_CELL_COLOR_DESA);
+
+	public PGraphicPositionIntegerEnte(IGraphicPosition<Integer, Integer> gPosition,
+			IPPPositionSubjectData pSubject,
+			GraphicEnte gEnte, IShowMenus isMenu) {
 		
+		super(gPosition, pSubject,new ImageIcon(gEnte.getPathImage()));
 		this.gEnte = gEnte;
 		this.isMenu = isMenu;
-		this.active = false;
-		
-		addActionListener(e -> {
-			// TODO Auto-generated method stub
-			if(this.gEnte instanceof Menuable) {
-				Menuable eMenu =  (Menuable)this.gEnte;
-				active = !active;
-				
-				if(active) {
-					PMenu menu = eMenu.getMenu();
-					
-					this.isMenu.showMenu(menu);
-				}
-				
-				setBackground(active ? 
-						PDefaultValues.D_CELL_COLOR_ACTI : PDefaultValues.D_CELL_COLOR_DESA);
-			}
-		});
-		
-		
 	}
 
 
@@ -72,8 +50,24 @@ public class PGraphicEnte<X, Y> extends JButton implements Menuable{
 
 	@Override
 	public void update() {
-		active = false;
-		// TODO Auto-generated method stub
+		super.update();
 		
 	}
+	
+
+	protected void onClickedPosition() {
+		
+		if(this.gEnte instanceof Menuable) {
+			Menuable eMenu =  (Menuable)this.gEnte;
+			active = !active;
+			
+			if(active) {
+				PMenu menu = eMenu.getMenu();
+				
+				this.isMenu.showMenu(menu);
+			}
+		}
+		super.onClickedPosition();
+		
+	}	
 }
