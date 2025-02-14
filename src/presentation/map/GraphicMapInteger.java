@@ -32,12 +32,16 @@ public class GraphicMapInteger extends GraphicMap<Integer, Integer>
 	
 	
 	
-	public GraphicMapInteger(INLMapa<Integer, Integer> map, IPGraphicPosition<Integer, Integer>[][] gPositions) {
+	public GraphicMapInteger(INLMapa<Integer, Integer> map,
+			IPGraphicPosition<Integer, Integer>[][] gPositions,
+			int x, int y) {
 		super();
 		this.map = map;
 		this.gPositions = gPositions;
 		this.setLayout(new GridLayout(map.getWidth(), map.getHeight()));
-		
+		this.setBounds(x,y, 
+				getWidth() ,
+				getHeight());
 		createCells();
 	}
 	

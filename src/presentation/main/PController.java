@@ -17,7 +17,7 @@ import presentation.menu.PMenu;
 public class PController implements IPEnteController, IShowMenus, IPositionObserver, IPController{
 	private IGraphicMap gMap;
 	private IPPPositionSubjectData posiProductor; // observer pattern to catch the position selected
-   
+	private IPosition<Integer, Integer> lastPosition;
 	
     public PController(IGraphicMap gMap, IPPPositionSubjectData posiProductor) {
 		super();
@@ -37,15 +37,15 @@ public class PController implements IPEnteController, IShowMenus, IPositionObser
     }
 
 	@Override
-	public void showMenu(PMenu menu) {
+	public void showMenu(PMenu menu, IPosition<Integer, Integer> position) {
 		// TODO Auto-generated method stub
-		System.out.println(menu);
+		lastPosition = position;
+		menu.showMenu(position);
 		
 	}
 
 	@Override
 	public void skip() {
-		
 		
 	}
 
@@ -65,7 +65,13 @@ public class PController implements IPEnteController, IShowMenus, IPositionObser
 	public void setPosiProductor(IPPPositionSubjectData posiProductor) {
 		this.posiProductor = posiProductor;
 	}
-	
+
+	@Override
+	public void showMenu(PMenu nextMenu) {
+		// TODO Auto-generated method stub
+		nextMenu.showMenu(lastPosition);
+	}
+
 	
 	
 

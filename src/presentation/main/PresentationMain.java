@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JFrame;
+import javax.swing.JLayeredPane;
+import javax.swing.JMenuItem;
+import javax.swing.JPopupMenu;
 
 import acciones.md.ataque.Ataque;
 import acciones.md.ataque.Tipo;
@@ -96,7 +99,7 @@ public class PresentationMain {
 		
 		//Oscar
 		Persona oscar = new Persona(200, "Oscar", "O", new Estado(StateSerVivo.NORMAL),TurnerEnumConstant.SPEED_DIVIDER.getCost(),ataquesN);
-		PMenu menuOscar = PMenuAbstractFactory.getDefaultMenuEnte(oscar, entContro);
+		PMenu menuOscar = PMenuAbstractFactory.getDefaultMenuEnte(oscar, entContro, frame);
 		GraphicEnte gPerson = new GraphicPersona(oscar,
 				PDefaultValues.getPathImage("bluesky.png"),
 				menuOscar);
@@ -115,7 +118,8 @@ public class PresentationMain {
 		gPerson = new GraphicPersona(
 				jiji,
 				PDefaultValues.getPathImage("jiji.png"), 
-				PMenuAbstractFactory.getDefaultMenuEnte(jiji, entContro));
+				PMenuAbstractFactory.getDefaultMenuEnte(jiji, entContro, frame //invoker  
+						));
 		
 		((GraphicPositionInteger)positions[3][2]).setSomething(gPerson); //TODO
 		
@@ -128,7 +132,7 @@ public class PresentationMain {
 		gPerson = new GraphicMonstruo(
 				undy,
 				PDefaultValues.getPathImage("monster.png"), 
-				PMenuAbstractFactory.getDefaultMenuEnte(undy, entContro));
+				PMenuAbstractFactory.getDefaultMenuEnte(undy, entContro, frame));
 		((GraphicPositionInteger)positions[2][3]).setSomething(gPerson); //TODO
 		
 		gPositions[2][3] = new PGraphicPositionIntegerEnte(((GraphicPositionInteger)positions[2][3]),
@@ -140,7 +144,7 @@ public class PresentationMain {
 		gPerson = new GraphicMonstruo(
 				asgor,
 				PDefaultValues.getPathImage("monster.png"), 
-				PMenuAbstractFactory.getDefaultMenuEnte(asgor, entContro));
+				PMenuAbstractFactory.getDefaultMenuEnte(asgor, entContro, frame));
 		((GraphicPositionInteger)positions[3][3]).setSomething(gPerson); //TODO
 		
 		gPositions[3][3] = new PGraphicPositionIntegerEnte(((GraphicPositionInteger)positions[3][3]),
@@ -152,19 +156,26 @@ public class PresentationMain {
 		ILNMapaMatrixEntesGroup lnMapa = new LNMapaMatrixEntesGroup(mapa, null,null );
         // Crear el panel de dibujo
 		
-		gMap = new GraphicMapInteger(lnMapa, gPositions);
+		gMap = new GraphicMapInteger(lnMapa, gPositions,0,0);
 		
 		controller.setgMap(gMap);
 		controller.setPosiProductor(subObserPositi);
 		
 		observers.add((IObserver)controller);
 		
-        frame.add(gMap);
+//        frame.add(gMap);
         
-        frame.setSize(gMap.getWidth(), gMap.getHeight());
-
+        //Setup menus
+        JLayeredPane layeredPane = new JLayeredPane();
+        frame.setContentPane(layeredPane);
+//        
+        layeredPane.add(gMap);
+        
+        frame.setSize(gMap.getWidth(), gMap.getHeight()+ PDefaultValues.HEADER_HEIGHT);
+        
         // Mostrar la ventana
         frame.setVisible(true);
+        
 	}
 	
 }

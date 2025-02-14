@@ -10,8 +10,9 @@ public interface IPController {
 
 	void setgMap(IGraphicMap gMap);
 
-	void showMenu(PMenu nextMenu);
 
 	void skip();
+
+	void showMenu(PMenu nextMenu);
 
 }

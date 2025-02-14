@@ -1,5 +1,7 @@
 package presentation.map;
 
+import java.awt.Component;
+
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -7,12 +9,16 @@ import javax.swing.JComponent;
 
 import entes.md.GraphicEnte;
 import presentation.main.PDefaultValues;
+import presentation.menu.PMenu;
+import presentation.menu.PMenuAbstractFactory;
 
-public class PGraphicPositionInteger extends JButton implements IPGraphicPosition<Integer, Integer>, IPositionObserver {
+public class PGraphicPositionInteger extends JButton 
+	implements IPGraphicPosition<Integer, Integer>, IPositionObserver {
+	
 	protected boolean active;
 	protected IGraphicPosition<Integer, Integer> gPosition;
 	protected IPPPositionSubjectData pSubject;
-	
+	protected PMenu dPMenu;
 	
 	public PGraphicPositionInteger(IGraphicPosition<Integer, Integer> gPosition, 
 			IPPPositionSubjectData pSubject) {
