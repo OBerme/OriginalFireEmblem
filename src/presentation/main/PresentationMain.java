@@ -31,6 +31,7 @@ import mapa.md.Posicion;
 import mapa.md.PosicionGroupable;
 import mapa.md.PosicionGroupableActionable;
 import presentation.graphicOptions.IShowMenus;
+import presentation.map.AbstractFactoryJButtonActions;
 import presentation.map.GraphicMap;
 import presentation.map.GraphicMapInteger;
 import presentation.map.GraphicPositionInteger;
@@ -84,7 +85,7 @@ public class PresentationMain {
 				
 				
 				gPositions[i][j] = new PGraphicPositionInteger(
-						(GraphicPositionInteger)nPositi, subObserPositi);
+						(GraphicPositionInteger)nPositi, subObserPositi, AbstractFactoryJButtonActions.getVoidAction());
 				 
 				observers.add((IObserver)gPositions[i][j]);
 			}
@@ -101,12 +102,17 @@ public class PresentationMain {
 				PDefaultValues.getPathImage("bluesky.png"),
 				menuOscar);
 		
-		((GraphicPositionInteger)positions[2][2]).setSomething(gPerson); 
+		GraphicPositionInteger gPosi = ((GraphicPositionInteger)positions[2][2]);
+		gPosi.setSomething(gPerson); 
 		
-		gPositions[2][2] = new PGraphicPositionIntegerEnte(((GraphicPositionInteger)positions[2][2]),
-				subObserPositi, gPerson, menuContro);
+		PGraphicPositionInteger pgPosi = (PGraphicPositionInteger) gPositions[2][2];
 		
-		observers.add((IObserver)gPositions[2][2]);
+		gPositions[2][2] = new PGraphicPositionIntegerEnte(gPosi,
+				subObserPositi, AbstractFactoryJButtonActions.getEnteAction(pgPosi, 
+						gPerson, menuContro), gPerson, menuContro);
+		
+		
+		observers.add((IObserver)pgPosi);
 		
 		//JIJI
 		Persona jiji = (Persona) AbstractFactoryCharacters.createJiji();
@@ -117,12 +123,15 @@ public class PresentationMain {
 				PDefaultValues.getPathImage("jiji.png"), 
 				PMenuAbstractFactory.getDefaultMenuEnte(jiji, entContro, frame //invoker  
 						));
+		gPosi =((GraphicPositionInteger)positions[3][2]); 
+		gPosi.setSomething(gPerson);
 		
-		((GraphicPositionInteger)positions[3][2]).setSomething(gPerson); //TODO
+		pgPosi = (PGraphicPositionInteger)gPositions[3][2]; 
+		pgPosi = new PGraphicPositionIntegerEnte(gPosi,
+				subObserPositi, AbstractFactoryJButtonActions.getEnteAction(pgPosi, 
+						gPerson, menuContro), gPerson, menuContro);
 		
-		gPositions[3][2] = new PGraphicPositionIntegerEnte(((GraphicPositionInteger)positions[3][2]),
-				subObserPositi, gPerson, menuContro);
-		observers.add((IObserver)gPositions[3][2]);
+		observers.add((IObserver)pgPosi);
 		
 		//Undyne
 		Monstruo undy = (Monstruo)AbstractFactoryCharacters.createUndyne();
@@ -130,11 +139,16 @@ public class PresentationMain {
 				undy,
 				PDefaultValues.getPathImage("monster.png"), 
 				PMenuAbstractFactory.getDefaultMenuEnte(undy, entContro, frame));
-		((GraphicPositionInteger)positions[2][3]).setSomething(gPerson); //TODO
 		
-		gPositions[2][3] = new PGraphicPositionIntegerEnte(((GraphicPositionInteger)positions[2][3]),
-				subObserPositi, gPerson, menuContro);
-		observers.add((IObserver)gPositions[2][3]);
+		gPosi =((GraphicPositionInteger)positions[2][3]); 
+		gPosi.setSomething(gPerson); 
+		
+		pgPosi = (PGraphicPositionInteger)gPositions[2][3]; 
+		pgPosi = new PGraphicPositionIntegerEnte(gPosi,
+				subObserPositi, AbstractFactoryJButtonActions.getEnteAction(pgPosi, 
+						gPerson, menuContro), gPerson, menuContro);
+		
+		observers.add((IObserver)pgPosi);
 		
 		//ASGORE
 		Monstruo asgor =(Monstruo)AbstractFactoryCharacters.createAsgore();
@@ -143,11 +157,14 @@ public class PresentationMain {
 				asgor,
 				PDefaultValues.getPathImage("monster.png"), 
 				PMenuAbstractFactory.getDefaultMenuEnte(asgor, entContro, frame));
-		((GraphicPositionInteger)positions[3][3]).setSomething(gPerson); //TODO
 		
-		gPositions[3][3] = new PGraphicPositionIntegerEnte(((GraphicPositionInteger)positions[3][3]),
-				subObserPositi, gPerson, menuContro);
-		observers.add((IObserver)gPositions[3][3]);
+		gPosi =((GraphicPositionInteger)positions[3][3]); 
+		gPosi.setSomething(gPerson); 
+		
+		pgPosi = (PGraphicPositionInteger)gPositions[3][3]; 
+		pgPosi = new PGraphicPositionIntegerEnte(gPosi,
+				subObserPositi, AbstractFactoryJButtonActions.getEnteAction(pgPosi, 
+						gPerson, menuContro), gPerson, menuContro);
 		
 		//SET UP THE MAP
 		mapa = new MapaMatrixEnteGroupActionable(positions, groupsR);

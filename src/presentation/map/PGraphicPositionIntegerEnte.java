@@ -38,9 +38,10 @@ public class PGraphicPositionIntegerEnte extends PGraphicPositionInteger impleme
 	
 	public PGraphicPositionIntegerEnte(IGraphicPosition<Integer, Integer> gPosition,
 			IPPPositionSubjectData pSubject,
+			IJButtonAction action,
 			GraphicEnte gEnte, IShowMenus isMenu) {
 		
-		super(gPosition, pSubject,new ImageIcon(gEnte.getPathImage()));
+		super(gPosition, pSubject,new ImageIcon(gEnte.getPathImage()), action);
 		this.gEnte = gEnte;
 		this.isMenu = isMenu;
 	}
@@ -57,26 +58,5 @@ public class PGraphicPositionIntegerEnte extends PGraphicPositionInteger impleme
 	}
 
 
-	@Override
-	public void update() {
-		super.update();
-		
-	}
 	
-
-	protected void onClickedPosition() {
-		super.onClickedPosition();
-		if(this.gEnte instanceof Menuable) {
-			Menuable eMenu =  (Menuable)this.gEnte;
-								
-			if(active) {
-				PMenu menu = eMenu.getMenu();
-				IPosition<Integer, Integer> nPosi = AbstractMapSizeFactory.getRelativeIntegerPosition(gPosition,1,0);
-				this.isMenu.showMenu(menu, nPosi
-						//to move the menu to his site
-						);
-			}
-		}
-		
-	}	
 }

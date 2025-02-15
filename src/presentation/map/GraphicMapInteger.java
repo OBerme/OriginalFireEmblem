@@ -13,10 +13,16 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 
+import entes.md.GraphicEnte;
+import entes.md.GraphicMonstruo;
+import entes.md.GraphicPersona;
+import entes.md.GraphicSerVivo;
+import entes.md.Monstruo;
 import group.md.Group;
 import mapa.ln.INLMapa;
 import mapa.ln.LNMapa;
 import mapa.md.IPosition;
+import mapa.md.IPositionEnte;
 import mapa.md.IPositionable;
 import mapa.md.Posicion;
 import menu.md.Menu;
@@ -24,8 +30,10 @@ import presentation.graphicOptions.IShowMenus;
 import presentation.graphicOptions.Menuable;
 import presentation.graphicOptions.Playable;
 import presentation.graphicOptions.Rangeable;
+import presentation.main.AbstractFactoryCharacters;
 import presentation.main.PDefaultValues;
 import presentation.menu.PMenu;
+import presentation.menu.PMenuAbstractFactory;
 
 public class GraphicMapInteger extends GraphicMap<Integer, Integer> 
 	implements Playable, Rangeable{
@@ -131,13 +139,30 @@ public class GraphicMapInteger extends GraphicMap<Integer, Integer>
 		fgCPosi.setSomething(sgCPosi.getSomething());
 		sgCPosi.setSomething(fSome);
 		
+		
+		
+		
 		gPositions[fgCPosi.getX()][fgCPosi.getY()] = sGPosition;
 		gPositions[sgCPosi.getX()][sgCPosi.getY()] = fGPosition;
+		
+//		sGPosition = fGPosition;
+		fGPosition = sGPosition;
+		
+//		((JButton)sGPosition).setIcon(new ImageIcon(PDefaultValues.getPathImage("monster.png")));
+		
+//		Monstruo asgor =(Monstruo)AbstractFactoryCharacters.createAsgore();
+//		
+//		GraphicSerVivo gPerson = new GraphicMonstruo(
+//				asgor,
+//				PDefaultValues.getPathImage("monster.png"), 
+//				PMenuAbstractFactory.getDefaultMenuEnte(asgor, null, null));
+		
+		
 		
 		fGPosition.setgPosition(sgCPosi);
 		sGPosition.setgPosition(fgCPosi);
 		
-		updateButtonListeners();
+		
 		refreshMap();
 	}
 

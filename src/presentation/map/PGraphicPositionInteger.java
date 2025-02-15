@@ -18,27 +18,47 @@ public class PGraphicPositionInteger extends JButton
 	protected boolean active;
 	protected IGraphicPosition<Integer, Integer> gPosition;
 	protected IPPPositionSubjectData pSubject;
-	protected PMenu dPMenu;
+	private IJButtonAction action;
+	private Icon image;
 	
 	public PGraphicPositionInteger(IGraphicPosition<Integer, Integer> gPosition, 
-			IPPPositionSubjectData pSubject) {
-		this(gPosition, pSubject ,gPosition.getCellImage());
+			IPPPositionSubjectData pSubject, IJButtonAction action) {
+		this(gPosition, pSubject ,gPosition.getCellImage(),action);
 	}
 	
 	public PGraphicPositionInteger(IGraphicPosition<Integer, Integer> gPosition, 
-			IPPPositionSubjectData pSubject, Icon image) {
+			IPPPositionSubjectData pSubject, Icon image, IJButtonAction action) {
 		super();
 		this.gPosition = gPosition;
 		this.pSubject = pSubject;
 		this.active = false;
+		this.action = action;
+		this.image = image;
 		
 		setIcon(image);
 		
 		setBackground(PDefaultValues.D_CELL_COLOR_DESA);
 		addActionListener(e -> {
 			onClickedPosition();
+			action.onClickListener();
 		});
 		
+	}
+	
+	
+	@Override
+	public IJButtonAction getGraAction() {
+		return action;
+	}
+
+	@Override
+	public void setAction(IJButtonAction action) {
+		this.action = action;
+	}
+	
+	@Override
+	public void refreshButton() {
+		setIcon(image);
 	}
 
 	@Override
@@ -66,8 +86,8 @@ public class PGraphicPositionInteger extends JButton
 		
 		//Say that the button was clicked
 		pSubject.setsPosi(gPosition);
+		
 	}
-	
 	
 	
 	@Override
@@ -96,6 +116,11 @@ public class PGraphicPositionInteger extends JButton
 	public String toString() {
 		// TODO Auto-generated method stub
 		return "PGraphicPositionInteger:" + gPosition.getX() + "," + gPosition.getY();
+	}
+
+	public boolean isActive() {
+		// TODO Auto-generated method stub
+		return active;
 	}
 	
 	
