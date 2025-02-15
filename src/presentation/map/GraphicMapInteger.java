@@ -33,6 +33,7 @@ import presentation.graphicOptions.Rangeable;
 import presentation.main.AbstractFactoryCharacters;
 import presentation.main.PDefaultValues;
 import presentation.map.jbutton.IJButtonAction;
+import presentation.map.jbutton.IJButtonActionEnte;
 import presentation.map.jbutton.IPGraphicPosition;
 import presentation.map.jbutton.PGraphicPositionInteger;
 import presentation.map.position.AbstractPositionModifier;
@@ -112,6 +113,7 @@ public class GraphicMapInteger extends GraphicMap<Integer, Integer>
 		return gPositions[position.getX()][position.getY()];
 	}
 	
+	//Pre: The first fGPosition should contain the Ente
 	@Override
 	public void changePositions(IPGraphicPosition<Integer, Integer> fGPosition,
 			IPGraphicPosition<Integer, Integer> sGPosition) {
@@ -130,6 +132,8 @@ public class GraphicMapInteger extends GraphicMap<Integer, Integer>
 		
 		//Change the actions
 		IJButtonAction fAction = fPosi.getGraAction(); 
+		((IJButtonActionEnte)fAction).setpGPI(sPosi); //Change the position
+		
 		fPosi.setAction(sPosi.getGraAction());		
 		sPosi.setAction(fAction);
 		

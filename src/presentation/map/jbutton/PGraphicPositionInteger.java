@@ -41,9 +41,9 @@ public class PGraphicPositionInteger extends JButton
 		setIcon(image);
 		
 		setBackground(PDefaultValues.D_CELL_COLOR_DESA);
+		
 		addActionListener(e -> {
 			onClickedPosition();
-			action.onClickListener();
 		});
 		
 	}
@@ -65,6 +65,8 @@ public class PGraphicPositionInteger extends JButton
 	
 	@Override
 	public void refreshButton() {
+		
+		removeActionListener(actionListener);
 		setIcon(gPosition.getCellImage());
 	}
 
@@ -93,6 +95,7 @@ public class PGraphicPositionInteger extends JButton
 		
 		//Say that the button was clicked
 		pSubject.setsPosi(gPosition);
+		action.onClickListener();
 		
 	}
 	

@@ -15,6 +15,7 @@ public interface IGraphicMap {
 	//Post: it will return the GraphicPosition of that position
 	IPGraphicPosition<Integer, Integer> getGraphicPosition(IPosition<Integer, Integer> position);
 
+	//Pre: The first fGPosition should contain the Ente
 	void changePositions(IPGraphicPosition<Integer, Integer> fGPosition,
 			IPGraphicPosition<Integer, Integer> sGPosition);
 

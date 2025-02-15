@@ -26,6 +26,11 @@ public class JButtonActionEnte implements IJButtonActionEnte{
 	}
 	
 	@Override
+	public void setpGPI(PGraphicPositionInteger pGPI) {
+		this.pGPI = pGPI;
+	}
+
+	@Override
 	public void onClickListener() {
 		if(this.gEnte instanceof Menuable) {
 			if(PDefaultValues.DEBUG_MODE_JBUTTONS) System.out.println("The JButtonActionEnte was clicked");
