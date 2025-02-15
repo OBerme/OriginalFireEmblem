@@ -8,6 +8,8 @@ import entes.md.Ente;
 import entes.md.EnteCounter;
 import mapa.md.IMapEnte;
 import mapa.md.IPosition;
+import mapa.md.IPositionEnte;
+import mapa.md.IPositionable;
 import mapa.md.MapaMatrix;
 import mapa.md.MapaMatrixEnte;
 import mapa.md.Posicion;
@@ -21,7 +23,23 @@ public class LNMapaMatrixEntes extends LNMapaMatrix
 		super(mapaVector);
 		// TODO Auto-generated constructor stub
 		this.entes = new HashMap<Integer, Ente>();
+		
 		this.mapEvents = mapEvents;
+		updateEntes();
+	}
+	
+	private void updateEntes() {
+		for(IPosition<Integer, Integer> nPosi:  mapa.getPosiciones()) {
+			if(nPosi instanceof IPositionEnte<Integer, Integer>) {
+				IPositionEnte<Integer, Integer> posiEnte = (IPositionEnte<Integer, Integer>)nPosi;
+				if(posiEnte.hasEnte()) {
+					Ente nEnte = posiEnte.getEnte();
+					
+					appendEnte(nEnte);
+					setEntePosition(nEnte, posiEnte);
+				}
+			}
+		}
 	}
 	
 	private void onChangedPosition(IPosition<Integer, Integer> posi) {
@@ -121,15 +139,7 @@ public class LNMapaMatrixEntes extends LNMapaMatrix
 	@Override
 	public boolean removeEnte(Ente ente) {
 		IPosition<Integer,Integer> fPosition = null;
-		for(IPosition<Integer, Integer> nPosi : mapa.getPosiciones()) {
-			if(nPosi.hasSomething() && nPosi.getSomething() instanceof Ente) {
-				Ente nEnte = (Ente)nPosi.getSomething();
-					if(nEnte.equals(ente)) {
-						fPosition = nPosi;
-						break;
-					}
-				}
-			}
+		
 		
 		if(fPosition == null)
 			return false;
@@ -168,6 +178,21 @@ public class LNMapaMatrixEntes extends LNMapaMatrix
 		return ((MapaMatrixEnte)mapa).getEnteDesingNumber();
 	}
 
+	
+	@Override
+	public IPosition<Integer, Integer> getPositionEnte(Ente ente) {
+		// TODO Auto-generated method stub
+		for(IPosition<Integer, Integer> nPosi : mapa.getPosiciones()) {
+			if(nPosi.hasSomething() && nPosi.getSomething() instanceof Ente) {
+				Ente nEnte = (Ente)nPosi.getSomething();
+					if(nEnte.equals(ente)) {
+						return nPosi;
+					}
+				}
+			}
+		return null;
+	}
+	
 
 	
 	

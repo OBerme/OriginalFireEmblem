@@ -1,18 +1,19 @@
 package presentation.menu;
 
+import entes.md.Ente;
 import presentation.main.IPEnteController;
 import presentation.main.PController;
 
 public class POpMoveEnte extends POption{
-
-	public POpMoveEnte(IPEnteController pcontro) {
+	private Ente ente;
+	public POpMoveEnte(IPEnteController pcontro, Ente ente) {
 		super("Move", pcontro);
-		// TODO Auto-generated constructor stub
+		this.ente = ente;
 	}
 
 	@Override
 	public void doAction() {
-		((IPEnteController)pcontro).moveEnte();
+		((IPEnteController)pcontro).moveEnte(ente);
 	}
 	
 }

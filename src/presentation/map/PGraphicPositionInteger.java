@@ -70,6 +70,12 @@ public class PGraphicPositionInteger extends JButton
 	
 	
 	
+	@Override
+	public void setgPosition(IGraphicPosition<Integer, Integer> gPosition) {
+		this.gPosition = gPosition;
+	}
+
+	@Override
 	public IGraphicPosition<Integer, Integer> getgPosition() {
 		return gPosition;
 	}
@@ -85,6 +91,15 @@ public class PGraphicPositionInteger extends JButton
 		}
 		return false;
 	}
+	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return "PGraphicPositionInteger:" + gPosition.getX() + "," + gPosition.getY();
+	}
+	
+	
+	
 	
 	
 }

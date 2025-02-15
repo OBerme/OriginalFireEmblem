@@ -8,5 +8,9 @@ public interface IPGraphicPosition<X, Y>{
 
 	void activePosition();
 
+	void setgPosition(IGraphicPosition<Integer, Integer> gPosition);
+
+	IGraphicPosition<Integer, Integer> getgPosition();
+	
 
 }

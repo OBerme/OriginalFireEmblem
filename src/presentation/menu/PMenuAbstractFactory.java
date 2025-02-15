@@ -28,7 +28,7 @@ public class PMenuAbstractFactory {
 		List<IPOption> options = new ArrayList<IPOption>();
 		if(ente instanceof Actionable) {
 			if(ente instanceof Movable) {
-				options.add(new POpMoveEnte(pContro));
+				options.add(new POpMoveEnte(pContro, ente));
 			}
 			if(ente instanceof Atacable) {
 				options.add(new POpShowMenu("Atack", pContro,

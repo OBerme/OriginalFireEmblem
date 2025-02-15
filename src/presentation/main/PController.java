@@ -2,38 +2,72 @@ package presentation.main;
 
 
 
+
+
+import java.util.List;
+
+import javax.swing.JFrame;
+
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
+import entes.Movable;
+import entes.md.Ente;
+import mapa.ln.ILNMapaMatrixEntesGroup;
 import mapa.md.IPosition;
 import presentation.graphicOptions.IShowMenus;
 import presentation.map.GraphicPositionInteger;
 import presentation.map.IGraphicMap;
 import presentation.map.IObserver;
+import presentation.map.IPGraphicPosition;
 import presentation.map.IPPPositionSubjectData;
 import presentation.map.IPositionObserver;
+import presentation.map.PGraphicPositionIntegerEnte;
 import presentation.menu.PMenu;
 
 @objid ("65c28fdb-6a52-451e-9c89-e87930998704")
 public class PController implements IPEnteController, IShowMenus, IPositionObserver, IPController{
+	private static final String PControllerLog = "PController";
 	private IGraphicMap gMap;
 	private IPPPositionSubjectData posiProductor; // observer pattern to catch the position selected
 	private IPosition<Integer, Integer> lastPosition;
+	private ILNMapaMatrixEntesGroup lnMMEG;
+	private JFrame frame;
 	
-    public PController(IGraphicMap gMap, IPPPositionSubjectData posiProductor) {
+	//Ente cache variables
+	private List<IPosition<Integer, Integer>>  pMPP;//Possible Moving Positions
+	private IPosition<Integer, Integer> lastEP; //Last Ente position
+	private boolean wantMove;
+    public PController(IGraphicMap gMap, IPPPositionSubjectData posiProductor,ILNMapaMatrixEntesGroup lnMMEG, JFrame frame) {
 		super();
 		this.gMap = gMap;
 		this.posiProductor = posiProductor;
+		this.lnMMEG = lnMMEG;
+		this.frame = frame;
+		this.wantMove = false;
+		
 	}
 
     //Pre: ---
     //Post: it will do some exceptions if you dont use the setGMap and setIPositionObserver
-	public PController() {
-		this(null, null);
+	public PController( JFrame frame) {
+		this(null, null, null,frame);
 	}
 
-	@objid ("40aa2939-d55e-42b6-867d-03835d5581f0")
-    public void moveEnte() {
-    	
+	@Override
+    public void moveEnte(Ente ente) {		
+    	if(ente instanceof Movable) {
+    		Movable mEnte = (Movable)ente;
+    		mEnte.getRangeMove();
+    		
+			if(lnMMEG.isEnteInMap(ente)) {
+				lastEP =  lnMMEG.getPositionEnte(ente);
+	    		gMap.activateCells(
+	    				pMPP = lnMMEG.getRangeDiagonal(lastEP.getX(), lastEP.getY(),  mEnte.getRangeMove() ));
+	    		
+	    		wantMove = true;
+			}
+			else if(PDefaultValues.DEBUG_MODE) System.out.println(" The ente is not in the map");
+    	}
     }
 
 	@Override
@@ -52,8 +86,36 @@ public class PController implements IPEnteController, IShowMenus, IPositionObser
 	@Override
 	public void update() {
 		// TODO Auto-generated method stub
-		System.out.println("Position update! " + posiProductor.getPosi());
+		if(PDefaultValues.DEBUG_MODE) System.out.println(PControllerLog + "Position update! " + posiProductor.getPosi());
 		
+		if(wantMove) {
+			if(PDefaultValues.DEBUG_MODE) System.out.println("Moving the ente to the position");
+			IPosition<Integer, Integer> sPosi =  posiProductor.getPosi();
+			
+			if(isInPosiblePositions(sPosi)) {
+				//Move the ente in map and update				
+				gMap.changePositions(gMap.getGraphicPosition(lastEP), 
+						gMap.getGraphicPosition(sPosi));  //Change the data of the positions
+				wantMove = false;
+				
+				gMap.refreshMap();
+				
+				frame.revalidate();
+				frame.repaint();
+				
+				
+			}
+			else
+				if(PDefaultValues.DEBUG_MODE) System.out.println("The selected position is not valid" + sPosi);
+		}
+	}
+	
+	private boolean isInPosiblePositions(IPosition<Integer, Integer> sPosi) {
+		for(IPosition<Integer, Integer> nPosi : pMPP) {
+			if(nPosi.equals(sPosi))
+				return true;
+		}
+		return false;
 	}
 
 	@Override
@@ -70,7 +132,12 @@ public class PController implements IPEnteController, IShowMenus, IPositionObser
 	public void showMenu(PMenu nextMenu) {
 		// TODO Auto-generated method stub
 		nextMenu.showMenu(lastPosition);
+	}	
+
+	public void setLnMMEG(ILNMapaMatrixEntesGroup lnMMEG) {
+		this.lnMMEG = lnMMEG;
 	}
+
 
 	
 	

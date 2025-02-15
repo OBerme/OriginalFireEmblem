@@ -12,13 +12,15 @@ public class SerVivo extends Ente implements Groupable, Actionable, Movable{
 	protected Group group;
 	protected int numTurns;
 	protected int dNumTurns;
+	protected int  rangeMove;
 	protected boolean hasMoreActions;
 	
-	public SerVivo(int hp, String name,String shortName,  Estado estado, int speed) {
+	public SerVivo(int hp, String name,String shortName,  Estado estado, int speed, int rangeMove) {
 		super(hp, name, shortName);
 		this.estado = estado;
 		this.numTurns =  TurnerEnumConstant.getNumTurns(speed);
 		this.dNumTurns = numTurns;
+		this.rangeMove = rangeMove;
 	}
 	public int getHp() {
 		return this.hp;
@@ -76,5 +78,10 @@ public class SerVivo extends Ente implements Groupable, Actionable, Movable{
 	public int getNum() {
 		// TODO Auto-generated method stub
 		return this.numb;
+	}
+	@Override
+	public int getRangeMove() {
+		// TODO Auto-generated method stub
+		return rangeMove;
 	}
 }

@@ -4,6 +4,7 @@ import java.awt.Color;
 
 public final class PDefaultValues {
 	public static final int HEADER_HEIGHT = 35 ;
+	public static final boolean DEBUG_MODE = true;
 	public static String IMAGES_PATH = "/home/stallman/Downloads/Trash/game/";
 	
 	public static String getPathImage(String image) {

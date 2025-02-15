@@ -11,6 +11,7 @@ import java.awt.event.MouseListener;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import entes.md.Ente;
@@ -32,7 +33,9 @@ import presentation.menu.PMenuAbstractFactory;
 public class PGraphicPositionIntegerEnte extends PGraphicPositionInteger implements Menuable{
 	private GraphicEnte gEnte;
 	private IShowMenus isMenu;
-
+	
+	
+	
 	public PGraphicPositionIntegerEnte(IGraphicPosition<Integer, Integer> gPosition,
 			IPPPositionSubjectData pSubject,
 			GraphicEnte gEnte, IShowMenus isMenu) {
@@ -68,10 +71,10 @@ public class PGraphicPositionIntegerEnte extends PGraphicPositionInteger impleme
 								
 			if(active) {
 				PMenu menu = eMenu.getMenu();
-				
-				this.isMenu.showMenu(menu, 
+				IPosition<Integer, Integer> nPosi = AbstractMapSizeFactory.getRelativeIntegerPosition(gPosition,1,0);
+				this.isMenu.showMenu(menu, nPosi
 						//to move the menu to his site
-						AbstractMapSizeFactory.getRelativeIntegerPosition(gPosition,0,1));
+						);
 			}
 		}
 		

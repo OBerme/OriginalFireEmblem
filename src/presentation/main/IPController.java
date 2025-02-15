@@ -1,5 +1,6 @@
 package presentation.main;
 
+import mapa.ln.ILNMapaMatrixEntesGroup;
 import presentation.map.IGraphicMap;
 import presentation.map.IPPPositionSubjectData;
 import presentation.menu.PMenu;
@@ -14,5 +15,6 @@ public interface IPController {
 	void skip();
 
 	void showMenu(PMenu nextMenu);
+
 
 }

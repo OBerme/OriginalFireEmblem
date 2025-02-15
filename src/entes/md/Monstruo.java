@@ -11,8 +11,8 @@ public class Monstruo extends SerVivo implements Atacable{
 	private List<Ataque> atacks;
 	//Pre: atacks should be a empty list if it hasen't atacks
 	//Post: it will build the new class
-	public Monstruo(int hp, String name,String shortName, Estado estado, int speed,List<Ataque> atacks) {
-		super(hp, name,shortName, estado, speed);
+	public Monstruo(int hp, String name,String shortName, Estado estado, int speed,int rangeMove,List<Ataque> atacks) {
+		super(hp, name,shortName, estado, speed, rangeMove);
 		this.atacks = atacks;
 		// TODO Auto-generated constructor stub
 	}

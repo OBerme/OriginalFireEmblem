@@ -17,4 +17,7 @@ public interface INLMapa<X, Y> {
 	
 	List<IPosition<Integer, Integer>> getRangeDiagonal(X x, Y y, X radio);
 	
+	//Desc: Change the data in both positions
+	void changeDataPositions(IPosition<Integer, Integer> fPosi, IPosition<Integer, Integer> sPosi);
+	
 }

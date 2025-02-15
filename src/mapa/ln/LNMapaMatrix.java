@@ -8,6 +8,7 @@ import java.util.List;
 import entes.md.Ente;
 import mapa.md.IMapa;
 import mapa.md.IPosition;
+import mapa.md.IPositionable;
 import mapa.md.MapaMatrix;
 import mapa.md.Posicion;
 import md.range.RangeDiagonal;
@@ -86,5 +87,11 @@ public class LNMapaMatrix extends LNMapa<Integer, Integer> implements ILNMapaMat
 		return RangeDiagonal.getPositions(AbstractFactoryPositionInteger.getPositionInteger(x, y, mapa), mapa, radio);
 	}
 
+	@Override
+	public void changeDataPositions(IPosition<Integer, Integer> fPosi, IPosition<Integer, Integer> sPosi) {
+		IPositionable fSome =  fPosi.getSomething();
+		fPosi.setSomething(sPosi.getSomething());
+		sPosi.setSomething(fSome);
+	}
 
 }

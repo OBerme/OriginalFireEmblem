@@ -43,12 +43,15 @@ public class Posicion<X,Y> implements IPosition<X, Y>{
 	public X getX() {
 		return x;
 	}
+	@Override
 	public void setX(X x) {
 		this.x = x;
 	}
+	
 	public Y getY() {
 		return y;
 	}
+	@Override
 	public void setY(Y y) {
 		this.y = y;
 	}

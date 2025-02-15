@@ -12,6 +12,7 @@ import acciones.md.ataque.Ataque;
 import acciones.md.ataque.Tipo;
 import entes.Estado;
 import entes.ln.StateSerVivo;
+import entes.md.Ente;
 import entes.md.GraphicEnte;
 import entes.md.GraphicMonstruo;
 import entes.md.GraphicPersona;
@@ -60,7 +61,7 @@ public class PresentationMain {
 		MapaMatrixEnteGroupActionable mapa = new MapaMatrixEnteGroupActionable();
 		
 		//controls set up
-		IPController controller = new PController();
+		IPController controller = new PController(frame);
 		IPEnteController entContro = (IPEnteController)controller; 
 		IShowMenus menuContro = (IShowMenus)controller; 
 		
@@ -89,22 +90,18 @@ public class PresentationMain {
 			}
 		}
 		
-		List<Ataque> ataquesN = new ArrayList<Ataque>();
-		ataquesN.add(new Ataque(1, "Gun atack", 50000, Tipo.FUEGO));
-		ataquesN.add(new Ataque(2, "Punietaso en las costillas", 200, Tipo.AGUA));
 		
-		List<Ataque> ataquesM = new ArrayList<Ataque>();
-		ataquesM.add(new Ataque(1, "Magical atack", 50000, Tipo.FUEGO));
-		ataquesM.add(new Ataque(2, "Garrazo en las costillas", 300, Tipo.FUEGO));
 		
 		//Oscar
-		Persona oscar = new Persona(200, "Oscar", "O", new Estado(StateSerVivo.NORMAL),TurnerEnumConstant.SPEED_DIVIDER.getCost(),ataquesN);
+		
+		Persona oscar = (Persona)AbstractFactoryCharacters.createOscar();
+		
 		PMenu menuOscar = PMenuAbstractFactory.getDefaultMenuEnte(oscar, entContro, frame);
 		GraphicEnte gPerson = new GraphicPersona(oscar,
 				PDefaultValues.getPathImage("bluesky.png"),
 				menuOscar);
 		
-		((GraphicPositionInteger)positions[2][2]).setSomething(gPerson); //TODO
+		((GraphicPositionInteger)positions[2][2]).setSomething(gPerson); 
 		
 		gPositions[2][2] = new PGraphicPositionIntegerEnte(((GraphicPositionInteger)positions[2][2]),
 				subObserPositi, gPerson, menuContro);
@@ -112,7 +109,7 @@ public class PresentationMain {
 		observers.add((IObserver)gPositions[2][2]);
 		
 		//JIJI
-		Persona jiji = new Persona(700, "Joji", "J", new Estado(StateSerVivo.NORMAL),TurnerEnumConstant.SPEED_DIVIDER.getCost(),ataquesM);
+		Persona jiji = (Persona) AbstractFactoryCharacters.createJiji();
 		
 		
 		gPerson = new GraphicPersona(
@@ -128,7 +125,7 @@ public class PresentationMain {
 		observers.add((IObserver)gPositions[3][2]);
 		
 		//Undyne
-		Monstruo undy = new Monstruo(1500, "Undyne", "U", new Estado(StateSerVivo.NORMAL),TurnerEnumConstant.SPEED_DIVIDER.getCost(),ataquesN);
+		Monstruo undy = (Monstruo)AbstractFactoryCharacters.createUndyne();
 		gPerson = new GraphicMonstruo(
 				undy,
 				PDefaultValues.getPathImage("monster.png"), 
@@ -140,7 +137,8 @@ public class PresentationMain {
 		observers.add((IObserver)gPositions[2][3]);
 		
 		//ASGORE
-		Monstruo asgor =new Monstruo(2700, "Asgore", "A", new Estado(StateSerVivo.NORMAL),TurnerEnumConstant.SPEED_DIVIDER.getCost(),ataquesN);
+		Monstruo asgor =(Monstruo)AbstractFactoryCharacters.createAsgore();
+		
 		gPerson = new GraphicMonstruo(
 				asgor,
 				PDefaultValues.getPathImage("monster.png"), 
@@ -154,6 +152,9 @@ public class PresentationMain {
 		//SET UP THE MAP
 		mapa = new MapaMatrixEnteGroupActionable(positions, groupsR);
 		ILNMapaMatrixEntesGroup lnMapa = new LNMapaMatrixEntesGroup(mapa, null,null );
+		
+		((PController)controller).setLnMMEG(lnMapa);
+		
         // Crear el panel de dibujo
 		
 		gMap = new GraphicMapInteger(lnMapa, gPositions,0,0);

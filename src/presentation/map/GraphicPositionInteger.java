@@ -11,10 +11,13 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 
+import entes.md.Ente;
 import entes.md.GraphicEnte;
 import mapa.md.IPosition;
+import mapa.md.IPositionEnte;
 import mapa.md.IPositionable;
 import mapa.md.Posicion;
+import presentation.ente.IGEnte;
 import presentation.graphicOptions.IDrawable;
 import presentation.graphicOptions.IShowMenus;
 import presentation.graphicOptions.Menuable;
@@ -23,7 +26,7 @@ import presentation.main.PController;
 import presentation.main.PDefaultValues;
 import presentation.menu.PMenuAbstractFactory;
 
-public class GraphicPositionInteger implements IGraphicPosition<Integer, Integer>{
+public class GraphicPositionInteger implements IGraphicPosition<Integer, Integer>, IPositionEnte<Integer, Integer>{
 	private ImageIcon cellImage;
 	private IShowMenus isMenu;
 	private IPosition<Integer, Integer> positi;	
@@ -38,11 +41,6 @@ public class GraphicPositionInteger implements IGraphicPosition<Integer, Integer
 	}
 	
 	@Override
-	public String toString() {
-		// TODO Auto-generated method stub
-		return super.toString();
-	}
-	
 	public void setSomething(IPositionable positionable) {
 		this.positi.setSomething(positionable);
 	}
@@ -112,6 +110,41 @@ public class GraphicPositionInteger implements IGraphicPosition<Integer, Integer
 			return gpi.getX().equals(getX()) && gpi.getY().equals(getY());
 		}
 		return false;
+	}
+	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return "GraphicPosition" + positi.getX() + "," + positi.getY();
+	}
+
+	@Override
+	public void setX(Integer x) {
+		positi.setX(x);
+	}
+
+	@Override
+	public void setY(Integer y) {
+		positi.setY(y);
+	}
+
+	@Override
+	public boolean hasEnte() {
+		
+		if(hasSomething()) {
+			return getSomething() instanceof Ente || getSomething() instanceof IGEnte;
+		}
+		
+		return false;
+	}
+
+	//Pre: This method should be call after used the has Ente method
+	//Post: it will return the ente in this graphicPosition
+	@Override
+	public Ente getEnte() {
+		if(getSomething() instanceof IGEnte)
+			return ((IGEnte)getSomething()).getEnte();
+		return (Ente)getSomething();
 	}
 
 }

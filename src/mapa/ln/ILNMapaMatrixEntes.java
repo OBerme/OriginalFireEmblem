@@ -14,6 +14,10 @@ public interface ILNMapaMatrixEntes extends ILNMapaMatrix{
 	void addEnte(Ente ente, Posicion<Integer, Integer> posi);
 	boolean removeEnte(Ente ente);
 	
+	//Pre: the ente should be not null
+	//Post: it will return the position of the ente, null if the ente is not in the map
+	IPosition<Integer, Integer> getPositionEnte(Ente ente);
+	
 	/**
 	 * Pre: posicion tiene que ser una posicion valida del mapa
 	 * Post: posi.getEnte() == null

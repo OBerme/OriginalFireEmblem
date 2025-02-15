@@ -3,10 +3,11 @@ package entes.md;
 import javax.swing.JComponent;
 
 import mapa.md.IPositionable;
+import presentation.ente.IGEnte;
 import presentation.graphicOptions.IDrawable;
 import presentation.graphicOptions.Menuable;
 
-public class GraphicEnte implements IDrawable, IPositionable {
+public class GraphicEnte implements IDrawable, IPositionable, IGEnte {
 	
 	protected String pathImage;
 	protected Ente ente;
