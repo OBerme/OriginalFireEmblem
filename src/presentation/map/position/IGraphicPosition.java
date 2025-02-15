@@ -1,4 +1,4 @@
-package presentation.map;
+package presentation.map.position;
 
 import java.awt.Component;
 

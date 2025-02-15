@@ -15,13 +15,13 @@ import entes.md.Ente;
 import mapa.ln.ILNMapaMatrixEntesGroup;
 import mapa.md.IPosition;
 import presentation.graphicOptions.IShowMenus;
-import presentation.map.GraphicPositionInteger;
 import presentation.map.IGraphicMap;
-import presentation.map.IObserver;
-import presentation.map.IPGraphicPosition;
 import presentation.map.IPPPositionSubjectData;
-import presentation.map.IPositionObserver;
-import presentation.map.PGraphicPositionIntegerEnte;
+import presentation.map.jbutton.IPGraphicPosition;
+import presentation.map.jbutton.PGraphicPositionIntegerEnte;
+import presentation.map.position.GraphicPositionInteger;
+import presentation.map.position.IObserver;
+import presentation.map.position.IPositionObserver;
 import presentation.menu.PMenu;
 
 @objid ("65c28fdb-6a52-451e-9c89-e87930998704")
@@ -37,6 +37,7 @@ public class PController implements IPEnteController, IShowMenus, IPositionObser
 	private List<IPosition<Integer, Integer>>  pMPP;//Possible Moving Positions
 	private IPosition<Integer, Integer> lastEP; //Last Ente position
 	private boolean wantMove;
+	
     public PController(IGraphicMap gMap, IPPPositionSubjectData posiProductor,ILNMapaMatrixEntesGroup lnMMEG, JFrame frame) {
 		super();
 		this.gMap = gMap;

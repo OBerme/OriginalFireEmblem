@@ -1,4 +1,4 @@
-package presentation.map;
+package presentation.map.position;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -39,7 +39,7 @@ public class GraphicPositionInteger implements IGraphicPosition<Integer, Integer
 		this.positi = positi;		
 		this.cellImage = new ImageIcon(cellImage);
 		this.isMenu = isMenu;
-		this.gEnte = gEnte;
+		
 	}
 	
 	@Override
@@ -99,6 +99,14 @@ public class GraphicPositionInteger implements IGraphicPosition<Integer, Integer
 	@Override
 	public Icon getCellImage() {
 		// TODO Auto-generated method stub
+		if(positi.hasSomething() ) {
+			if(positi.getSomething() instanceof IGEnte) {
+				IGEnte gEnte = ((IGEnte)positi.getSomething());
+				if(!gEnte.getEnte().isDied()) {
+					return gEnte.getImage();	
+				}	
+			}
+		}
 		return cellImage;
 	}
 

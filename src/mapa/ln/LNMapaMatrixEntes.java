@@ -36,7 +36,7 @@ public class LNMapaMatrixEntes extends LNMapaMatrix
 					Ente nEnte = posiEnte.getEnte();
 					
 					appendEnte(nEnte);
-					setEntePosition(nEnte, posiEnte);
+//					setEntePosition(nEnte, posiEnte);
 				}
 			}
 		}
@@ -94,7 +94,10 @@ public class LNMapaMatrixEntes extends LNMapaMatrix
 	}
 	
 
-
+	protected void addMapPosition(Ente ente, IPosition<Integer, Integer> posi) {
+		mapa.setPosicion(posi);
+	}
+	
 	protected void setEntePosition(Ente ente, IPosition<Integer, Integer> posi) {
 		posi.setSomething(ente);
 		mapa.setPosicion(posi);
@@ -183,9 +186,9 @@ public class LNMapaMatrixEntes extends LNMapaMatrix
 	public IPosition<Integer, Integer> getPositionEnte(Ente ente) {
 		// TODO Auto-generated method stub
 		for(IPosition<Integer, Integer> nPosi : mapa.getPosiciones()) {
-			if(nPosi.hasSomething() && nPosi.getSomething() instanceof Ente) {
-				Ente nEnte = (Ente)nPosi.getSomething();
-					if(nEnte.equals(ente)) {
+			if(nPosi.hasSomething() && nPosi instanceof IPositionEnte<Integer, Integer>) {
+				IPositionEnte<Integer, Integer> nPEnte = (IPositionEnte<Integer, Integer>)nPosi;
+					if(nPEnte.hasEnte() && nPEnte.getEnte().equals(ente)) {
 						return nPosi;
 					}
 				}

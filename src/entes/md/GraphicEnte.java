@@ -1,14 +1,17 @@
 package entes.md;
 
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 
 import mapa.md.IPositionable;
 import presentation.ente.IGEnte;
 import presentation.graphicOptions.IDrawable;
 import presentation.graphicOptions.Menuable;
+import presentation.main.PDefaultValues;
 
 public class GraphicEnte implements IDrawable, IPositionable, IGEnte {
-	
+	protected ImageIcon imageIcon;
 	protected String pathImage;
 	protected Ente ente;
 	
@@ -16,6 +19,7 @@ public class GraphicEnte implements IDrawable, IPositionable, IGEnte {
 		super();
 		this.ente = ente;
 		this.pathImage = pathImage;
+		this.imageIcon = new ImageIcon(pathImage);
 	}
 	
 	public Ente getEnte() {
@@ -37,6 +41,11 @@ public class GraphicEnte implements IDrawable, IPositionable, IGEnte {
 	public JComponent getRepresentation() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public Icon getImage() {
+		return imageIcon;
 	}
 
 }

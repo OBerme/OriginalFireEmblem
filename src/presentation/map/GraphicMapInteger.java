@@ -32,6 +32,11 @@ import presentation.graphicOptions.Playable;
 import presentation.graphicOptions.Rangeable;
 import presentation.main.AbstractFactoryCharacters;
 import presentation.main.PDefaultValues;
+import presentation.map.jbutton.IJButtonAction;
+import presentation.map.jbutton.IPGraphicPosition;
+import presentation.map.jbutton.PGraphicPositionInteger;
+import presentation.map.position.AbstractPositionModifier;
+import presentation.map.position.GraphicPositionInteger;
 import presentation.menu.PMenu;
 import presentation.menu.PMenuAbstractFactory;
 
@@ -82,27 +87,6 @@ public class GraphicMapInteger extends GraphicMap<Integer, Integer>
 		this.revalidate();
 	    this.repaint();
 	}
-	
-	private void updateButtonListeners() {
-	    for (int x = 0; x < gPositions.length; x++) {
-	        for (int y = 0; y < gPositions[0].length; y++) {
-	            JComponent component = (JComponent) gPositions[x][y];
-
-	            if (component instanceof PGraphicPositionInteger) {
-	                PGraphicPositionInteger button = (PGraphicPositionInteger) component;
-
-	                // Primero, eliminamos todos los ActionListeners anteriores
-	                for (ActionListener al : button.getActionListeners()) {
-	                    button.removeActionListener(al);
-	                }
-
-	                // Asignamos un nuevo ActionListener basado en la nueva posición
-	                button.addActionListener(e -> button.onClickedPosition());
-	            }
-	        }
-	    }
-	}
-
 
 	
 	@Override
@@ -139,29 +123,18 @@ public class GraphicMapInteger extends GraphicMap<Integer, Integer>
 		fgCPosi.setSomething(sgCPosi.getSomething());
 		sgCPosi.setSomething(fSome);
 		
+//		fgCPosi.get
 		
+		PGraphicPositionInteger fPosi = (PGraphicPositionInteger) gPositions[fgCPosi.getX()][fgCPosi.getY()];
+		PGraphicPositionInteger sPosi = (PGraphicPositionInteger) gPositions[sgCPosi.getX()][sgCPosi.getY()];
 		
+		//Change the actions
+		IJButtonAction fAction = fPosi.getGraAction(); 
+		fPosi.setAction(sPosi.getGraAction());		
+		sPosi.setAction(fAction);
 		
-		gPositions[fgCPosi.getX()][fgCPosi.getY()] = sGPosition;
-		 = fGPosition;
-		
-//		sGPosition = fGPosition;
-		fGPosition = sGPosition;
-		
-//		((JButton)sGPosition).setIcon(new ImageIcon(PDefaultValues.getPathImage("monster.png")));
-		
-//		Monstruo asgor =(Monstruo)AbstractFactoryCharacters.createAsgore();
-//		
-//		GraphicSerVivo gPerson = new GraphicMonstruo(
-//				asgor,
-//				PDefaultValues.getPathImage("monster.png"), 
-//				PMenuAbstractFactory.getDefaultMenuEnte(asgor, null, null));
-		
-		
-		
-		fGPosition.setgPosition(sgCPosi);
-		sGPosition.setgPosition(fgCPosi);
-		
+		fPosi.refreshButton();
+		sPosi.refreshButton();
 		
 		refreshMap();
 	}

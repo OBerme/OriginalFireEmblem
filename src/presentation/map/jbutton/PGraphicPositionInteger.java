@@ -1,4 +1,4 @@
-package presentation.map;
+package presentation.map.jbutton;
 
 import java.awt.Component;
 
@@ -9,6 +9,9 @@ import javax.swing.JComponent;
 
 import entes.md.GraphicEnte;
 import presentation.main.PDefaultValues;
+import presentation.map.IPPPositionSubjectData;
+import presentation.map.position.IGraphicPosition;
+import presentation.map.position.IPositionObserver;
 import presentation.menu.PMenu;
 import presentation.menu.PMenuAbstractFactory;
 
@@ -62,7 +65,7 @@ public class PGraphicPositionInteger extends JButton
 	
 	@Override
 	public void refreshButton() {
-		setIcon(image);
+		setIcon(gPosition.getCellImage());
 	}
 
 	@Override
@@ -125,6 +128,10 @@ public class PGraphicPositionInteger extends JButton
 	public boolean isActive() {
 		// TODO Auto-generated method stub
 		return active;
+	}
+
+	public void isActive(boolean b) {
+		this.active = b;
 	}
 	
 	

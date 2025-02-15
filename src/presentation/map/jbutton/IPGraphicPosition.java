@@ -1,8 +1,9 @@
-package presentation.map;
+package presentation.map.jbutton;
 
 import javax.swing.JComponent;
 
 import mapa.md.IPosition;
+import presentation.map.position.IGraphicPosition;
 
 public interface IPGraphicPosition<X, Y>{
 

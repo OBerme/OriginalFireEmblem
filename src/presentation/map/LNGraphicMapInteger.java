@@ -4,6 +4,8 @@ import entes.md.SerVivo;
 import mapa.md.IPositionable;
 import presentation.graphicOptions.IShowMenus;
 import presentation.graphicOptions.Menuable;
+import presentation.map.position.GraphicPositionInteger;
+import presentation.map.position.IObserver;
 
 public class LNGraphicMapInteger implements IObserver{
 	private GraphicMapInteger gMap;

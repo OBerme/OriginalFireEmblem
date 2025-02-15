@@ -1,8 +1,9 @@
-package presentation.map;
+package presentation.map.position;
 
 import java.util.List;
 
 import mapa.md.IPosition;
+import presentation.map.IPPPositionSubjectData;
 
 public class PPositionData implements IPPPositionSubjectData{
 	public List<IObserver> observers;

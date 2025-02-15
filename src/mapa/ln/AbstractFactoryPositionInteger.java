@@ -9,7 +9,7 @@ import mapa.md.Posicion;
 import mapa.md.PosicionGroupable;
 import mapa.md.PosicionGroupableActionable;
 import presentation.map.GraphicMap;
-import presentation.map.GraphicPositionInteger;
+import presentation.map.position.GraphicPositionInteger;
 
 public class AbstractFactoryPositionInteger {
 	//Pre: The map should have some positions

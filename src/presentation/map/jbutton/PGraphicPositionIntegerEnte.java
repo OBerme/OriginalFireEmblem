@@ -1,4 +1,4 @@
-package presentation.map;
+package presentation.map.jbutton;
 
 import java.awt.Component;
 import java.awt.Image;
@@ -23,6 +23,8 @@ import presentation.graphicOptions.IShowMenus;
 import presentation.graphicOptions.Menuable;
 import presentation.main.PController;
 import presentation.main.PDefaultValues;
+import presentation.map.IPPPositionSubjectData;
+import presentation.map.position.IGraphicPosition;
 import presentation.menu.PMenu;
 import presentation.menu.PMenuAbstractFactory;
 

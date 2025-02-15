@@ -3,6 +3,7 @@ package presentation.map;
 import java.util.List;
 
 import mapa.md.IPosition;
+import presentation.map.jbutton.IPGraphicPosition;
 
 public interface IGraphicMap {
 

@@ -31,18 +31,18 @@ import mapa.md.Posicion;
 import mapa.md.PosicionGroupable;
 import mapa.md.PosicionGroupableActionable;
 import presentation.graphicOptions.IShowMenus;
-import presentation.map.AbstractFactoryJButtonActions;
 import presentation.map.GraphicMap;
 import presentation.map.GraphicMapInteger;
-import presentation.map.GraphicPositionInteger;
-import presentation.map.IGraphicPosition;
-import presentation.map.IObserver;
-import presentation.map.IPGraphicPosition;
 import presentation.map.IPPPositionSubjectData;
-import presentation.map.IPPositionSubject;
-import presentation.map.PGraphicPositionInteger;
-import presentation.map.PGraphicPositionIntegerEnte;
-import presentation.map.PPositionData;
+import presentation.map.jbutton.AbstractFactoryJButtonActions;
+import presentation.map.jbutton.IPGraphicPosition;
+import presentation.map.jbutton.PGraphicPositionInteger;
+import presentation.map.jbutton.PGraphicPositionIntegerEnte;
+import presentation.map.position.GraphicPositionInteger;
+import presentation.map.position.IGraphicPosition;
+import presentation.map.position.IObserver;
+import presentation.map.position.IPPositionSubject;
+import presentation.map.position.PPositionData;
 import presentation.menu.PMenu;
 import presentation.menu.PMenuAbstractFactory;
 import turner.md.enums.TurnerEnumConstant;
@@ -112,61 +112,61 @@ public class PresentationMain {
 						gPerson, menuContro));
 		
 //		gPositions[3][3] = gPositions[2][2];
-		
-		observers.add((IObserver)pgPosi);
-		
-		//JIJI
-		Persona jiji = (Persona) AbstractFactoryCharacters.createJiji();
-		
-		
-		gPerson = new GraphicPersona(
-				jiji,
-				PDefaultValues.getPathImage("jiji.png"), 
-				PMenuAbstractFactory.getDefaultMenuEnte(jiji, entContro, frame //invoker  
-						));
-		gPosi =((GraphicPositionInteger)positions[3][2]); 
-		gPosi.setSomething(gPerson);
-		
-		pgPosi = (PGraphicPositionInteger)gPositions[3][2]; 
-		pgPosi = new PGraphicPositionIntegerEnte(gPosi,
-				subObserPositi, AbstractFactoryJButtonActions.getEnteAction(pgPosi, 
-						gPerson, menuContro), gPerson, menuContro);
-		
-		observers.add((IObserver)pgPosi);
-		
-		//Undyne
-		Monstruo undy = (Monstruo)AbstractFactoryCharacters.createUndyne();
-		gPerson = new GraphicMonstruo(
-				undy,
-				PDefaultValues.getPathImage("monster.png"), 
-				PMenuAbstractFactory.getDefaultMenuEnte(undy, entContro, frame));
-		
-		gPosi =((GraphicPositionInteger)positions[2][3]); 
-		gPosi.setSomething(gPerson); 
-		
-		pgPosi = (PGraphicPositionInteger)gPositions[2][3]; 
-		pgPosi = new PGraphicPositionIntegerEnte(gPosi,
-				subObserPositi, AbstractFactoryJButtonActions.getEnteAction(pgPosi, 
-						gPerson, menuContro), gPerson, menuContro);
-		
-		observers.add((IObserver)pgPosi);
-		
-		//ASGORE
-		Monstruo asgor =(Monstruo)AbstractFactoryCharacters.createAsgore();
-		
-		gPerson = new GraphicMonstruo(
-				asgor,
-				PDefaultValues.getPathImage("monster.png"), 
-				PMenuAbstractFactory.getDefaultMenuEnte(asgor, entContro, frame));
-		
-		gPosi =((GraphicPositionInteger)positions[3][3]); 
-		gPosi.setSomething(gPerson); 
-		
-		pgPosi = (PGraphicPositionInteger)gPositions[3][3]; 
-		pgPosi = new PGraphicPositionIntegerEnte(gPosi,
-				subObserPositi, AbstractFactoryJButtonActions.getEnteAction(pgPosi, 
-						gPerson, menuContro), gPerson, menuContro);
-		
+//		
+//		observers.add((IObserver)pgPosi);
+//		
+//		//JIJI
+//		Persona jiji = (Persona) AbstractFactoryCharacters.createJiji();
+//		
+//		
+//		gPerson = new GraphicPersona(
+//				jiji,
+//				PDefaultValues.getPathImage("jiji.png"), 
+//				PMenuAbstractFactory.getDefaultMenuEnte(jiji, entContro, frame //invoker  
+//						));
+//		gPosi =((GraphicPositionInteger)positions[3][2]); 
+//		gPosi.setSomething(gPerson);
+//		
+//		pgPosi = (PGraphicPositionInteger)gPositions[3][2]; 
+//		pgPosi = new PGraphicPositionIntegerEnte(gPosi,
+//				subObserPositi, AbstractFactoryJButtonActions.getEnteAction(pgPosi, 
+//						gPerson, menuContro), gPerson, menuContro);
+//		
+//		observers.add((IObserver)pgPosi);
+//		
+//		//Undyne
+//		Monstruo undy = (Monstruo)AbstractFactoryCharacters.createUndyne();
+//		gPerson = new GraphicMonstruo(
+//				undy,
+//				PDefaultValues.getPathImage("monster.png"), 
+//				PMenuAbstractFactory.getDefaultMenuEnte(undy, entContro, frame));
+//		
+//		gPosi =((GraphicPositionInteger)positions[2][3]); 
+//		gPosi.setSomething(gPerson); 
+//		
+//		pgPosi = (PGraphicPositionInteger)gPositions[2][3]; 
+//		pgPosi = new PGraphicPositionIntegerEnte(gPosi,
+//				subObserPositi, AbstractFactoryJButtonActions.getEnteAction(pgPosi, 
+//						gPerson, menuContro), gPerson, menuContro);
+//		
+//		observers.add((IObserver)pgPosi);
+//		
+//		//ASGORE
+//		Monstruo asgor =(Monstruo)AbstractFactoryCharacters.createAsgore();
+//		
+//		gPerson = new GraphicMonstruo(
+//				asgor,
+//				PDefaultValues.getPathImage("monster.png"), 
+//				PMenuAbstractFactory.getDefaultMenuEnte(asgor, entContro, frame));
+//		
+//		gPosi =((GraphicPositionInteger)positions[3][3]); 
+//		gPosi.setSomething(gPerson); 
+//		
+//		pgPosi = (PGraphicPositionInteger)gPositions[3][3]; 
+//		pgPosi = new PGraphicPositionIntegerEnte(gPosi,
+//				subObserPositi, AbstractFactoryJButtonActions.getEnteAction(pgPosi, 
+//						gPerson, menuContro), gPerson, menuContro);
+//		
 		//SET UP THE MAP
 		mapa = new MapaMatrixEnteGroupActionable(positions, groupsR);
 		ILNMapaMatrixEntesGroup lnMapa = new LNMapaMatrixEntesGroup(mapa, null,null );
