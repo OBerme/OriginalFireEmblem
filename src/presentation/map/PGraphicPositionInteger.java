@@ -46,6 +46,10 @@ public class PGraphicPositionInteger extends JButton
 	}
 	
 	
+	public void setImage(Icon image) {
+		this.image = image;
+	}
+
 	@Override
 	public IJButtonAction getGraAction() {
 		return action;

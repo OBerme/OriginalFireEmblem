@@ -107,10 +107,11 @@ public class PresentationMain {
 		
 		PGraphicPositionInteger pgPosi = (PGraphicPositionInteger) gPositions[2][2];
 		
-		gPositions[2][2] = new PGraphicPositionIntegerEnte(gPosi,
+		gPositions[2][2] = new PGraphicPositionInteger(gPosi,
 				subObserPositi, AbstractFactoryJButtonActions.getEnteAction(pgPosi, 
-						gPerson, menuContro), gPerson, menuContro);
+						gPerson, menuContro));
 		
+//		gPositions[3][3] = gPositions[2][2];
 		
 		observers.add((IObserver)pgPosi);
 		

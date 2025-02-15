@@ -30,6 +30,7 @@ public class GraphicPositionInteger implements IGraphicPosition<Integer, Integer
 	private ImageIcon cellImage;
 	private IShowMenus isMenu;
 	private IPosition<Integer, Integer> positi;	
+	private GraphicEnte gEnte;
 	
 	
 	//Pre: The ente 
@@ -38,6 +39,7 @@ public class GraphicPositionInteger implements IGraphicPosition<Integer, Integer
 		this.positi = positi;		
 		this.cellImage = new ImageIcon(cellImage);
 		this.isMenu = isMenu;
+		this.gEnte = gEnte;
 	}
 	
 	@Override

@@ -143,7 +143,7 @@ public class GraphicMapInteger extends GraphicMap<Integer, Integer>
 		
 		
 		gPositions[fgCPosi.getX()][fgCPosi.getY()] = sGPosition;
-		gPositions[sgCPosi.getX()][sgCPosi.getY()] = fGPosition;
+		 = fGPosition;
 		
 //		sGPosition = fGPosition;
 		fGPosition = sGPosition;
