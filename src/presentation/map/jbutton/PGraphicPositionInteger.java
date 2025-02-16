@@ -7,6 +7,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 
+import entes.Movable;
 import entes.md.GraphicEnte;
 import presentation.main.PDefaultValues;
 import presentation.map.IPPPositionSubjectData;
@@ -14,6 +15,7 @@ import presentation.map.position.IGraphicPosition;
 import presentation.map.position.IPositionObserver;
 import presentation.menu.PMenu;
 import presentation.menu.PMenuAbstractFactory;
+import turner.md.Actionable;
 
 public class PGraphicPositionInteger extends JButton 
 	implements IPGraphicPosition<Integer, Integer>, IPositionObserver {
@@ -45,6 +47,7 @@ public class PGraphicPositionInteger extends JButton
 		addActionListener(e -> {
 			onClickedPosition();
 		});
+		
 		
 	}
 	

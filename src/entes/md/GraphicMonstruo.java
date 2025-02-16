@@ -2,6 +2,7 @@ package entes.md;
 
 import entes.Estado;
 import menu.md.Menu;
+import presentation.menu.IPMenu;
 import presentation.menu.PMenu;
 
 public class GraphicMonstruo extends GraphicSerVivo{
@@ -11,6 +12,5 @@ public class GraphicMonstruo extends GraphicSerVivo{
 		// TODO Auto-generated constructor stub
 	}
 
-
-
+	
 }

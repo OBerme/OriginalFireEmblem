@@ -1,6 +1,7 @@
 package presentation.graphicOptions;
 
 import menu.md.Menu;
+import presentation.menu.IPMenu;
 import presentation.menu.PMenu;
 
 public interface Menuable {
@@ -8,5 +9,5 @@ public interface Menuable {
 	//Post: it will show the menu as a graphic in the 
 	
 	
-	public PMenu getMenu();
+	public IPMenu<Integer, Integer> getMenu();
 }

@@ -25,6 +25,7 @@ import presentation.main.PController;
 import presentation.main.PDefaultValues;
 import presentation.map.IPPPositionSubjectData;
 import presentation.map.position.IGraphicPosition;
+import presentation.menu.IPMenu;
 import presentation.menu.PMenu;
 import presentation.menu.PMenuAbstractFactory;
 
@@ -50,7 +51,7 @@ public class PGraphicPositionIntegerEnte extends PGraphicPositionInteger impleme
 
 
 	@Override
-	public PMenu getMenu() {
+	public IPMenu<Integer, Integer> getMenu() {
 		// TODO Auto-generated method stub
 		if (gEnte instanceof Menuable) {
 			Menuable eMenu =  (Menuable)gEnte;

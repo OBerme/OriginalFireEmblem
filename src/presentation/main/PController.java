@@ -22,10 +22,11 @@ import presentation.map.jbutton.PGraphicPositionIntegerEnte;
 import presentation.map.position.GraphicPositionInteger;
 import presentation.map.position.IObserver;
 import presentation.map.position.IPositionObserver;
+import presentation.menu.IPMenu;
 import presentation.menu.PMenu;
 
 @objid ("65c28fdb-6a52-451e-9c89-e87930998704")
-public class PController implements IPEnteController, IShowMenus, IPositionObserver, IPController{
+public class PController implements IPEnteController, IShowMenus, IPositionObserver{
 	private static final String PControllerLog = "PController";
 	private IGraphicMap gMap;
 	private IPPPositionSubjectData posiProductor; // observer pattern to catch the position selected
@@ -56,6 +57,7 @@ public class PController implements IPEnteController, IShowMenus, IPositionObser
 
 	@Override
     public void moveEnte(Ente ente) {		
+		
     	if(ente instanceof Movable) {
     		Movable mEnte = (Movable)ente;
     		mEnte.getRangeMove();
@@ -72,7 +74,7 @@ public class PController implements IPEnteController, IShowMenus, IPositionObser
     }
 
 	@Override
-	public void showMenu(PMenu menu, IPosition<Integer, Integer> position) {
+	public void showMenu(IPMenu<Integer, Integer> menu, IPosition<Integer, Integer> position) {
 		// TODO Auto-generated method stub
 		lastPosition = position;
 		menu.showMenu(position);
@@ -130,7 +132,7 @@ public class PController implements IPEnteController, IShowMenus, IPositionObser
 	}
 
 	@Override
-	public void showMenu(PMenu nextMenu) {
+	public void showMenu(IPMenu<Integer, Integer> nextMenu) {
 		// TODO Auto-generated method stub
 		nextMenu.showMenu(lastPosition);
 	}	

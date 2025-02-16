@@ -20,36 +20,39 @@ public class PMenuAbstractFactory {
 	
 
 	private PMenuAbstractFactory(){
-		List<IPOption> options = new ArrayList<IPOption>();
-		voidMenu = new PMenu(options, null);
+		voidMenu = new PMenu(null);
+		voidMenu.onFinishedAddedOptions();
 	}
 	
-	public static PMenu getDefaultMenuEnte(Ente ente, IPEnteController pContro, Component invoker) {
-		List<IPOption> options = new ArrayList<IPOption>();
+	public static IPMenu<Integer, Integer> getDefaultMenuEnte(Ente ente, IPEnteController pContro, Component invoker) {
+		PMenuEnte pMEnte= new PMenuEnte(invoker);
+	
 		if(ente instanceof Actionable) {
 			if(ente instanceof Movable) {
-				options.add(new POpMoveEnte(pContro, ente));
+				pMEnte.addOption(new POpMoveEnte(pContro, ente, pMEnte));
 			}
 			if(ente instanceof Atacable) {
-				options.add(new POpShowMenu("Atack", pContro,
+				pMEnte.addOption(new POpShowMenu("Atack", pContro,
 						getDefaultMenuAtacks(
 								((Atacable)ente).getAtacks() , invoker)));
 			}	
 		}
-		options.add(new POpSkip(pContro));
-	
-		return new PMenu(options,invoker);
+		
+		pMEnte.addOption(new POpSkip(pContro));
+		pMEnte.onFinishedAddedOptions();
+		
+		return pMEnte;
 	}
 	
-	public static PMenu getEmptyMenu() {
+	public static IPMenu<Integer, Integer> getEmptyMenu() {
 		if(voidMenu == null) new PMenuAbstractFactory();
 		return voidMenu;
 	}
 	
-	public static PMenu getDefaultMenuAtacks(List<Ataque> atacks, Component invoker) {
-		List<IPOption> options = new ArrayList<IPOption>();
+	public static IPMenu<Integer, Integer> getDefaultMenuAtacks(List<Ataque> atacks, Component invoker) {
+		PMenu menu = new  PMenu(invoker); 
+		menu.onFinishedAddedOptions();
+		return menu;
 		
-		//Check if the option is avaliable with the power of the ente
-		return new PMenu(options,invoker) ;
 	}
 }

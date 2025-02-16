@@ -43,6 +43,7 @@ import presentation.map.position.IGraphicPosition;
 import presentation.map.position.IObserver;
 import presentation.map.position.IPPositionSubject;
 import presentation.map.position.PPositionData;
+import presentation.menu.IPMenu;
 import presentation.menu.PMenu;
 import presentation.menu.PMenuAbstractFactory;
 import turner.md.enums.TurnerEnumConstant;
@@ -97,7 +98,7 @@ public class PresentationMain {
 		
 		Persona oscar = (Persona)AbstractFactoryCharacters.createOscar();
 		
-		PMenu menuOscar = PMenuAbstractFactory.getDefaultMenuEnte(oscar, entContro, frame);
+		IPMenu<Integer, Integer> menuOscar = PMenuAbstractFactory.getDefaultMenuEnte(oscar, entContro, frame);
 		GraphicEnte gPerson = new GraphicPersona(oscar,
 				PDefaultValues.getPathImage("bluesky.png"),
 				menuOscar);

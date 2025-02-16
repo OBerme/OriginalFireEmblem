@@ -84,4 +84,9 @@ public class SerVivo extends Ente implements Groupable, Actionable, Movable{
 		// TODO Auto-generated method stub
 		return rangeMove;
 	}
+	@Override
+	public boolean canMove() {
+		// TODO Auto-generated method stub
+		return this.numTurns >= TurnerEnumConstant.MOVE_COST.getCost();
+	}
 }

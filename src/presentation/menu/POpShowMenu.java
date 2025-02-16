@@ -6,13 +6,13 @@ import presentation.main.PController;
 
 public class POpShowMenu extends POption{
 	
-	public POpShowMenu(String option, IPController pcontro, PMenu nextMenu) {
+	public POpShowMenu(String option, IPController pcontro, IPMenu<Integer, Integer> nextMenu) {
 		super(option, pcontro);
 		this.nextMenu = nextMenu;
 	}
 
 
-	private PMenu nextMenu;
+	private IPMenu<Integer, Integer> nextMenu;
 	
 	
 	@Override

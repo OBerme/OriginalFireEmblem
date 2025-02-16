@@ -5,4 +5,5 @@ public interface Actionable {
 	boolean hasActions();
 	void subtractNumActions(int numActions);
 	void resetNumActions();
+	boolean canMove();
 }

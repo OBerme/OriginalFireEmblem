@@ -8,6 +8,7 @@ import presentation.graphicOptions.IShowMenus;
 import presentation.graphicOptions.Menuable;
 import presentation.main.PDefaultValues;
 import presentation.map.AbstractMapSizeFactory;
+import presentation.menu.IPMenu;
 import presentation.menu.PMenu;
 
 
@@ -39,7 +40,7 @@ public class JButtonActionEnte implements IJButtonActionEnte{
 			
 			if(!pGPI.isActive()) {
 				pGPI.isActive(true);
-				PMenu menu = eMenu.getMenu();
+				IPMenu<Integer, Integer> menu = eMenu.getMenu();
 				IPosition<Integer, Integer> nPosi = 
 						AbstractMapSizeFactory.getRelativeIntegerPosition(pGPI.getgPosition(),1,0);
 				this.isMenu.showMenu(menu, nPosi

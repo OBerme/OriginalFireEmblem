@@ -5,6 +5,7 @@ import java.awt.Component;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -21,27 +22,39 @@ import mapa.md.IPosition;
 
 public class PMenu extends JPopupMenu implements IPMenu<Integer, Integer>{
 	private Component invoker;
-    private List<IPOption> options; // Lista de botones del menú
-
+	protected List<IPOption> options; // Lista de botones del menú
+    protected HashMap<String, JMenuItem> gOptions;
     
-    public PMenu(List<IPOption> options, Component invoker) {
+    public PMenu( Component invoker) {
 		// TODO Auto-generated constructor stub
 //    	setLayout(new GridLayout(options.size(), 1)); // Configuración de layout (filas dinámicas)
     	this.invoker = invoker;
-    	 // Crear los botones
+    	this.gOptions = new HashMap<String, JMenuItem>();
+    	
+    	 
+        this.options = new ArrayList<IPOption>();
+	}
+    
+    @Override
+    public void onFinishedAddedOptions() {
+    	// Crear los botones
         for (int i = 0; i < options.size(); i++) {
         	IPOption nOption = options.get(i); 
         	
         	JMenuItem nItem = new JMenuItem(nOption.getOption());
         	
+        	gOptions.put(nOption.getOption(), nItem);
         	nItem.addActionListener(e -> {
         		nOption.doAction();
         	});
         	
             add(nItem); // Agregar al panel
         }
-        this.options = options;
-	}
+    }
+    
+    public void addOption(IPOption nOption) {
+    	this.options.add(nOption);
+    }
 
     
     //Pre: the positions should be in the corner you want to put
