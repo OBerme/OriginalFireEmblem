@@ -98,43 +98,22 @@ public class PresentationMain {
 		
 		Persona oscar = (Persona)AbstractFactoryCharacters.createOscar();
 		
-		IPMenu<Integer, Integer> menuOscar = PMenuAbstractFactory.getDefaultMenuEnte(oscar, entContro, frame);
-		GraphicEnte gPerson = new GraphicPersona(oscar,
+		addEnteToPosition(new GraphicPersona(oscar,
 				PDefaultValues.getPathImage("bluesky.png"),
-				menuOscar);
-		
-		GraphicPositionInteger gPosi = ((GraphicPositionInteger)positions[2][2]);
-		gPosi.setSomething(gPerson); 
-		
-		PGraphicPositionInteger pgPosi = (PGraphicPositionInteger) gPositions[2][2];
-		
-		gPositions[2][2] = new PGraphicPositionInteger(gPosi,
-				subObserPositi, AbstractFactoryJButtonActions.getEnteAction(pgPosi, 
-						gPerson, menuContro));
-		
-//		gPositions[3][3] = gPositions[2][2];
-//		
-//		observers.add((IObserver)pgPosi);
-//		
-//		//JIJI
+				PMenuAbstractFactory.getDefaultMenuEnte(oscar, entContro, frame))
+				, 2, 2, positions, gPositions, menuContro, subObserPositi, observers);
+				
+		//JIJI
 //		Persona jiji = (Persona) AbstractFactoryCharacters.createJiji();
-//		
-//		
-//		gPerson = new GraphicPersona(
+//		addEnteToPosition(new GraphicPersona(
 //				jiji,
 //				PDefaultValues.getPathImage("jiji.png"), 
 //				PMenuAbstractFactory.getDefaultMenuEnte(jiji, entContro, frame //invoker  
-//						));
-//		gPosi =((GraphicPositionInteger)positions[3][2]); 
-//		gPosi.setSomething(gPerson);
-//		
-//		pgPosi = (PGraphicPositionInteger)gPositions[3][2]; 
-//		pgPosi = new PGraphicPositionIntegerEnte(gPosi,
-//				subObserPositi, AbstractFactoryJButtonActions.getEnteAction(pgPosi, 
-//						gPerson, menuContro), gPerson, menuContro);
-//		
-//		observers.add((IObserver)pgPosi);
-//		
+//						)), 
+//						((GraphicPositionInteger)positions[3][2])
+//						, (PGraphicPositionInteger) gPositions[3][2],
+//						menuContro, subObserPositi, observers);
+		
 //		//Undyne
 //		Monstruo undy = (Monstruo)AbstractFactoryCharacters.createUndyne();
 //		gPerson = new GraphicMonstruo(
@@ -197,5 +176,25 @@ public class PresentationMain {
         frame.setVisible(true);
         
 	}
+
+	
+	private static void addEnteToPosition(GraphicEnte gPerson, int x, int y , 
+			IPosition<Integer, Integer>[][] positions,  IPGraphicPosition<Integer, Integer>[][] gPositions,
+			IShowMenus menuContro, IPPPositionSubjectData subObserPositi, List<IObserver> observers) {
+		
+		GraphicPositionInteger gPosi = (GraphicPositionInteger)positions[x][y];
+		
+		gPosi.setSomething(gPerson);
+		
+		PGraphicPositionInteger pgPosi = (PGraphicPositionInteger)gPositions[x][y];
+		
+		gPositions[x][y] = new PGraphicPositionInteger(gPosi,
+				subObserPositi, AbstractFactoryJButtonActions.getEnteAction(pgPosi, 
+						gPerson, menuContro));
+		
+		observers.add((IObserver)pgPosi);
+	}
+	
+	
 	
 }
