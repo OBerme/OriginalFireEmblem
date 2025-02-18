@@ -4,9 +4,13 @@ import java.awt.Color;
 
 public final class PDefaultValues {
 	public static final int HEADER_HEIGHT = 35 ;
-	public static final boolean DEBUG_MODE = true;
-	public static final boolean DEBUG_MODE_JBUTTONS = true;
-	public static final boolean DEBUG_MODE_MENU = true;
+	public static final boolean DEBUG_MODE = false;
+	public static final boolean DEBUG_MODE_JBUTTONS = false;
+	public static final boolean DEBUG_MODE_MENU = false;
+	
+	public static final boolean DEBUG_MODE_PPOSITIONS = true;
+	public static final boolean DEBUG_MODE_IPositionObserver = true;
+	
 	public static String IMAGES_PATH = "/home/stallman/Downloads/Trash/game/";
 	
 	public static String getPathImage(String image) {

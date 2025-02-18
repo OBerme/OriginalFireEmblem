@@ -3,6 +3,7 @@ package presentation.map.position;
 import java.util.List;
 
 import mapa.md.IPosition;
+import presentation.main.PDefaultValues;
 import presentation.map.IPPPositionSubjectData;
 
 public class PPositionData implements IPPPositionSubjectData{
@@ -20,6 +21,12 @@ public class PPositionData implements IPPPositionSubjectData{
 	public void registerObserver(IObserver obs) {
 		observers.add(obs);
 	}
+	
+	@Override
+	public void resetPositons() {
+		sPosi = null;
+		notifyObservers();
+	}
 
 	
 	//Pre: The observer should be not null and implement the equal method
@@ -31,6 +38,7 @@ public class PPositionData implements IPPPositionSubjectData{
 
 	@Override
 	public void notifyObservers() {
+		if(PDefaultValues.DEBUG_MODE_IPositionObserver) System.out.println("IPositionObserver posi selected" + sPosi );
 		for(IObserver nOb : observers) {
 			nOb.update();
 		}

@@ -38,18 +38,13 @@ public class JButtonActionEnte implements IJButtonActionEnte{
 			
 			Menuable eMenu =  (Menuable)this.gEnte;
 			
-			if(!pGPI.isActive()) {
-				pGPI.isActive(true);
-				IPMenu<Integer, Integer> menu = eMenu.getMenu();
-				IPosition<Integer, Integer> nPosi = 
-						AbstractMapSizeFactory.getRelativeIntegerPosition(pGPI.getgPosition(),1,0);
-				this.isMenu.showMenu(menu, nPosi
-						//to move the menu to his site
-						);
-			}
-			else {
-				pGPI.isActive(false);
-			}
+			IPMenu<Integer, Integer> menu = eMenu.getMenu();
+			IPosition<Integer, Integer> nPosi = 
+					AbstractMapSizeFactory.getRelativeIntegerPosition(pGPI.getgPosition(),1,0);
+			this.isMenu.showMenu(menu, nPosi
+					//to move the menu to his site
+					);
+			
 		}
 	}
 

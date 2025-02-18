@@ -17,7 +17,10 @@ import mapa.md.IPosition;
 import presentation.graphicOptions.IShowMenus;
 import presentation.map.IGraphicMap;
 import presentation.map.IPPPositionSubjectData;
+import presentation.map.jbutton.IJButtonAction;
+import presentation.map.jbutton.IJButtonActionEnte;
 import presentation.map.jbutton.IPGraphicPosition;
+import presentation.map.jbutton.PGraphicPositionInteger;
 import presentation.map.jbutton.PGraphicPositionIntegerEnte;
 import presentation.map.position.GraphicPositionInteger;
 import presentation.map.position.IObserver;
@@ -96,17 +99,11 @@ public class PController implements IPEnteController, IShowMenus, IPositionObser
 			IPosition<Integer, Integer> sPosi =  posiProductor.getPosi();
 			
 			if(isInPosiblePositions(sPosi)) {
-				//Move the ente in map and update				
-				gMap.changePositions(gMap.getGraphicPosition(lastEP), 
-						gMap.getGraphicPosition(sPosi));  //Change the data of the positions
+				//Move the ente in map and update
+				IPGraphicPosition<Integer, Integer>  fPGP = gMap.getGraphicPosition(lastEP);
+				IPGraphicPosition<Integer, Integer>  sPGP = gMap.getGraphicPosition(sPosi);
+				gMap.changePositions(fPGP, sPGP);  //Change the data of the positions
 				wantMove = false;
-				
-				gMap.refreshMap();
-				
-				frame.revalidate();
-				frame.repaint();
-				
-				
 			}
 			else
 				if(PDefaultValues.DEBUG_MODE) System.out.println("The selected position is not valid" + sPosi);

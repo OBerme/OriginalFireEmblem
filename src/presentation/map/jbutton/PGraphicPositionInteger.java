@@ -68,38 +68,39 @@ public class PGraphicPositionInteger extends JButton
 	
 	@Override
 	public void refreshButton() {
-		
-		removeActionListener(actionListener);
 		setIcon(gPosition.getCellImage());
+		update();
 	}
 
 	@Override
 	public void update() {
 		if(active) {
+			if(PDefaultValues.DEBUG_MODE_PPOSITIONS) System.out.println("The PPosition UPDATE " + this + "position ?" + gPosition);
 			if(!pSubject.getPosi().equals(gPosition)) {
 				active = false;
 				setBackground(PDefaultValues.D_CELL_COLOR_DESA);				
 			}
+			if(PDefaultValues.DEBUG_MODE_PPOSITIONS) System.out.println("The PPosition UPDATE " + this + "isActive?" + active);
 		}
+		
 	}
 	
 	@Override
 	public void activePosition() {
-		active = !active;
-		setBackground(active ? 
-				PDefaultValues.D_CELL_COLOR_ACTI : PDefaultValues.D_CELL_COLOR_DESA);
+		setActive(true);
+		setBackground(PDefaultValues.D_CELL_COLOR_ACTI );
+		if(PDefaultValues.DEBUG_MODE_PPOSITIONS) System.out.println("The PPosition ACTIVEPOSITION " + this + " isActive? " + active);
 	}
 	
 	
 	protected void onClickedPosition() {
-		active = !active;
-		setBackground(active ? 
-				PDefaultValues.D_CELL_COLOR_ACTI : PDefaultValues.D_CELL_COLOR_DESA);
+		activePosition();
 		
 		//Say that the button was clicked
 		pSubject.setsPosi(gPosition);
 		action.onClickListener();
 		
+		if(PDefaultValues.DEBUG_MODE_PPOSITIONS) System.out.println("The PPosition " + this + "isActive?" + active);
 	}
 	
 	
@@ -136,7 +137,7 @@ public class PGraphicPositionInteger extends JButton
 		return active;
 	}
 
-	public void isActive(boolean b) {
+	public void setActive(boolean b) {
 		this.active = b;
 	}
 	

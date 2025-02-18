@@ -127,8 +127,9 @@ public class GraphicMapInteger extends GraphicMap<Integer, Integer>
 		
 //		fgCPosi.get
 		
-		PGraphicPositionInteger fPosi = (PGraphicPositionInteger) gPositions[fgCPosi.getX()][fgCPosi.getY()];
-		PGraphicPositionInteger sPosi = (PGraphicPositionInteger) gPositions[sgCPosi.getX()][sgCPosi.getY()];
+		PGraphicPositionInteger fPosi = (PGraphicPositionInteger)fGPosition;
+		PGraphicPositionInteger sPosi = (PGraphicPositionInteger)sGPosition;
+		
 		
 		//Change the actions
 		IJButtonAction fAction = fPosi.getGraAction(); 
@@ -139,7 +140,6 @@ public class GraphicMapInteger extends GraphicMap<Integer, Integer>
 		
 		fPosi.refreshButton();
 		sPosi.refreshButton();
-		
 		refreshMap();
 	}
 

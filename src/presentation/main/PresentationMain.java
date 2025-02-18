@@ -96,15 +96,22 @@ public class PresentationMain {
 		
 		//Oscar
 		
-		Persona oscar = (Persona)AbstractFactoryCharacters.createOscar();
+		Persona person = (Persona)AbstractFactoryCharacters.createOscar();
 		
-		addEnteToPosition(new GraphicPersona(oscar,
+		addEnteToPosition(new GraphicPersona(person,
 				PDefaultValues.getPathImage("bluesky.png"),
-				PMenuAbstractFactory.getDefaultMenuEnte(oscar, entContro, frame))
+				PMenuAbstractFactory.getDefaultMenuEnte(person, entContro, frame))
 				, 2, 2, positions, gPositions, menuContro, subObserPositi, observers);
 				
 		//JIJI
-//		Persona jiji = (Persona) AbstractFactoryCharacters.createJiji();
+		person = (Persona) AbstractFactoryCharacters.createJiji();
+		
+		addEnteToPosition(new GraphicPersona(person,
+				PDefaultValues.getPathImage("bluesky.png"),
+				PMenuAbstractFactory.getDefaultMenuEnte(person, entContro, frame))
+				, 3, 2, positions, gPositions, menuContro, subObserPositi, observers);
+				
+		
 //		addEnteToPosition(new GraphicPersona(
 //				jiji,
 //				PDefaultValues.getPathImage("jiji.png"), 
@@ -192,7 +199,7 @@ public class PresentationMain {
 				subObserPositi, AbstractFactoryJButtonActions.getEnteAction(pgPosi, 
 						gPerson, menuContro));
 		
-		observers.add((IObserver)pgPosi);
+		observers.add((IObserver)gPositions[x][y]);
 	}
 	
 	
