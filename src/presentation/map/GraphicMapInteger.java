@@ -3,8 +3,13 @@ package presentation.map;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.MouseInfo;
+import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
+import java.awt.event.MouseMotionListener;
 import java.awt.font.NumericShaper.Range;
 import java.util.List;
 
@@ -26,6 +31,7 @@ import mapa.md.IPositionEnte;
 import mapa.md.IPositionable;
 import mapa.md.Posicion;
 import menu.md.Menu;
+import presentation.MouseHoverObserver.IMouseHoverSubject;
 import presentation.graphicOptions.IShowMenus;
 import presentation.graphicOptions.Menuable;
 import presentation.graphicOptions.Playable;
@@ -33,7 +39,7 @@ import presentation.graphicOptions.Rangeable;
 import presentation.main.AbstractFactoryCharacters;
 import presentation.main.PDefaultValues;
 import presentation.map.jbutton.IJButtonAction;
-import presentation.map.jbutton.IJButtonActionEnte;
+import presentation.map.jbutton.IJButtonActionAtack;
 import presentation.map.jbutton.IPGraphicPosition;
 import presentation.map.jbutton.PGraphicPositionInteger;
 import presentation.map.position.AbstractPositionModifier;
@@ -46,7 +52,11 @@ public class GraphicMapInteger extends GraphicMap<Integer, Integer>
 
 	private INLMapa<Integer, Integer> map;
 	private IPGraphicPosition<Integer, Integer>[][] gPositions;
-		
+	
+	
+	
+	
+	
 	public GraphicMapInteger(INLMapa<Integer, Integer> map,
 			IPGraphicPosition<Integer, Integer>[][] gPositions,
 			int x, int y) {
@@ -54,10 +64,14 @@ public class GraphicMapInteger extends GraphicMap<Integer, Integer>
 		this.map = map;
 		this.gPositions = gPositions;
 		this.setLayout(new GridLayout(map.getWidth(), map.getHeight()));
+		
 		this.setBounds(x,y, 
 				getWidth() ,
 				getHeight());
 		createCells();
+
+
+
 	}
 	
 	
@@ -133,7 +147,7 @@ public class GraphicMapInteger extends GraphicMap<Integer, Integer>
 		
 		//Change the actions
 		IJButtonAction fAction = fPosi.getGraAction(); 
-		((IJButtonActionEnte)fAction).setpGPI(sPosi); //Change the position
+		((IJButtonActionAtack)fAction).setpGPI(sPosi); //Change the position
 		
 		fPosi.setAction(sPosi.getGraAction());		
 		sPosi.setAction(fAction);
@@ -142,6 +156,8 @@ public class GraphicMapInteger extends GraphicMap<Integer, Integer>
 		sPosi.refreshButton();
 		refreshMap();
 	}
+
+
 
 	
 

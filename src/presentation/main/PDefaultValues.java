@@ -11,6 +11,8 @@ public final class PDefaultValues {
 	public static final boolean DEBUG_MODE_PPOSITIONS = true;
 	public static final boolean DEBUG_MODE_IPositionObserver = true;
 	
+	public static final boolean DEBUG_MODE_PGPIAD = true; //PGraphicOPositionIntegerAtackDistance
+	
 	public static String IMAGES_PATH = "/home/stallman/Downloads/Trash/game/";
 	
 	public static String getPathImage(String image) {
@@ -20,6 +22,17 @@ public final class PDefaultValues {
 	public static int REC_HEIGHT = 40; //in pxls
 	public static int REC_WIDTH = 40; //in pxls
 	
+	
+	//PGraphicPositionInteger
 	public static Color D_CELL_COLOR_DESA = Color.LIGHT_GRAY;
 	public static Color D_CELL_COLOR_ACTI = Color.GREEN;
+	
+	//PGraphicPositionIntegerAtack
+	public static final Color D_CELL_COLOR_ACTI_ATACK = Color.RED;
+	public static final Color D_CELL_COLOR_DEAC_ATACK = D_CELL_COLOR_DESA;
+	
+	//PGraphicPositionIntegerAtackDistance
+	public static final Color D_CELL_COLOR_DIST_ACTI = Color.CYAN;
+	public static final Color D_CELL_COLOR_DIST_DEAC = D_CELL_COLOR_DESA;
+	
 }

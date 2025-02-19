@@ -1,5 +1,9 @@
 package presentation.main;
 
+import java.awt.MouseInfo;
+import java.awt.Point;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,14 +34,21 @@ import mapa.md.MapaMatrixEnteGroupActionable;
 import mapa.md.Posicion;
 import mapa.md.PosicionGroupable;
 import mapa.md.PosicionGroupableActionable;
+import presentation.MouseHoverObserver.AtackerSubject;
+import presentation.MouseHoverObserver.IAtackerSubject;
+import presentation.MouseHoverObserver.IMouseHoverObserver;
+import presentation.MouseHoverObserver.IMouseHoverSubject;
+import presentation.MouseHoverObserver.MouseHoverSubject;
 import presentation.graphicOptions.IShowMenus;
 import presentation.map.GraphicMap;
 import presentation.map.GraphicMapInteger;
+import presentation.map.GraphicMapIntegerMouseHover;
 import presentation.map.IPPPositionSubjectData;
 import presentation.map.jbutton.AbstractFactoryJButtonActions;
 import presentation.map.jbutton.IPGraphicPosition;
+import presentation.map.jbutton.PGraphicOPositionIntegerAtackDistance;
 import presentation.map.jbutton.PGraphicPositionInteger;
-import presentation.map.jbutton.PGraphicPositionIntegerEnte;
+import presentation.map.jbutton.PGraphicPositionIntegerAtack;
 import presentation.map.position.GraphicPositionInteger;
 import presentation.map.position.IGraphicPosition;
 import presentation.map.position.IObserver;
@@ -67,6 +78,10 @@ public class PresentationMain {
 		IPEnteController entContro = (IPEnteController)controller; 
 		IShowMenus menuContro = (IShowMenus)controller; 
 		
+		IAtackerSubject atackSub = new AtackerSubject();
+		
+		IMouseHoverSubject mouseSubject = new MouseHoverSubject(atackSub);
+		
 		List<IObserver> observers = new ArrayList<IObserver>();
 		
 		IPPPositionSubjectData subObserPositi = new PPositionData(observers);
@@ -85,8 +100,8 @@ public class PresentationMain {
 				positions[i][j] = nPositi;
 				
 				
-				gPositions[i][j] = new PGraphicPositionInteger(
-						(GraphicPositionInteger)nPositi, subObserPositi, AbstractFactoryJButtonActions.getVoidAction());
+				gPositions[i][j] = new PGraphicOPositionIntegerAtackDistance(
+						(GraphicPositionInteger)nPositi, subObserPositi, AbstractFactoryJButtonActions.getVoidAction(), mouseSubject);
 				 
 				observers.add((IObserver)gPositions[i][j]);
 			}
@@ -101,7 +116,7 @@ public class PresentationMain {
 		addEnteToPosition(new GraphicPersona(person,
 				PDefaultValues.getPathImage("bluesky.png"),
 				PMenuAbstractFactory.getDefaultMenuEnte(person, entContro, frame))
-				, 2, 2, positions, gPositions, menuContro, subObserPositi, observers);
+				, 2, 2, positions, gPositions, menuContro, subObserPositi, observers, mouseSubject);
 				
 		//JIJI
 		person = (Persona) AbstractFactoryCharacters.createJiji();
@@ -109,7 +124,7 @@ public class PresentationMain {
 		addEnteToPosition(new GraphicPersona(person,
 				PDefaultValues.getPathImage("bluesky.png"),
 				PMenuAbstractFactory.getDefaultMenuEnte(person, entContro, frame))
-				, 3, 2, positions, gPositions, menuContro, subObserPositi, observers);
+				, 3, 2, positions, gPositions, menuContro, subObserPositi, observers,mouseSubject);
 				
 		
 //		addEnteToPosition(new GraphicPersona(
@@ -162,7 +177,7 @@ public class PresentationMain {
 		
         // Crear el panel de dibujo
 		
-		gMap = new GraphicMapInteger(lnMapa, gPositions,0,0);
+		gMap = new GraphicMapIntegerMouseHover(lnMapa, gPositions,0,0, mouseSubject);
 		
 		controller.setgMap(gMap);
 		controller.setPosiProductor(subObserPositi);
@@ -176,8 +191,21 @@ public class PresentationMain {
         frame.setContentPane(layeredPane);
 //        
         layeredPane.add(gMap);
+
+        layeredPane.addMouseMotionListener(new MouseMotionAdapter() {
+            @Override
+            public void mouseMoved(MouseEvent e) {
+
+        		Point point = MouseInfo.getPointerInfo().getLocation();
+        		
+            	if(PDefaultValues.DEBUG_MODE_PGPIAD) System.out.println("Prueba " + point);
+//            	if(PDefaultValues.DEBUG_MODE_GMIMH) System.out.println("Positions reached" + e.getX() + "," + e.getY());
+            }
+        });
         
         frame.setSize(gMap.getWidth(), gMap.getHeight()+ PDefaultValues.HEADER_HEIGHT);
+        
+        
         
         // Mostrar la ventana
         frame.setVisible(true);
@@ -187,7 +215,8 @@ public class PresentationMain {
 	
 	private static void addEnteToPosition(GraphicEnte gPerson, int x, int y , 
 			IPosition<Integer, Integer>[][] positions,  IPGraphicPosition<Integer, Integer>[][] gPositions,
-			IShowMenus menuContro, IPPPositionSubjectData subObserPositi, List<IObserver> observers) {
+			IShowMenus menuContro, IPPPositionSubjectData subObserPositi, 
+			List<IObserver> observers, IMouseHoverSubject subjectMouse) {
 		
 		GraphicPositionInteger gPosi = (GraphicPositionInteger)positions[x][y];
 		
@@ -195,9 +224,9 @@ public class PresentationMain {
 		
 		PGraphicPositionInteger pgPosi = (PGraphicPositionInteger)gPositions[x][y];
 		
-		gPositions[x][y] = new PGraphicPositionInteger(gPosi,
+		gPositions[x][y] = new PGraphicOPositionIntegerAtackDistance(gPosi,
 				subObserPositi, AbstractFactoryJButtonActions.getEnteAction(pgPosi, 
-						gPerson, menuContro));
+						gPerson, menuContro), subjectMouse);
 		
 		observers.add((IObserver)gPositions[x][y]);
 	}

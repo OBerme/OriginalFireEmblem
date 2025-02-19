@@ -2,11 +2,14 @@ package presentation.map.jbutton;
 
 import java.awt.Component;
 import java.awt.Image;
+import java.awt.MouseInfo;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionAdapter;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -33,32 +36,55 @@ import presentation.menu.PMenuAbstractFactory;
 //Pre: ----
 //Post: when the ente of this position dies should convert,
 //		or cast, this PGraphicPositionEnte in a normal PGraphicPosition 
-public class PGraphicPositionIntegerEnte extends PGraphicPositionInteger implements Menuable{
-	private GraphicEnte gEnte;
-	private IShowMenus isMenu;
+public class PGraphicPositionIntegerAtack 
+	extends PGraphicPositionInteger implements IPGraphicPositionIntegerAtack{
+	
+	protected boolean actiAtack; //Shows if the cell is activate for an atack
 	
 	
 	
-	public PGraphicPositionIntegerEnte(IGraphicPosition<Integer, Integer> gPosition,
-			IPPPositionSubjectData pSubject,
-			IJButtonAction action,
-			GraphicEnte gEnte, IShowMenus isMenu) {
-		
-		super(gPosition, pSubject,new ImageIcon(gEnte.getPathImage()), action);
-		this.gEnte = gEnte;
-		this.isMenu = isMenu;
-	}
+	public PGraphicPositionIntegerAtack(IGraphicPosition<Integer, Integer> gPosition, IPPPositionSubjectData pSubject,
+			IJButtonAction action) {
+		super(gPosition, pSubject, action);
+		this.actiAtack = false;
 
+	}
 
 	@Override
-	public IPMenu<Integer, Integer> getMenu() {
+	public void activateAtack() {
 		// TODO Auto-generated method stub
-		if (gEnte instanceof Menuable) {
-			Menuable eMenu =  (Menuable)gEnte;
-			return eMenu.getMenu();
-		}
-		return PMenuAbstractFactory.getEmptyMenu();
+		
+		actiAtack = true;
+		setBackground(PDefaultValues.D_CELL_COLOR_ACTI_ATACK);
 	}
+	
+
+	@Override
+	public void update() {
+		super.update();
+		if(actiAtack) {
+			if(!pSubject.getPosi().equals(gPosition)) {
+				deactivateAtack();
+			}
+		}
+		
+	}
+	
+
+	
+	protected void onClickedPosition() {
+		if(actiAtack) {
+			deactivateAtack();
+		}
+		super.onClickedPosition();
+	}
+
+	@Override
+	public void deactivateAtack() {
+		active = false;
+		setBackground(PDefaultValues.D_CELL_COLOR_DEAC_ATACK);		
+	}
+
 
 
 	

@@ -12,14 +12,14 @@ import presentation.menu.IPMenu;
 import presentation.menu.PMenu;
 
 
-public class JButtonActionEnte implements IJButtonActionEnte{
+public class JButtonActionAtack implements IJButtonActionAtack{
 	private PGraphicPositionInteger pGPI;
 	private GraphicEnte gEnte;
 	private IShowMenus isMenu;
 
 
 	
-	public JButtonActionEnte(PGraphicPositionInteger pGPI,
+	public JButtonActionAtack(PGraphicPositionInteger pGPI,
 			GraphicEnte gEnte, IShowMenus isMenu) {
 		this.pGPI = pGPI;
 		this.gEnte = gEnte;
@@ -47,6 +47,9 @@ public class JButtonActionEnte implements IJButtonActionEnte{
 			
 		}
 	}
+	
+	
+
 
 
 }

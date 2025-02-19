@@ -6,8 +6,9 @@ import mapa.md.IPosition;
 import presentation.main.PDefaultValues;
 import presentation.map.IPPPositionSubjectData;
 
-public class PPositionData implements IPPPositionSubjectData{
-	public List<IObserver> observers;
+public class PPositionData 
+	extends Subject implements IPPPositionSubjectData{
+	
 	
 	public IPosition<Integer, Integer> sPosi;
 	
@@ -18,30 +19,15 @@ public class PPositionData implements IPPPositionSubjectData{
 
 
 	@Override
-	public void registerObserver(IObserver obs) {
-		observers.add(obs);
-	}
-	
-	@Override
 	public void resetPositons() {
 		sPosi = null;
-		notifyObservers();
-	}
-
-	
-	//Pre: The observer should be not null and implement the equal method
-	//Post: It will remove the observer from the list
-	@Override
-	public void removeObserver(IObserver obs) {
-		observers.remove(obs);
+		super.notifyObservers();
 	}
 
 	@Override
 	public void notifyObservers() {
 		if(PDefaultValues.DEBUG_MODE_IPositionObserver) System.out.println("IPositionObserver posi selected" + sPosi );
-		for(IObserver nOb : observers) {
-			nOb.update();
-		}
+		super.notifyObservers();
 	}
 
 	@Override
@@ -52,7 +38,7 @@ public class PPositionData implements IPPPositionSubjectData{
 	@Override
 	public void setsPosi(IPosition<Integer, Integer> sPosi) {
 		this.sPosi = sPosi;
-		notifyObservers();
+		super.notifyObservers();
 	}
 	
 	
