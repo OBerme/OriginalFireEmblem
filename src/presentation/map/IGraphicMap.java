@@ -21,4 +21,8 @@ public interface IGraphicMap {
 
 	
 	public abstract void refreshMap();
+
+	int getWidth();
+
+	int getHeight();
 }

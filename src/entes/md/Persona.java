@@ -5,6 +5,7 @@ package entes.md;
 import java.util.List;
 
 import acciones.md.ataque.Ataque;
+import acciones.md.ataque.IAtack;
 import entes.Atacable;
 import entes.Estado;
 import group.md.Group;
@@ -37,7 +38,7 @@ public class Persona extends SerVivo implements Atacable{
 	}
 
 	@Override
-	public List<Ataque> getAtacks() {
+	public List<IAtack> getAtacks() {
 		return List.copyOf(atacks);
 	}
 

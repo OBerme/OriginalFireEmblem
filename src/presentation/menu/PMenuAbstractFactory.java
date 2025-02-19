@@ -5,9 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import acciones.md.ataque.Ataque;
+import acciones.md.ataque.IAtack;
 import entes.Atacable;
 import entes.Movable;
 import entes.md.Ente;
+import presentation.main.IPController;
 import presentation.main.IPEnteController;
 import presentation.main.PController;
 import turner.md.Actionable;
@@ -24,7 +26,8 @@ public class PMenuAbstractFactory {
 		voidMenu.onFinishedAddedOptions();
 	}
 	
-	public static IPMenu<Integer, Integer> getDefaultMenuEnte(Ente ente, IPEnteController pContro, Component invoker) {
+	public static IPMenu<Integer, Integer> getDefaultMenuEnte(Ente ente, 
+			IPEnteController pContro, Component invoker, IPController contro ) {
 		PMenuEnte pMEnte= new PMenuEnte(invoker);
 	
 		if(ente instanceof Actionable) {
@@ -34,7 +37,7 @@ public class PMenuAbstractFactory {
 			if(ente instanceof Atacable) {
 				pMEnte.addOption(new POpShowMenu("Atack", pContro,
 						getDefaultMenuAtacks(
-								((Atacable)ente).getAtacks() , invoker)));
+								((Atacable)ente).getAtacks() , invoker, contro)));
 			}	
 		}
 		
@@ -49,8 +52,14 @@ public class PMenuAbstractFactory {
 		return voidMenu;
 	}
 	
-	public static IPMenu<Integer, Integer> getDefaultMenuAtacks(List<Ataque> atacks, Component invoker) {
+	public static IPMenu<Integer, Integer> getDefaultMenuAtacks(List<IAtack> atacks, 
+			Component invoker,IPController contro) {
 		PMenu menu = new  PMenu(invoker); 
+		
+		for(IAtack nAtack : atacks) {
+			menu.addOption(new POpAtackMenu(contro, nAtack));
+		}
+		
 		menu.onFinishedAddedOptions();
 		return menu;
 		

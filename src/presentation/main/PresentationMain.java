@@ -34,6 +34,7 @@ import mapa.md.MapaMatrixEnteGroupActionable;
 import mapa.md.Posicion;
 import mapa.md.PosicionGroupable;
 import mapa.md.PosicionGroupableActionable;
+import md.range.RangeDiagonal;
 import presentation.MouseHoverObserver.AtackerSubject;
 import presentation.MouseHoverObserver.IAtackerSubject;
 import presentation.MouseHoverObserver.IMouseHoverObserver;
@@ -42,7 +43,10 @@ import presentation.MouseHoverObserver.MouseHoverSubject;
 import presentation.graphicOptions.IShowMenus;
 import presentation.map.GraphicMap;
 import presentation.map.GraphicMapInteger;
-import presentation.map.GraphicMapIntegerMouseHover;
+import presentation.map.GraphicMapIntegerAtack;
+import presentation.map.GraphicMapIntegerAtackDistance;
+import presentation.map.IGraphicMap;
+import presentation.map.IGraphicMapAtackDistance;
 import presentation.map.IPPPositionSubjectData;
 import presentation.map.jbutton.AbstractFactoryJButtonActions;
 import presentation.map.jbutton.IPGraphicPosition;
@@ -115,7 +119,7 @@ public class PresentationMain {
 		
 		addEnteToPosition(new GraphicPersona(person,
 				PDefaultValues.getPathImage("bluesky.png"),
-				PMenuAbstractFactory.getDefaultMenuEnte(person, entContro, frame))
+				PMenuAbstractFactory.getDefaultMenuEnte(person, entContro, frame,controller))
 				, 2, 2, positions, gPositions, menuContro, subObserPositi, observers, mouseSubject);
 				
 		//JIJI
@@ -123,7 +127,7 @@ public class PresentationMain {
 		
 		addEnteToPosition(new GraphicPersona(person,
 				PDefaultValues.getPathImage("bluesky.png"),
-				PMenuAbstractFactory.getDefaultMenuEnte(person, entContro, frame))
+				PMenuAbstractFactory.getDefaultMenuEnte(person, entContro, frame, controller))
 				, 3, 2, positions, gPositions, menuContro, subObserPositi, observers,mouseSubject);
 				
 		
@@ -177,7 +181,7 @@ public class PresentationMain {
 		
         // Crear el panel de dibujo
 		
-		gMap = new GraphicMapIntegerMouseHover(lnMapa, gPositions,0,0, mouseSubject);
+		gMap = new GraphicMapIntegerAtackDistance(lnMapa, gPositions,0,0);
 		
 		controller.setgMap(gMap);
 		controller.setPosiProductor(subObserPositi);
@@ -209,6 +213,14 @@ public class PresentationMain {
         
         // Mostrar la ventana
         frame.setVisible(true);
+        
+        ((IGraphicMapAtackDistance)gMap)
+        		.activateAtackPositions(RangeDiagonal
+        				.getPositions(new Posicion<Integer, Integer>(0, 0), mapa, 2));
+        
+		 ((IGraphicMapAtackDistance)gMap)
+         		.activateDistancePositions(RangeDiagonal
+        				.getPositions(new Posicion<Integer, Integer>(4, 4), mapa, 2));
         
 	}
 

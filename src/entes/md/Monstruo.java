@@ -3,6 +3,7 @@ package entes.md;
 import java.util.List;
 
 import acciones.md.ataque.Ataque;
+import acciones.md.ataque.IAtack;
 import entes.Atacable;
 import entes.Estado;
 import group.md.Groupable;
@@ -23,7 +24,7 @@ public class Monstruo extends SerVivo implements Atacable{
 	//Pre: ----
 	//Post: se devolvera una lista con ataques variables, nunca sera nula pero si puede estar vacia
 	@Override
-	public List<Ataque> getAtacks() {
+	public List<IAtack> getAtacks() {
 		return List.copyOf(atacks);
 	}
 

@@ -4,7 +4,7 @@ import acciones.md.Accion;
 import entes.md.Ente;
 import turner.md.enums.TurnerEnumConstant;
 
-public class Ataque extends Accion {
+public class Ataque extends Accion implements IAtack{
 	private int num;
     private int fuerza;
     private Tipo tipo;

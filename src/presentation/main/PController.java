@@ -10,10 +10,12 @@ import javax.swing.JFrame;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
+import acciones.md.ataque.IAtack;
 import entes.Movable;
 import entes.md.Ente;
 import mapa.ln.ILNMapaMatrixEntesGroup;
 import mapa.md.IPosition;
+import presentation.GAtack.IGraphicAtack;
 import presentation.graphicOptions.IShowMenus;
 import presentation.map.IGraphicMap;
 import presentation.map.IPPPositionSubjectData;
@@ -136,6 +138,15 @@ public class PController implements IPEnteController, IShowMenus, IPositionObser
 
 	public void setLnMMEG(ILNMapaMatrixEntesGroup lnMMEG) {
 		this.lnMMEG = lnMMEG;
+	}
+
+	@Override
+	public void showAtack(IAtack atack) {
+		if(atack instanceof IGraphicAtack) {
+			((IGraphicAtack)atack).activatePositions();
+			
+		}
+		
 	}
 
 

@@ -50,8 +50,8 @@ import presentation.menu.PMenuAbstractFactory;
 public class GraphicMapInteger extends GraphicMap<Integer, Integer> 
 	implements Playable, Rangeable{
 
-	private INLMapa<Integer, Integer> map;
-	private IPGraphicPosition<Integer, Integer>[][] gPositions;
+	protected INLMapa<Integer, Integer> map;
+	protected IPGraphicPosition<Integer, Integer>[][] gPositions;
 	
 	
 	
