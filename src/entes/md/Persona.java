@@ -12,8 +12,8 @@ import group.md.Group;
 import group.md.Groupable;
 
 public class Persona extends SerVivo implements Atacable{
-	private List<Ataque> atacks;
-	public Persona(int hp, String name,String shortName, Estado estado, int speed,int rangeMove,  List<Ataque> atacks) {
+	private List<IAtack> atacks;
+	public Persona(int hp, String name,String shortName, Estado estado, int speed,int rangeMove,  List<IAtack> atacks) {
 		super(hp, name,shortName, estado, speed, rangeMove);
 		this.atacks = atacks;
 		// TODO Auto-generated constructor stub

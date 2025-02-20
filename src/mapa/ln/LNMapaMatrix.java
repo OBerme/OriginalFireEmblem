@@ -94,4 +94,10 @@ public class LNMapaMatrix extends LNMapa<Integer, Integer> implements ILNMapaMat
 		sPosi.setSomething(fSome);
 	}
 
+	@Override
+	public boolean hasPositon(Integer x, Integer y) {
+		// TODO Auto-generated method stub
+		return mapa.hasPosition(x, y);
+	}
+
 }

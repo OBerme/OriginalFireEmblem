@@ -35,17 +35,21 @@ import mapa.md.Posicion;
 import mapa.md.PosicionGroupable;
 import mapa.md.PosicionGroupableActionable;
 import md.range.RangeDiagonal;
+import md.range.Rombo;
+import presentation.GAtack.PGraphicMeleAtack;
 import presentation.MouseHoverObserver.AtackerSubject;
 import presentation.MouseHoverObserver.IAtackerSubject;
 import presentation.MouseHoverObserver.IMouseHoverObserver;
 import presentation.MouseHoverObserver.IMouseHoverSubject;
 import presentation.MouseHoverObserver.MouseHoverSubject;
+import presentation.ente.AbstractFactoryCharacters;
 import presentation.graphicOptions.IShowMenus;
 import presentation.map.GraphicMap;
 import presentation.map.GraphicMapInteger;
 import presentation.map.GraphicMapIntegerAtack;
 import presentation.map.GraphicMapIntegerAtackDistance;
 import presentation.map.IGraphicMap;
+import presentation.map.IGraphicMapAtack;
 import presentation.map.IGraphicMapAtackDistance;
 import presentation.map.IPPPositionSubjectData;
 import presentation.map.jbutton.AbstractFactoryJButtonActions;
@@ -94,6 +98,9 @@ public class PresentationMain {
 		 
 		IPosition<Integer, Integer>[][] positions = new GraphicPositionInteger[length][length];
 		IPGraphicPosition<Integer, Integer>[][] gPositions = new PGraphicPositionInteger[length][length];
+		
+		
+		
 		for(int i = 0 ; i < length; i++) {
 			for(int j = 0 ; j < length; j++) {	
 				
@@ -113,23 +120,6 @@ public class PresentationMain {
 		
 		
 		
-		//Oscar
-		
-		Persona person = (Persona)AbstractFactoryCharacters.createOscar();
-		
-		addEnteToPosition(new GraphicPersona(person,
-				PDefaultValues.getPathImage("bluesky.png"),
-				PMenuAbstractFactory.getDefaultMenuEnte(person, entContro, frame,controller))
-				, 2, 2, positions, gPositions, menuContro, subObserPositi, observers, mouseSubject);
-				
-		//JIJI
-		person = (Persona) AbstractFactoryCharacters.createJiji();
-		
-		addEnteToPosition(new GraphicPersona(person,
-				PDefaultValues.getPathImage("bluesky.png"),
-				PMenuAbstractFactory.getDefaultMenuEnte(person, entContro, frame, controller))
-				, 3, 2, positions, gPositions, menuContro, subObserPositi, observers,mouseSubject);
-				
 		
 //		addEnteToPosition(new GraphicPersona(
 //				jiji,
@@ -177,16 +167,46 @@ public class PresentationMain {
 		mapa = new MapaMatrixEnteGroupActionable(positions, groupsR);
 		ILNMapaMatrixEntesGroup lnMapa = new LNMapaMatrixEntesGroup(mapa, null,null );
 		
+		
+		
 		((PController)controller).setLnMMEG(lnMapa);
+		
+		
+		
+		
+								
+		
 		
         // Crear el panel de dibujo
 		
 		gMap = new GraphicMapIntegerAtackDistance(lnMapa, gPositions,0,0);
 		
+		//Oscar
+		AbstractFactoryCharacters abs = new AbstractFactoryCharacters((IGraphicMapAtack)gMap); //TODO TO SOLVE
+		Persona person = (Persona)AbstractFactoryCharacters.createOscar();
+		
+		addEnteToPosition(new GraphicPersona(person,
+				PDefaultValues.getPathImage("bluesky.png"),
+				PMenuAbstractFactory.getDefaultMenuEnte(person, entContro, frame,controller))
+				, 2, 2, positions, gPositions, menuContro, subObserPositi, observers, mouseSubject);
+				
+		//JIJI
+		person = (Persona) AbstractFactoryCharacters.createJiji();
+		
+		addEnteToPosition(new GraphicPersona(person,
+				PDefaultValues.getPathImage("bluesky.png"),
+				PMenuAbstractFactory.getDefaultMenuEnte(person, entContro, frame, controller))
+				, 3, 2, positions, gPositions, menuContro, subObserPositi, observers,mouseSubject);
+		
+		
 		controller.setgMap(gMap);
 		controller.setPosiProductor(subObserPositi);
 		
 		observers.add((IObserver)controller);
+		
+		
+		
+		gMap.createMap(); //To show the map
 		
 //        frame.add(gMap);
         
@@ -214,14 +234,10 @@ public class PresentationMain {
         // Mostrar la ventana
         frame.setVisible(true);
         
-        ((IGraphicMapAtackDistance)gMap)
-        		.activateAtackPositions(RangeDiagonal
-        				.getPositions(new Posicion<Integer, Integer>(0, 0), mapa, 2));
-        
-		 ((IGraphicMapAtackDistance)gMap)
-         		.activateDistancePositions(RangeDiagonal
-        				.getPositions(new Posicion<Integer, Integer>(4, 4), mapa, 2));
-        
+        ((PController) controller).setLastPosition(new Posicion<Integer, Integer>(2, 2));
+        controller.showAtack( new PGraphicMeleAtack(
+				new Ataque(1, "Gun atack", 50000, Tipo.FUEGO), (IGraphicMapAtack)gMap, new Rombo(1, gMap)));
+       
 	}
 
 	

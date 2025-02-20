@@ -19,5 +19,6 @@ public interface INLMapa<X, Y> {
 	
 	//Desc: Change the data in both positions
 	void changeDataPositions(IPosition<Integer, Integer> fPosi, IPosition<Integer, Integer> sPosi);
+	boolean hasPositon(Integer x, Integer y);
 	
 }

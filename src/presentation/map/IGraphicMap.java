@@ -2,10 +2,11 @@ package presentation.map;
 
 import java.util.List;
 
+import mapa.md.IMapa;
 import mapa.md.IPosition;
 import presentation.map.jbutton.IPGraphicPosition;
 
-public interface IGraphicMap {
+public interface IGraphicMap extends IMapa<Integer, Integer>{
 
 	//Pre: Positions should be not null and empty
 	//Post: It will activate/show the positions in the graphicMap
@@ -25,4 +26,6 @@ public interface IGraphicMap {
 	int getWidth();
 
 	int getHeight();
+
+	void createMap();
 }

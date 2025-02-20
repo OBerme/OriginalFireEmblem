@@ -32,11 +32,11 @@ import mapa.md.IPositionable;
 import mapa.md.Posicion;
 import menu.md.Menu;
 import presentation.MouseHoverObserver.IMouseHoverSubject;
+import presentation.ente.AbstractFactoryCharacters;
 import presentation.graphicOptions.IShowMenus;
 import presentation.graphicOptions.Menuable;
 import presentation.graphicOptions.Playable;
 import presentation.graphicOptions.Rangeable;
-import presentation.main.AbstractFactoryCharacters;
 import presentation.main.PDefaultValues;
 import presentation.map.jbutton.IJButtonAction;
 import presentation.map.jbutton.IJButtonActionAtack;
@@ -55,8 +55,6 @@ public class GraphicMapInteger extends GraphicMap<Integer, Integer>
 	
 	
 	
-	
-	
 	public GraphicMapInteger(INLMapa<Integer, Integer> map,
 			IPGraphicPosition<Integer, Integer>[][] gPositions,
 			int x, int y) {
@@ -68,12 +66,12 @@ public class GraphicMapInteger extends GraphicMap<Integer, Integer>
 		this.setBounds(x,y, 
 				getWidth() ,
 				getHeight());
-		createCells();
-
-
-
 	}
 	
+	@Override 
+	public void createMap() {
+		createCells();
+	}
 	
 	public int getWidth() {
 		return this.map.getWidth()*PDefaultValues.REC_WIDTH;
@@ -155,6 +153,55 @@ public class GraphicMapInteger extends GraphicMap<Integer, Integer>
 		fPosi.refreshButton();
 		sPosi.refreshButton();
 		refreshMap();
+	}
+
+
+	@Override
+	public IPosition<Integer, Integer> getPosition(Integer x, Integer y) {
+		// TODO Auto-generated method stub
+		return gPositions[x][y].getgPosition();
+	}
+
+
+	@Override
+	public String toStringNumberPositions() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public void setPosicion(Integer x, Integer y, IPosition<Integer, Integer> posicion) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public IPosition<Integer, Integer>[] getPosiciones() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public boolean isEmptyPosicion(IPosition<Integer, Integer> positionInteger) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+
+	@Override
+	public void setPosicion(IPosition<Integer, Integer> posi) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public boolean hasPosition(Integer x, Integer y) {
+		// TODO Auto-generated method stub
+		return map.hasPositon(x,y);
 	}
 
 

@@ -1,8 +1,8 @@
 package presentation.map.jbutton;
 
 import entes.md.GraphicEnte;
+import presentation.ente.AbstractFactoryCharacters;
 import presentation.graphicOptions.IShowMenus;
-import presentation.main.AbstractFactoryCharacters;
 
 public class AbstractFactoryJButtonActions {
 	private static AbstractFactoryJButtonActions singleton = checkSingleton();

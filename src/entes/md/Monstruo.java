@@ -9,10 +9,10 @@ import entes.Estado;
 import group.md.Groupable;
 
 public class Monstruo extends SerVivo implements Atacable{
-	private List<Ataque> atacks;
+	private List<IAtack> atacks;
 	//Pre: atacks should be a empty list if it hasen't atacks
 	//Post: it will build the new class
-	public Monstruo(int hp, String name,String shortName, Estado estado, int speed,int rangeMove,List<Ataque> atacks) {
+	public Monstruo(int hp, String name,String shortName, Estado estado, int speed,int rangeMove,List<IAtack> atacks) {
 		super(hp, name,shortName, estado, speed, rangeMove);
 		this.atacks = atacks;
 		// TODO Auto-generated constructor stub

@@ -10,14 +10,21 @@ import javax.swing.JFrame;
 
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
+import acciones.md.ataque.Ataque;
 import acciones.md.ataque.IAtack;
+import acciones.md.ataque.Tipo;
 import entes.Movable;
 import entes.md.Ente;
 import mapa.ln.ILNMapaMatrixEntesGroup;
 import mapa.md.IPosition;
-import presentation.GAtack.IGraphicAtack;
+import md.range.Rombo;
+import presentation.GAtack.IPGraphicAtack;
+import presentation.GAtack.IPGraphicDistanceAtack;
+import presentation.GAtack.PGraphicMeleAtack;
 import presentation.graphicOptions.IShowMenus;
 import presentation.map.IGraphicMap;
+import presentation.map.IGraphicMapAtack;
+import presentation.map.IGraphicMapAtackDistance;
 import presentation.map.IPPPositionSubjectData;
 import presentation.map.jbutton.IJButtonAction;
 import presentation.map.jbutton.IJButtonActionAtack;
@@ -139,12 +146,26 @@ public class PController implements IPEnteController, IShowMenus, IPositionObser
 	public void setLnMMEG(ILNMapaMatrixEntesGroup lnMMEG) {
 		this.lnMMEG = lnMMEG;
 	}
+	
+	
+
+	public void setLastPosition(IPosition<Integer, Integer> lastPosition) {
+		this.lastPosition = lastPosition;
+	}
 
 	@Override
 	public void showAtack(IAtack atack) {
-		if(atack instanceof IGraphicAtack) {
-			((IGraphicAtack)atack).activatePositions();
+		if(atack instanceof IPGraphicAtack) {
+			IGraphicMapAtackDistance gADMap = ((IGraphicMapAtackDistance)gMap);
+			gADMap.activateAtackPositions(
+						((IPGraphicAtack)atack).getActivatePositions(lastPosition));
 			
+			if(atack instanceof IPGraphicDistanceAtack) {
+				int maxDistance = ((IPGraphicDistanceAtack)atack).getMaxDistance();
+				
+//				gADMap.activateDistancePositions(lastPosition));
+				
+			}
 		}
 		
 	}

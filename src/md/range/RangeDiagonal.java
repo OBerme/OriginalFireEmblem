@@ -12,7 +12,8 @@ import mapa.md.Posicion;
 public class RangeDiagonal {
 	//Pre: the radio should be more than 0 and the map and posi should be them not null 
 	//Post: it will generate a positions with a form of a "diagonal" using the radio that represents the DiagonalRange
-	public  static final List<IPosition<Integer, Integer>> getPositions(IPosition<Integer, Integer> posi, IMapa<Integer, Integer> map, Integer radio) {
+	public  static final List<IPosition<Integer, Integer>> getPositions(IPosition<Integer, Integer> posi, 
+			IMapa<Integer, Integer> map, Integer radio) {
 		List<IPosition<Integer, Integer>> positions = new ArrayList<IPosition<Integer,Integer>>();
 		
 		IPosition<Integer, Integer> initPosition = new Posicion<Integer, Integer>(posi.getX(), posi.getY() - radio);

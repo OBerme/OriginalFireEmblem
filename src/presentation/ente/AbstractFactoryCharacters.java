@@ -1,36 +1,53 @@
-package presentation.main;
+package presentation.ente;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import acciones.md.ataque.Ataque;
+import acciones.md.ataque.IAtack;
 import acciones.md.ataque.Tipo;
 import entes.Estado;
 import entes.ln.StateSerVivo;
 import entes.md.Ente;
 import entes.md.Monstruo;
 import entes.md.Persona;
+import mapa.md.IMapa;
+import md.range.Rombo;
+import presentation.GAtack.PGraphicMeleAtack;
+import presentation.map.IGraphicMapAtack;
 import turner.md.enums.TurnerEnumConstant;
 
 public class AbstractFactoryCharacters {
 	private static AbstractFactoryCharacters singleton;
 	
 	private static final int DEFAULT_RANGE = 2;
-	private static List<Ataque> ataquesN, ataquesM ;
+	private static List<IAtack> ataquesN, ataquesM ;
+	private IMapa<Integer, Integer> map;
 	
-	private AbstractFactoryCharacters() {
-		ataquesN = new ArrayList<Ataque>();
-		ataquesN.add(new Ataque(1, "Gun atack", 50000, Tipo.FUEGO));
-		ataquesN.add(new Ataque(2, "Punietaso en las costillas", 200, Tipo.AGUA));
+	
+	public AbstractFactoryCharacters(IGraphicMapAtack map) {
 		
-		ataquesM = new ArrayList<Ataque>();
-		ataquesM.add(new Ataque(1, "Magical atack", 50000, Tipo.FUEGO));
-		ataquesM.add(new Ataque(2, "Garrazo en las costillas", 300, Tipo.FUEGO));
+		if(singleton == null) {
+			singleton = this;
+			
+			ataquesN = new ArrayList<IAtack>();
+			
+			ataquesN.add(new PGraphicMeleAtack(
+					new Ataque(1, "Gun atack", 50000, Tipo.FUEGO), (IGraphicMapAtack)map, new Rombo(2, map)));
+					
+					
+			ataquesN.add(new Ataque(2, "Punietaso en las costillas", 200, Tipo.AGUA));
+			
+			ataquesM = new ArrayList<IAtack>();
+			
+			ataquesM.add(new Ataque(1, "Magical atack", 50000, Tipo.FUEGO));
+			ataquesM.add(new Ataque(2, "Garrazo en las costillas", 300, Tipo.FUEGO));
+		}
+		
 	}
 	
 	public static Ente createOscar() {
 		
-		checkSingleton();
 		
 		// TODO Auto-generated method stub
 		return new Persona(200, "Oscar", "O", 
@@ -38,13 +55,8 @@ public class AbstractFactoryCharacters {
 				ataquesN);
 	}
 	
-	private static void checkSingleton() {
-		if(singleton  == null)
-			singleton = new AbstractFactoryCharacters();
-	}
 
 	public static Ente createJiji() {
-		checkSingleton();
 		
 		return new Persona(700, "Joji", "J", 
 				new Estado(StateSerVivo.NORMAL),
@@ -54,7 +66,6 @@ public class AbstractFactoryCharacters {
 	}
 
 	public static Ente createUndyne() {
-		checkSingleton();
 
 		return new Monstruo(1500, "Undyne", "U", 
 				new Estado(StateSerVivo.NORMAL),
@@ -64,7 +75,6 @@ public class AbstractFactoryCharacters {
 	}
 	
 	public static Ente createAsgore() {
-		checkSingleton();
 
 		return new Monstruo(2700, "Asgore", "A", 
 				new Estado(StateSerVivo.NORMAL),
