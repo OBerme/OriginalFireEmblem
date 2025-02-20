@@ -8,6 +8,7 @@ import presentation.graphicOptions.IShowMenus;
 import presentation.graphicOptions.Menuable;
 import presentation.main.PDefaultValues;
 import presentation.map.AbstractMapSizeFactory;
+import presentation.map.IRelativePosition;
 import presentation.menu.IPMenu;
 import presentation.menu.PMenu;
 
@@ -39,11 +40,9 @@ public class JButtonActionAtack implements IJButtonActionAtack{
 			Menuable eMenu =  (Menuable)this.gEnte;
 			
 			IPMenu<Integer, Integer> menu = eMenu.getMenu();
-			IPosition<Integer, Integer> nPosi = 
+			IRelativePosition nPosi = 
 					AbstractMapSizeFactory.getRelativeIntegerPosition(pGPI.getgPosition(),1,0);
-			this.isMenu.showMenu(menu, nPosi
-					//to move the menu to his site
-					);
+			this.isMenu.showMenu(menu, nPosi);
 			
 		}
 	}

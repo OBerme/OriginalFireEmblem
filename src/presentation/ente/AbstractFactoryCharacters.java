@@ -13,6 +13,7 @@ import entes.md.Monstruo;
 import entes.md.Persona;
 import mapa.md.IMapa;
 import md.range.Rombo;
+import md.range.Square;
 import presentation.GAtack.PGraphicDistanceAtack;
 import presentation.GAtack.PGraphicMeleAtack;
 import presentation.map.IGraphicMapAtack;
@@ -35,11 +36,11 @@ public class AbstractFactoryCharacters {
 			
 			ataquesN.add(new PGraphicDistanceAtack(
 					new Ataque(1, "Gun atack", 50000, Tipo.FUEGO),
-						(IGraphicMapAtack)map, new Rombo(2, map),2));
+						(IGraphicMapAtack)map, new Square(0, map),2));
 			
 			ataquesN.add(new PGraphicMeleAtack(
 					new Ataque(2, "Punietaso en las costillas", 200, Tipo.AGUA),
-						(IGraphicMapAtack)map, new Rombo(2, map)));
+						(IGraphicMapAtack)map, new Square(0, map)));
 			
 			ataquesM = new ArrayList<IAtack>();
 			

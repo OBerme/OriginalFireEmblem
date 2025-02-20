@@ -22,10 +22,12 @@ import presentation.GAtack.IPGraphicAtack;
 import presentation.GAtack.IPGraphicDistanceAtack;
 import presentation.GAtack.PGraphicMeleAtack;
 import presentation.graphicOptions.IShowMenus;
+import presentation.map.AbstractMapSizeFactory;
 import presentation.map.IGraphicMap;
 import presentation.map.IGraphicMapAtack;
 import presentation.map.IGraphicMapAtackDistance;
 import presentation.map.IPPPositionSubjectData;
+import presentation.map.IRelativePosition;
 import presentation.map.jbutton.IJButtonAction;
 import presentation.map.jbutton.IJButtonActionAtack;
 import presentation.map.jbutton.IPGraphicPosition;
@@ -85,8 +87,9 @@ public class PController implements IPEnteController, IShowMenus, IPositionObser
     	}
     }
 
+	//TODO change IPosition to RelativePosition
 	@Override
-	public void showMenu(IPMenu<Integer, Integer> menu, IPosition<Integer, Integer> position) {
+	public void showMenu(IPMenu<Integer, Integer> menu, IRelativePosition position) {
 		// TODO Auto-generated method stub
 		lastPosition = position;
 		menu.showMenu(position);
@@ -155,8 +158,12 @@ public class PController implements IPEnteController, IShowMenus, IPositionObser
 
 	@Override
 	public void showAtack(IAtack atack) {
-		if(atack instanceof IPGraphicAtack) {
-			((IPGraphicAtack) atack).activatePositons((IGraphicMapAtackDistance)gMap, lastPosition);
+		if(atack instanceof IPGraphicAtack) {			
+			IPosition<Integer, Integer> posicion = lastPosition instanceof IRelativePosition 
+					?  AbstractMapSizeFactory.getInverseRelativeIntegerPosition((IRelativePosition)lastPosition, -1, 0)
+					: lastPosition;
+			
+			((IPGraphicAtack) atack).activatePositons((IGraphicMapAtackDistance)gMap,posicion);
 		}
 		
 	}

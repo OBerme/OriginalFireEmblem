@@ -191,7 +191,7 @@ public class PresentationMain {
 		addEnteToPosition(new GraphicPersona(person,
 				PDefaultValues.getPathImage("bluesky.png"),
 				PMenuAbstractFactory.getDefaultMenuEnte(person, entContro, frame,controller))
-				, 2, 2, positions, gPositions, menuContro, subObserPositi, observers, mouseSubject);
+				, 0, 2, positions, gPositions, menuContro, subObserPositi, observers, mouseSubject);
 				
 		//JIJI
 		person = (Persona) AbstractFactoryCharacters.createJiji();
@@ -238,16 +238,7 @@ public class PresentationMain {
         
 //        ((PController) controller).setLastPosition(new Posicion<Integer, Integer>(2, 2));
 //        controller.showAtack( new PGraphicMeleAtack(
-//				new Ataque(1, "Gun atack", 50000, Tipo.FUEGO), (IGraphicMapAtack)gMap, new Rombo(1, gMap)));
-        
-        ((PController) controller).setLastPosition(new Posicion<Integer, Integer>(0, 0));
-        controller.showAtack( new PGraphicDistanceAtack(
-				new Ataque(1, "Gun atack", 50000, Tipo.FUEGO), (IGraphicMapAtack)gMap, new Rombo(1, gMap),1));
-        
-        ((PController) controller).setLastPosition(new Posicion<Integer, Integer>(1, 3));
-        controller.showAtack( new PGraphicMeleAtack(
-				new Ataque(1, "Gun atack", 50000, Tipo.FUEGO), (IGraphicMapAtack)gMap, new Rombo(1, gMap)));
-       
+//				new Ataque(1, "Gun atack", 50000, Tipo.FUEGO), (IGraphicMapAtack)gMap, new Rombo(1, gMap)));       
 	}
 
 	

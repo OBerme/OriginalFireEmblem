@@ -3,6 +3,7 @@ package md.range;
 import java.util.ArrayList;
 import java.util.List;
 
+import mapa.md.IMapa;
 import mapa.md.IPosition;
 import mapa.md.Mapa;
 import mapa.md.Posicion;
@@ -10,7 +11,7 @@ import mapa.md.Posicion;
 public final class RangeRectangle {	
 	//Pre: the width and height should be width != height and both > 0, the posi and map should be not null
 	//Post: it will return a positions with the max position as x = witdh + posi.X and y = height + posi.Y 
-	public  static final List<IPosition<Integer, Integer>> getPositions(Posicion<Integer, Integer> posi, Mapa<Integer, Integer> map, int width, int height) {
+	public  static final List<IPosition<Integer, Integer>> getPositions(Posicion<Integer, Integer> posi, IMapa<Integer, Integer> map, int width, int height) {
 //		Posicion<Integer, Integer>[] positions = new Posicion[(int)Math.pow(radio, 2)];
 		List<IPosition<Integer, Integer>> positions = new ArrayList();
 		
@@ -20,7 +21,7 @@ public final class RangeRectangle {
 			
 			for(int x = posi.getX()-width; x <= fwidth; x++) { //the acumulator for the next bloqs of the diagonal
 				Posicion<Integer, Integer> nPosi =  new Posicion<Integer, Integer>(x, y);
-				if(map.hasPosition(nPosi)) {
+				if(map.hasPosition(x,y)) {
 					positions.add(nPosi);
 				}
 			}

@@ -23,7 +23,9 @@ import md.range.RangeToPointTest;
 //	LNAccionesAtaqueTest.class,
 //	XMLParserTest.class, LNWebConnectionTest.class,
 	//the ranges tests
-//	RangeRectangleTest.class, RangeDiagonalTest.class, RangeSquareTest.class
+//	RangeRectangleTest.class,
+//	RangeDiagonalTest.class,
+	RangeSquareTest.class,
 	RangeToPointTest.class
 	})
 public class AllTests {
