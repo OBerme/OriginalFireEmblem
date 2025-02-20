@@ -11,7 +11,7 @@ public final class PDefaultValues {
 	public static final boolean DEBUG_MODE_PPOSITIONS = true;
 	public static final boolean DEBUG_MODE_IPositionObserver = true;
 	
-	public static final boolean DEBUG_MODE_PGPIAD = true; //PGraphicOPositionIntegerAtackDistance
+	public static final boolean DEBUG_MODE_PGPIAD = false; //PGraphicOPositionIntegerAtackDistance
 	
 	public static String IMAGES_PATH = "/home/stallman/Downloads/Trash/game/";
 	

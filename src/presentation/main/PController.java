@@ -161,10 +161,8 @@ public class PController implements IPEnteController, IShowMenus, IPositionObser
 						((IPGraphicAtack)atack).getActivatePositions(lastPosition));
 			
 			if(atack instanceof IPGraphicDistanceAtack) {
-				int maxDistance = ((IPGraphicDistanceAtack)atack).getMaxDistance();
-				
-//				gADMap.activateDistancePositions(lastPosition));
-				
+				IPGraphicDistanceAtack pGDis = (IPGraphicDistanceAtack)atack;
+				gADMap.activateDistancePositions(pGDis.getActivateDistancePositions(lastPosition));
 			}
 		}
 		

@@ -36,6 +36,7 @@ import mapa.md.PosicionGroupable;
 import mapa.md.PosicionGroupableActionable;
 import md.range.RangeDiagonal;
 import md.range.Rombo;
+import presentation.GAtack.PGraphicDistanceAtack;
 import presentation.GAtack.PGraphicMeleAtack;
 import presentation.MouseHoverObserver.AtackerSubject;
 import presentation.MouseHoverObserver.IAtackerSubject;
@@ -113,7 +114,9 @@ public class PresentationMain {
 				
 				gPositions[i][j] = new PGraphicOPositionIntegerAtackDistance(
 						(GraphicPositionInteger)nPositi, subObserPositi, AbstractFactoryJButtonActions.getVoidAction(), mouseSubject);
-				 
+				
+				mouseSubject.registerObserver((IMouseHoverObserver)gPositions[i][j]);
+				
 				observers.add((IObserver)gPositions[i][j]);
 			}
 		}
@@ -234,9 +237,13 @@ public class PresentationMain {
         // Mostrar la ventana
         frame.setVisible(true);
         
-        ((PController) controller).setLastPosition(new Posicion<Integer, Integer>(2, 2));
-        controller.showAtack( new PGraphicMeleAtack(
-				new Ataque(1, "Gun atack", 50000, Tipo.FUEGO), (IGraphicMapAtack)gMap, new Rombo(1, gMap)));
+//        ((PController) controller).setLastPosition(new Posicion<Integer, Integer>(2, 2));
+//        controller.showAtack( new PGraphicMeleAtack(
+//				new Ataque(1, "Gun atack", 50000, Tipo.FUEGO), (IGraphicMapAtack)gMap, new Rombo(1, gMap)));
+        
+        ((PController) controller).setLastPosition(new Posicion<Integer, Integer>(0, 0));
+        controller.showAtack( new PGraphicDistanceAtack(
+				new Ataque(1, "Gun atack", 50000, Tipo.FUEGO), (IGraphicMapAtack)gMap, new Rombo(1, gMap),1));
        
 	}
 
@@ -255,6 +262,8 @@ public class PresentationMain {
 		gPositions[x][y] = new PGraphicOPositionIntegerAtackDistance(gPosi,
 				subObserPositi, AbstractFactoryJButtonActions.getEnteAction(pgPosi, 
 						gPerson, menuContro), subjectMouse);
+		
+		subjectMouse.registerObserver((IMouseHoverObserver)gPositions[x][y]);
 		
 		observers.add((IObserver)gPositions[x][y]);
 	}
