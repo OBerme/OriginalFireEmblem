@@ -233,7 +233,6 @@ public class PresentationMain {
         frame.setSize(gMap.getWidth(), gMap.getHeight()+ PDefaultValues.HEADER_HEIGHT);
         
         
-        
         // Mostrar la ventana
         frame.setVisible(true);
         
@@ -244,6 +243,10 @@ public class PresentationMain {
         ((PController) controller).setLastPosition(new Posicion<Integer, Integer>(0, 0));
         controller.showAtack( new PGraphicDistanceAtack(
 				new Ataque(1, "Gun atack", 50000, Tipo.FUEGO), (IGraphicMapAtack)gMap, new Rombo(1, gMap),1));
+        
+        ((PController) controller).setLastPosition(new Posicion<Integer, Integer>(1, 3));
+        controller.showAtack( new PGraphicMeleAtack(
+				new Ataque(1, "Gun atack", 50000, Tipo.FUEGO), (IGraphicMapAtack)gMap, new Rombo(1, gMap)));
        
 	}
 

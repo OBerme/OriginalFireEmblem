@@ -13,6 +13,7 @@ import entes.md.Monstruo;
 import entes.md.Persona;
 import mapa.md.IMapa;
 import md.range.Rombo;
+import presentation.GAtack.PGraphicDistanceAtack;
 import presentation.GAtack.PGraphicMeleAtack;
 import presentation.map.IGraphicMapAtack;
 import turner.md.enums.TurnerEnumConstant;
@@ -32,11 +33,13 @@ public class AbstractFactoryCharacters {
 			
 			ataquesN = new ArrayList<IAtack>();
 			
+			ataquesN.add(new PGraphicDistanceAtack(
+					new Ataque(1, "Gun atack", 50000, Tipo.FUEGO),
+						(IGraphicMapAtack)map, new Rombo(2, map),2));
+			
 			ataquesN.add(new PGraphicMeleAtack(
-					new Ataque(1, "Gun atack", 50000, Tipo.FUEGO), (IGraphicMapAtack)map, new Rombo(2, map)));
-					
-					
-			ataquesN.add(new Ataque(2, "Punietaso en las costillas", 200, Tipo.AGUA));
+					new Ataque(2, "Punietaso en las costillas", 200, Tipo.AGUA),
+						(IGraphicMapAtack)map, new Rombo(2, map)));
 			
 			ataquesM = new ArrayList<IAtack>();
 			

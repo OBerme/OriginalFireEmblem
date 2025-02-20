@@ -24,7 +24,7 @@ public class AbstractFactoryJButtonActions {
 	public static IJButtonAction getEnteAction(PGraphicPositionInteger pGPI,
 			GraphicEnte gEnte, IShowMenus isMenu) {
 //		return new JButtonActionAtack(pGPI, gEnte, isMenu);
-		return null;
+		return new JButtonActionAtack(pGPI, gEnte, isMenu);
 	}
 
 }

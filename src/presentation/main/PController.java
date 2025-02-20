@@ -156,14 +156,7 @@ public class PController implements IPEnteController, IShowMenus, IPositionObser
 	@Override
 	public void showAtack(IAtack atack) {
 		if(atack instanceof IPGraphicAtack) {
-			IGraphicMapAtackDistance gADMap = ((IGraphicMapAtackDistance)gMap);
-			gADMap.activateAtackPositions(
-						((IPGraphicAtack)atack).getActivatePositions(lastPosition));
-			
-			if(atack instanceof IPGraphicDistanceAtack) {
-				IPGraphicDistanceAtack pGDis = (IPGraphicDistanceAtack)atack;
-				gADMap.activateDistancePositions(pGDis.getActivateDistancePositions(lastPosition));
-			}
+			((IPGraphicAtack) atack).activatePositons((IGraphicMapAtackDistance)gMap, lastPosition);
 		}
 		
 	}

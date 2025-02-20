@@ -43,7 +43,8 @@ public class PGraphicPositionIntegerAtack
 	
 	
 	
-	public PGraphicPositionIntegerAtack(IGraphicPosition<Integer, Integer> gPosition, IPPPositionSubjectData pSubject,
+	public PGraphicPositionIntegerAtack(IGraphicPosition<Integer, Integer> gPosition,
+			IPPPositionSubjectData pSubject,
 			IJButtonAction action) {
 		super(gPosition, pSubject, action);
 		this.actiAtack = false;
