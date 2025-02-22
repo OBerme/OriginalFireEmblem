@@ -27,7 +27,6 @@ import group.md.Group;
 import mapa.ln.INLMapa;
 import mapa.ln.LNMapa;
 import mapa.md.IPosition;
-import mapa.md.IPositionEnte;
 import mapa.md.IPositionable;
 import mapa.md.Posicion;
 import menu.md.Menu;

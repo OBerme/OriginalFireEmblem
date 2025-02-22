@@ -1,10 +1,11 @@
 package acciones.ln;
 
 import acciones.md.ataque.Ataque;
+import acciones.md.ataque.IAtack;
 
 public class AtaqueSolo extends AtaqueDecorator implements IAtaqueDeterminista{
-	private Ataque ataque1;
-    public AtaqueSolo(Ataque ataque1) {
+	private IAtack ataque1;
+    public AtaqueSolo(IAtack ataque1) {
         this.ataque1 = ataque1;
     }
     
@@ -14,7 +15,7 @@ public class AtaqueSolo extends AtaqueDecorator implements IAtaqueDeterminista{
 		return ataque1.getDamage();
 	}
 	
-	public Ataque getAtaque() {
+	public IAtack getAtaque() {
 		return ataque1;
 	}
 	

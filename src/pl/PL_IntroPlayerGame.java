@@ -135,6 +135,7 @@ public class PL_IntroPlayerGame implements IWebConnectionEvents{
 		
 		ILNEntes lnEntes = new LNEntes(lnEnteEvents, entes); 
 		LNAccionesAtaque lnAccionesAtaque = new LNAccionesAtaque(lnEntes);
+		
 		moverPlayersRandom(lnMapa,listPersonas);
 		
 		List<Turnable> turnables =   new ArrayList<>();

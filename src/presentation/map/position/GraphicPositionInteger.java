@@ -14,7 +14,7 @@ import javax.swing.JComponent;
 import entes.md.Ente;
 import entes.md.GraphicEnte;
 import mapa.md.IPosition;
-import mapa.md.IPositionEnte;
+import mapa.md.IPositionForEnte;
 import mapa.md.IPositionable;
 import mapa.md.Posicion;
 import presentation.ente.IGEnte;
@@ -26,7 +26,8 @@ import presentation.main.PController;
 import presentation.main.PDefaultValues;
 import presentation.menu.PMenuAbstractFactory;
 
-public class GraphicPositionInteger implements IGraphicPosition<Integer, Integer>, IPositionEnte<Integer, Integer>{
+public class GraphicPositionInteger 
+	implements IGraphicPosition<Integer, Integer>, IPositionForEnte{
 	private ImageIcon cellImage;
 	private IShowMenus isMenu;
 	private IPosition<Integer, Integer> positi;	

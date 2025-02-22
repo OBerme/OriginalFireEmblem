@@ -10,7 +10,7 @@ import presentation.graphicOptions.IDrawable;
 import presentation.graphicOptions.Menuable;
 import presentation.main.PDefaultValues;
 
-public class GraphicEnte implements IDrawable, IPositionable, IGEnte {
+public class GraphicEnte implements IDrawable, IGEnte {
 	protected ImageIcon imageIcon;
 	protected String pathImage;
 	protected Ente ente;
@@ -46,6 +46,28 @@ public class GraphicEnte implements IDrawable, IPositionable, IGEnte {
 	@Override
 	public Icon getImage() {
 		return imageIcon;
+	}
+
+	@Override
+	public int getNumb() {
+		// TODO Auto-generated method stub
+		return ente.getNumb();
+	}
+
+	@Override
+	public int getHp() {
+		return ente.getHp();
+	}
+
+	@Override
+	public void setHp(int i) {
+		ente.setHp(i);
+	}
+
+	@Override
+	public boolean isDied() {
+		// TODO Auto-generated method stub
+		return ente.isDied();
 	}
 
 }

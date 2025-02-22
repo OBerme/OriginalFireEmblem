@@ -1,12 +1,13 @@
 package acciones.ln;
 
 import acciones.md.ataque.Ataque;
+import acciones.md.ataque.IAtack;
 
 class AtaqueCombinado extends AtaqueDecorator implements IAtaqueNoDeterminista{
-    private Ataque ataque1;
+    private IAtack ataque1;
     private AtaqueDecorator ataque2;
 
-    public AtaqueCombinado(Ataque ataque1, AtaqueDecorator ataque2) {
+    public AtaqueCombinado(IAtack ataque1, AtaqueDecorator ataque2) {
         this.ataque1 = ataque1;
         this.ataque2 = ataque2;
     }
@@ -16,7 +17,7 @@ class AtaqueCombinado extends AtaqueDecorator implements IAtaqueNoDeterminista{
         return ataque1.getDamage() + ataque2.getDamage();
     }
 
-	public Ataque getAtaque1() {
+	public IAtack getAtaque1() {
 		return ataque1;
 	}
 

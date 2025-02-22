@@ -9,6 +9,7 @@ import acciones.md.ataque.Tipo;
 import entes.Estado;
 import entes.ln.StateSerVivo;
 import entes.md.Ente;
+import entes.md.IEnte;
 import entes.md.Monstruo;
 import entes.md.Persona;
 import mapa.md.IMapa;
@@ -26,6 +27,8 @@ public class AbstractFactoryCharacters {
 	private static List<IAtack> ataquesN, ataquesM ;
 	private IMapa<Integer, Integer> map;
 	
+	private static List<IEnte> entesAdded;
+	
 	
 	public AbstractFactoryCharacters(IGraphicMapAtack map) {
 		
@@ -36,7 +39,7 @@ public class AbstractFactoryCharacters {
 			
 			ataquesN.add(new PGraphicDistanceAtack(
 					new Ataque(1, "Gun atack", 50000, Tipo.FUEGO),
-						(IGraphicMapAtack)map, new Square(0, map),2));
+						(IGraphicMapAtack)map, new Rombo(1, map),2));
 			
 			ataquesN.add(new PGraphicMeleAtack(
 					new Ataque(2, "Punietaso en las costillas", 200, Tipo.AGUA),
@@ -46,27 +49,32 @@ public class AbstractFactoryCharacters {
 			
 			ataquesM.add(new Ataque(1, "Magical atack", 50000, Tipo.FUEGO));
 			ataquesM.add(new Ataque(2, "Garrazo en las costillas", 300, Tipo.FUEGO));
+			
+			this.entesAdded = new ArrayList<IEnte>();
 		}
 		
 	}
 	
 	public static Ente createOscar() {
-		
-		
-		// TODO Auto-generated method stub
-		return new Persona(200, "Oscar", "O", 
+		Ente nEnte = new Persona(200, "Oscar", "O", 
 				new Estado(StateSerVivo.NORMAL),TurnerEnumConstant.SPEED_DIVIDER.getCost(),DEFAULT_RANGE, 
 				ataquesN);
+		entesAdded.add(nEnte);
+		
+		// TODO Auto-generated method stub
+		return nEnte;
 	}
 	
 
 	public static Ente createJiji() {
-		
-		return new Persona(700, "Joji", "J", 
+		Ente nEnte =new Persona(700, "Joji", "J", 
 				new Estado(StateSerVivo.NORMAL),
 				TurnerEnumConstant.SPEED_DIVIDER.getCost(),
 				DEFAULT_RANGE,
 				ataquesM);
+		
+		entesAdded.add(nEnte);
+		return nEnte;
 	}
 
 	public static Ente createUndyne() {
@@ -85,6 +93,10 @@ public class AbstractFactoryCharacters {
 				TurnerEnumConstant.SPEED_DIVIDER.getCost(),
 				DEFAULT_RANGE,
 				ataquesN);
+	}
+	
+	public static List<IEnte> getEntes(){
+		return List.copyOf(entesAdded);
 	}
 
 }

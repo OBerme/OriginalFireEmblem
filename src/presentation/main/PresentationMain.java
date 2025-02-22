@@ -12,9 +12,13 @@ import javax.swing.JLayeredPane;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 
+import acciones.ln.LNAccionesAtaque;
 import acciones.md.ataque.Ataque;
 import acciones.md.ataque.Tipo;
 import entes.Estado;
+import entes.IEnteEvents;
+import entes.ln.ILNEntes;
+import entes.ln.LNEntes;
 import entes.ln.StateSerVivo;
 import entes.md.Ente;
 import entes.md.GraphicEnte;
@@ -28,6 +32,7 @@ import group.md.Group;
 import mapa.ln.AbstractFactoryPositionInteger;
 import mapa.ln.ILNMapaMatrixEntesGroup;
 import mapa.ln.IMapEvents;
+import mapa.ln.IMapIntegerEvents;
 import mapa.ln.LNMapaMatrixEntesGroup;
 import mapa.md.IPosition;
 import mapa.md.MapaMatrixEnteGroupActionable;
@@ -52,7 +57,9 @@ import presentation.map.GraphicMapIntegerAtackDistance;
 import presentation.map.IGraphicMap;
 import presentation.map.IGraphicMapAtack;
 import presentation.map.IGraphicMapAtackDistance;
+import presentation.map.ILNGraphicMapIntegerAtackDistance;
 import presentation.map.IPPPositionSubjectData;
+import presentation.map.LNGraphicMapIntegerAtackDistance;
 import presentation.map.jbutton.AbstractFactoryJButtonActions;
 import presentation.map.jbutton.IPGraphicPosition;
 import presentation.map.jbutton.PGraphicOPositionIntegerAtackDistance;
@@ -66,6 +73,7 @@ import presentation.map.position.PPositionData;
 import presentation.menu.IPMenu;
 import presentation.menu.PMenu;
 import presentation.menu.PMenuAbstractFactory;
+import turner.ln.LNTurner;
 import turner.md.enums.TurnerEnumConstant;
 
 public class PresentationMain {
@@ -77,7 +85,8 @@ public class PresentationMain {
         
         
         int length = 5;
-		List<Group> groupsR = new ArrayList();
+		
+		
 //		groups.add(new Group())
 		
 		MapaMatrixEnteGroupActionable mapa = new MapaMatrixEnteGroupActionable();
@@ -99,6 +108,8 @@ public class PresentationMain {
 		 
 		IPosition<Integer, Integer>[][] positions = new GraphicPositionInteger[length][length];
 		IPGraphicPosition<Integer, Integer>[][] gPositions = new PGraphicPositionInteger[length][length];
+		
+		
 		
 		
 		
@@ -167,22 +178,20 @@ public class PresentationMain {
 //						gPerson, menuContro), gPerson, menuContro);
 //		
 		//SET UP THE MAP
-		mapa = new MapaMatrixEnteGroupActionable(positions, groupsR);
-		ILNMapaMatrixEntesGroup lnMapa = new LNMapaMatrixEntesGroup(mapa, null,null );
 		
 		
 		
-		((PController)controller).setLnMMEG(lnMapa);
+		ILNMapaMatrixEntesGroup lnMapa = setUpGroupMap(length, null, null, null, new IMapIntegerEvents[] {}); //Empty for now
 		
 		
 		
-		
-								
+		((PController)controller).setLnMMEG(lnMapa);								
 		
 		
         // Crear el panel de dibujo
 		
 		gMap = new GraphicMapIntegerAtackDistance(lnMapa, gPositions,0,0);
+		
 		
 		//Oscar
 		AbstractFactoryCharacters abs = new AbstractFactoryCharacters((IGraphicMapAtack)gMap); //TODO TO SOLVE
@@ -197,12 +206,37 @@ public class PresentationMain {
 		person = (Persona) AbstractFactoryCharacters.createJiji();
 		
 		addEnteToPosition(new GraphicPersona(person,
-				PDefaultValues.getPathImage("bluesky.png"),
+				PDefaultValues.getPathImage("jiji.png"),
 				PMenuAbstractFactory.getDefaultMenuEnte(person, entContro, frame, controller))
 				, 3, 2, positions, gPositions, menuContro, subObserPositi, observers,mouseSubject);
 		
+		//Another JIJI
+		person = (Persona) AbstractFactoryCharacters.createJiji();
 		
-		controller.setgMap(gMap);
+		addEnteToPosition(new GraphicPersona(person,
+				PDefaultValues.getPathImage("monster.png"),
+				PMenuAbstractFactory.getDefaultMenuEnte(person, entContro, frame, controller))
+				, 3, 3, positions, gPositions, menuContro, subObserPositi, observers,mouseSubject);
+		
+		
+		ILNGraphicMapIntegerAtackDistance lnGMap = new LNGraphicMapIntegerAtackDistance((IGraphicMapAtackDistance)gMap);
+		controller.setgMap(lnGMap);
+		
+
+		IEnteEvents[] lnEnteEvents = new IEnteEvents[]{ //TODO improve and make an observer for killed entes
+				(IEnteEvents)lnMapa,
+				(IEnteEvents)gMap
+//				(IEnteEvents)lnJojiGroup,
+//				(IEnteEvents)lnOsquiGroup,
+		};
+		
+		
+		ILNEntes lnEntes = new LNEntes(lnEnteEvents, AbstractFactoryCharacters.getEntes()); 
+		LNAccionesAtaque lnAccionesAtaque = new LNAccionesAtaque(lnEntes);
+		
+		controller.setLnAccionesAtaque(lnAccionesAtaque);
+		
+		
 		controller.setPosiProductor(subObserPositi);
 		
 		observers.add((IObserver)controller);
@@ -239,6 +273,31 @@ public class PresentationMain {
 //        ((PController) controller).setLastPosition(new Posicion<Integer, Integer>(2, 2));
 //        controller.showAtack( new PGraphicMeleAtack(
 //				new Ataque(1, "Gun atack", 50000, Tipo.FUEGO), (IGraphicMapAtack)gMap, new Rombo(1, gMap)));       
+	}
+	
+
+	private static ILNMapaMatrixEntesGroup setUpGroupMap(int length, Group gr1, Group gr2
+			,LNTurner lnTurner, IMapIntegerEvents[] iMapEvents) {
+		
+		List<LNGroup> groups = new ArrayList();
+		List<Group> groupsR = new ArrayList();
+		
+		
+		
+//		groups.add(new Group())
+		
+		groupsR.add(gr1);
+		groupsR.add(gr2);
+		
+		MapaMatrixEnteGroupActionable mapa = new MapaMatrixEnteGroupActionable(length, groupsR);
+		
+		groups.add(new LNGroup(gr1, lnTurner));
+		groups.add(new LNGroup(gr2,lnTurner));
+		
+
+		ILNMapaMatrixEntesGroup lnMapa = new LNMapaMatrixEntesGroup(mapa, groups, iMapEvents);
+		return lnMapa;
+		
 	}
 
 	

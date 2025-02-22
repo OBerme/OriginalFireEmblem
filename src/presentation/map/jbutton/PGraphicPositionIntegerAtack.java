@@ -86,7 +86,10 @@ public class PGraphicPositionIntegerAtack
 		setBackground(PDefaultValues.D_CELL_COLOR_DEAC_ATACK);		
 	}
 
-
+	@Override
+	public boolean isActive() {
+		return actiAtack;
+	}
 
 	
 }

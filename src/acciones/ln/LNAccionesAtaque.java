@@ -5,23 +5,25 @@ package acciones.ln;
 import java.util.HashMap;
 
 import acciones.md.ataque.Ataque;
+import acciones.md.ataque.IAtack;
 import entes.IEnteEvents;
 import entes.ln.ILNEntes;
 import entes.ln.LNEntes;
 import entes.md.Ente;
+import entes.md.IEnte;
 
 public class LNAccionesAtaque extends LNAccion implements ILNAccion{
 	private ILNEntes lnEntes;
-	private HashMap<Ente, AtaqueDecorator> ataques;
+	private HashMap<IEnte, AtaqueDecorator> ataques;
 
     // Constructor de LNAtaque, acepta un ente y un ataque inicial
     public LNAccionesAtaque(ILNEntes lnEntes) {
-        this.ataques = new HashMap<Ente, AtaqueDecorator>();
+        this.ataques = new HashMap<IEnte, AtaqueDecorator>();
         this.lnEntes = lnEntes;
     }
 
     // Método para agregar un nuevo ataque al ataque decorador
-    public void appendAtaque(Ente ente, Ataque ataque) {
+    public void appendAtaque(IEnte ente, IAtack ataque) {
     	if(this.ataques.containsKey(ente)) {
     		AtaqueDecorator atack =  this.ataques.get(ente);
     		atack = new AtaqueCombinado(ataque, atack);
@@ -33,7 +35,7 @@ public class LNAccionesAtaque extends LNAccion implements ILNAccion{
     
 
     // Pre: The atack should be in the list
-    public void removeAtaque(Ente ente, Ataque ataque) {
+    public void removeAtaque(Ente ente, IAtack ataque) {
     	if(ataques.containsKey(ente)) {
     		AtaqueDecorator removeAtack =  getRemoveAtaque(this.ataques.get(ente), ataque);
     		if(removeAtack != null) 
@@ -44,7 +46,7 @@ public class LNAccionesAtaque extends LNAccion implements ILNAccion{
         
     }
     
-    public AtaqueDecorator getRemoveAtaque(AtaqueDecorator node, Ataque ataqueToFind) {
+    public AtaqueDecorator getRemoveAtaque(AtaqueDecorator node, IAtack ataqueToFind) {
     	if(node instanceof IAtaqueDeterminista) {
     		IAtaqueDeterminista iADeter  = (IAtaqueDeterminista) node;
     		
@@ -71,12 +73,14 @@ public class LNAccionesAtaque extends LNAccion implements ILNAccion{
     }
     
     public void doAtacks() {
-    	for(Ente nEnte : this.ataques.keySet()) {
+    	for(IEnte nEnte : this.ataques.keySet()) {
     		AtaqueDecorator atack = this.ataques.get(nEnte);
     		int totalDamage = atack.getDamage();
     		lnEntes.reducirHp(nEnte, totalDamage);
     			
     	}
     }
+
+
    
 }

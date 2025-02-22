@@ -1,12 +1,13 @@
 package entes;
 
 import entes.md.Ente;
+import entes.md.IEnte;
 import mapa.md.Posicion;
 
 public interface IEnteEvents {
-	void onEnteDies(Ente ente);
+	void onEnteDies(IEnte ente);
 
-	void onEnteReciveAtack(Ente ente);
-	void onEnteChangeHp(Ente ente);
+	void onEnteReciveAtack(IEnte ente);
+	void onEnteChangeHp(IEnte ente);
 	
 }

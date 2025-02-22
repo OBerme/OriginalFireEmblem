@@ -9,6 +9,9 @@ import javax.swing.JComponent;
 
 import entes.Movable;
 import entes.md.GraphicEnte;
+import entes.md.IEnte;
+import mapa.md.IPositionForEnte;
+import mapa.md.IPositionable;
 import presentation.main.PDefaultValues;
 import presentation.map.IPPPositionSubjectData;
 import presentation.map.position.IGraphicPosition;
@@ -18,7 +21,7 @@ import presentation.menu.PMenuAbstractFactory;
 import turner.md.Actionable;
 
 public class PGraphicPositionInteger extends JButton 
-	implements IPGraphicPosition<Integer, Integer>, IPositionObserver {
+	implements IPGraphicPosition<Integer, Integer>, IPositionObserver, IPositionForEnte {
 	
 	protected boolean active;
 	protected IGraphicPosition<Integer, Integer> gPosition;
@@ -140,6 +143,19 @@ public class PGraphicPositionInteger extends JButton
 	public void setActive(boolean b) {
 		this.active = b;
 	}
+
+	@Override
+	public boolean hasEnte() {
+		// TODO Auto-generated method stub
+		
+		return ((IPositionForEnte)gPosition).hasEnte();
+	}
+
+	@Override
+	public IEnte getEnte() {
+		return ((IPositionForEnte)gPosition).getEnte();
+	}
+
 	
 	
 	

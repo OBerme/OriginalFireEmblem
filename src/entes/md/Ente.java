@@ -6,7 +6,7 @@ import mapa.md.Consolable;
 import mapa.md.IPositionable;
 import presentation.graphicOptions.Menuable;
 
-public  class Ente implements Serializable, IPositionable, Consolable{
+public  class Ente implements Serializable, Consolable, IEnte{
 	protected int hp;
 	protected String name;
 	protected String shortName;

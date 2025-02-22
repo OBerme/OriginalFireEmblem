@@ -1,7 +1,8 @@
 package acciones.ln;
 
 import acciones.md.ataque.Ataque;
+import acciones.md.ataque.IAtack;
 
 public interface IAtaqueDeterminista {
-	Ataque getAtaque();
+	IAtack getAtaque();
 }

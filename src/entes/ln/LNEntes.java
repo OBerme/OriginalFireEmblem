@@ -6,12 +6,13 @@ import WebConnection.XML.Util.ln.LNXmlStack;
 import acciones.md.ataque.*;
 import entes.IEnteEvents;
 import entes.md.Ente;
+import entes.md.IEnte;
 
 public class LNEntes implements ILNEntes, IEnteEvents{
 	protected IEnteEvents[] enteEvents;
-	private List<Ente> entes;
+	private List<IEnte> entes;
 	
-	public LNEntes(IEnteEvents[] enteEvents,List<Ente> entes) {
+	public LNEntes(IEnteEvents[] enteEvents,List<IEnte> entes) {
 		if(entes == null)
 			this.entes = new ArrayList<>();
 		else this.entes = entes;
@@ -19,7 +20,7 @@ public class LNEntes implements ILNEntes, IEnteEvents{
 		this.enteEvents =  enteEvents;
 	}
 	
-	public void reducirHp(Ente ente, int damage) {
+	public void reducirHp(IEnte ente, int damage) {
 		if(ente.getHp() < damage) {
 			ente.setHp(0);
 			onEnteDiesEnteEvents(ente);
@@ -32,30 +33,30 @@ public class LNEntes implements ILNEntes, IEnteEvents{
 			
 	}
 	
-	public void addEnte(Ente ente) {
+	public void addEnte(IEnte ente) {
 		this.entes.add(ente);
 	}
 	
-	private void onEnteDiesEnteEvents(Ente ente) {
+	private void onEnteDiesEnteEvents(IEnte ente) {
 		for(IEnteEvents nEnteEvents : this.enteEvents) {
     		nEnteEvents.onEnteDies(ente);
     	}
 	}
 	
-	private void onEnteReciveAtackEvents(Ente ente) {
+	private void onEnteReciveAtackEvents(IEnte ente) {
 		for(IEnteEvents nEnteEvents : this.enteEvents) {
     		nEnteEvents.onEnteReciveAtack(ente);
     	}
 	}
 	
-	public void onEnteDies(Ente ente) {
+	public void onEnteDies(IEnte ente) {
     	if(entes.contains(ente)) {
     		entes.remove(ente);
     	}
     }
 
 	@Override
-	public void onEnteReciveAtack(Ente ente) {
+	public void onEnteReciveAtack(IEnte ente) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -66,10 +67,10 @@ public class LNEntes implements ILNEntes, IEnteEvents{
 	//Pre: the ente should have a valid numb of an ente in the game
 	//Post: it will return the ente that has the same numb, null if the ente is not in the game
 	
-	public Ente getEnte(Ente ente) {
+	public IEnte getEnte(IEnte ente) {
 		// TODO Auto-generated method stub
 		if(entes.contains(ente)) {
-			for(Ente nEnte : entes) {
+			for(IEnte nEnte : entes) {
 				if(nEnte.equals(ente)) {
 					return nEnte;
 				}
@@ -79,8 +80,8 @@ public class LNEntes implements ILNEntes, IEnteEvents{
 	}
 
 	@Override
-	public void onEnteChangeHp(Ente ente) {
-		Ente nEnte = getEnte(ente);
+	public void onEnteChangeHp(IEnte ente) {
+		IEnte nEnte = getEnte(ente);
 		if(nEnte != null) {
 			nEnte.setHp(ente.getHp());
 			onEnteReciveAtackEvents(nEnte);
@@ -89,8 +90,8 @@ public class LNEntes implements ILNEntes, IEnteEvents{
 	}
 
 	@Override
-	public void changeEnte(Ente ente) {
-		Ente nEnte = getEnte(ente);
+	public void changeEnte(IEnte ente) {
+		IEnte nEnte = getEnte(ente);
 		if(nEnte != null) {
 			nEnte.setHp(ente.getHp());
 			for(IEnteEvents nEnteEvents : this.enteEvents) {
@@ -100,6 +101,8 @@ public class LNEntes implements ILNEntes, IEnteEvents{
 		}
 		
 	}
+
+
 
 	
 		

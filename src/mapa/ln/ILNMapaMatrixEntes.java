@@ -1,22 +1,23 @@
 package mapa.ln;
 
 import entes.md.Ente;
+import entes.md.IEnte;
 import mapa.md.IPosition;
 import mapa.md.Posicion;
 
 public interface ILNMapaMatrixEntes extends ILNMapaMatrix{
-	public boolean isEnteInMap(Ente ente);
+	public boolean isEnteInMap(IEnte ente);
 	
-	public Ente getEnte(int number);
+	public IEnte getEnte(int number);
 	
-	boolean moverEnte(Ente ente, Integer x, Integer y);
+	boolean moverEnte(IEnte ente, Integer x, Integer y);
 	
-	void addEnte(Ente ente, Posicion<Integer, Integer> posi);
-	boolean removeEnte(Ente ente);
+	void addEnte(IEnte ente, Posicion<Integer, Integer> posi);
+	boolean removeEnte(IEnte ente);
 	
 	//Pre: the ente should be not null
 	//Post: it will return the position of the ente, null if the ente is not in the map
-	IPosition<Integer, Integer> getPositionEnte(Ente ente);
+	IPosition<Integer, Integer> getPositionEnte(IEnte ente);
 	
 	/**
 	 * Pre: posicion tiene que ser una posicion valida del mapa
