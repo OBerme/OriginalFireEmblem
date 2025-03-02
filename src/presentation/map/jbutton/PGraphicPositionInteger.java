@@ -21,7 +21,7 @@ import presentation.menu.PMenuAbstractFactory;
 import turner.md.Actionable;
 
 public class PGraphicPositionInteger extends JButton 
-	implements IPGraphicPosition<Integer, Integer>, IPositionObserver, IPositionForEnte {
+	implements IPGraphicPositionInteger, IPositionObserver, IPositionForEnte {
 	
 	protected boolean active;
 	protected IGraphicPosition<Integer, Integer> gPosition;

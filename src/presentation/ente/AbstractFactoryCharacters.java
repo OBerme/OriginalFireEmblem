@@ -15,6 +15,7 @@ import entes.md.Persona;
 import mapa.md.IMapa;
 import md.range.Rombo;
 import md.range.Square;
+import presentation.GAtack.IAbstractFactoryAtack;
 import presentation.GAtack.PGraphicDistanceAtack;
 import presentation.GAtack.PGraphicMeleAtack;
 import presentation.map.IGraphicMapAtack;
@@ -30,7 +31,7 @@ public class AbstractFactoryCharacters {
 	private static List<IEnte> entesAdded;
 	
 	
-	public AbstractFactoryCharacters(IGraphicMapAtack map) {
+	public AbstractFactoryCharacters(IAbstractFactoryAtack factory) {
 		
 		if(singleton == null) {
 			singleton = this;

@@ -5,6 +5,7 @@ import java.util.List;
 import mapa.md.IMapa;
 import mapa.md.IPosition;
 import presentation.map.jbutton.IPGraphicPosition;
+import presentation.map.jbutton.IPGraphicPositionInteger;
 
 public interface IGraphicMap extends IMapa<Integer, Integer>{
 
@@ -14,7 +15,7 @@ public interface IGraphicMap extends IMapa<Integer, Integer>{
 
 	//Pre: the positions should be not null and it needs to be in the map
 	//Post: it will return the GraphicPosition of that position
-	IPGraphicPosition<Integer, Integer> getGraphicPosition(IPosition<Integer, Integer> position);
+	IPGraphicPositionInteger getGraphicPosition(Integer x, Integer y);
 
 	//Pre: The first fGPosition should contain the Ente
 	void changePositions(IPGraphicPosition<Integer, Integer> fGPosition,

@@ -1,5 +1,8 @@
 package presentation.map.jbutton;
 
-public interface IPGraphicPositionInteger {
+import mapa.md.IPosition;
+
+public interface IPGraphicPositionInteger extends IPGraphicPosition<Integer, Integer> {
+
 
 }

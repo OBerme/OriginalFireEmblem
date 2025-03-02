@@ -52,8 +52,8 @@ import presentation.ente.AbstractFactoryCharacters;
 import presentation.graphicOptions.IShowMenus;
 import presentation.map.GraphicMap;
 import presentation.map.GraphicMapInteger;
-import presentation.map.GraphicMapIntegerAtack;
-import presentation.map.GraphicMapIntegerAtackDistance;
+import presentation.map.GraphicMapIntegerEnteAtack;
+import presentation.map.GraphicMapIntegerEnteAtackDistance;
 import presentation.map.IGraphicMap;
 import presentation.map.IGraphicMapAtack;
 import presentation.map.IGraphicMapAtackDistance;
@@ -62,6 +62,7 @@ import presentation.map.IPPPositionSubjectData;
 import presentation.map.LNGraphicMapIntegerAtackDistance;
 import presentation.map.jbutton.AbstractFactoryJButtonActions;
 import presentation.map.jbutton.IPGraphicPosition;
+import presentation.map.jbutton.IPGraphicPositionInteger;
 import presentation.map.jbutton.PGraphicOPositionIntegerAtackDistance;
 import presentation.map.jbutton.PGraphicPositionInteger;
 import presentation.map.jbutton.PGraphicPositionIntegerAtack;
@@ -104,10 +105,10 @@ public class PresentationMain {
 		
 		IPPPositionSubjectData subObserPositi = new PPositionData(observers);
 		
-		GraphicMapInteger gMap = null;
+		IGraphicMapAtackDistance gMap = null;
 		 
 		IPosition<Integer, Integer>[][] positions = new GraphicPositionInteger[length][length];
-		IPGraphicPosition<Integer, Integer>[][] gPositions = new PGraphicPositionInteger[length][length];
+		IPGraphicPositionInteger[][] gPositions = new PGraphicPositionInteger[length][length];
 		
 		
 		
@@ -190,7 +191,7 @@ public class PresentationMain {
 		
         // Crear el panel de dibujo
 		
-		gMap = new GraphicMapIntegerAtackDistance(lnMapa, gPositions,0,0);
+		gMap = new GraphicMapIntegerEnteAtackDistance(lnMapa, gPositions,0,0);
 		
 		
 		//Oscar
@@ -202,6 +203,9 @@ public class PresentationMain {
 				PMenuAbstractFactory.getDefaultMenuEnte(person, entContro, frame,controller))
 				, 0, 2, positions, gPositions, menuContro, subObserPositi, observers, mouseSubject);
 				
+		
+		 
+		 
 		//JIJI
 		person = (Persona) AbstractFactoryCharacters.createJiji();
 		
@@ -218,8 +222,17 @@ public class PresentationMain {
 				PMenuAbstractFactory.getDefaultMenuEnte(person, entContro, frame, controller))
 				, 3, 3, positions, gPositions, menuContro, subObserPositi, observers,mouseSubject);
 		
+		gMap.moveEnte(new GraphicPersona(person,
+				PDefaultValues.getPathImage("monster.png"),
+				PMenuAbstractFactory.getDefaultMenuEnte(person, entContro, frame, controller))
+				, 3,3);
 		
-		ILNGraphicMapIntegerAtackDistance lnGMap = new LNGraphicMapIntegerAtackDistance((IGraphicMapAtackDistance)gMap);
+		
+		ILNGraphicMapIntegerAtackDistance lnGMap = 
+				new LNGraphicMapIntegerAtackDistance(gMap, subObserPositi, lnMapa, menuContro);
+		
+		lnGMap.moveEnte(null, 3,3);
+		
 		controller.setgMap(lnGMap);
 		
 

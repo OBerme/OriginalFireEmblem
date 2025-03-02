@@ -24,6 +24,7 @@ import entes.md.GraphicPersona;
 import entes.md.GraphicSerVivo;
 import entes.md.Monstruo;
 import group.md.Group;
+import mapa.ln.AbstractFactoryPositionInteger;
 import mapa.ln.INLMapa;
 import mapa.ln.LNMapa;
 import mapa.md.IPosition;
@@ -40,6 +41,7 @@ import presentation.main.PDefaultValues;
 import presentation.map.jbutton.IJButtonAction;
 import presentation.map.jbutton.IJButtonActionAtack;
 import presentation.map.jbutton.IPGraphicPosition;
+import presentation.map.jbutton.IPGraphicPositionInteger;
 import presentation.map.jbutton.PGraphicPositionInteger;
 import presentation.map.position.AbstractPositionModifier;
 import presentation.map.position.GraphicPositionInteger;
@@ -49,16 +51,16 @@ import presentation.menu.PMenuAbstractFactory;
 public class GraphicMapInteger extends GraphicMap<Integer, Integer> 
 	implements Playable, Rangeable{
 
-	protected INLMapa<Integer, Integer> map;
-	protected IPGraphicPosition<Integer, Integer>[][] gPositions;
+	protected INLMapa<Integer, Integer> lnMap;
+	protected IPGraphicPositionInteger[][] gPositions;
 	
 	
 	
 	public GraphicMapInteger(INLMapa<Integer, Integer> map,
-			IPGraphicPosition<Integer, Integer>[][] gPositions,
+			IPGraphicPositionInteger[][] gPositions,
 			int x, int y) {
 		super();
-		this.map = map;
+		this.lnMap = map;
 		this.gPositions = gPositions;
 		this.setLayout(new GridLayout(map.getWidth(), map.getHeight()));
 		
@@ -73,11 +75,11 @@ public class GraphicMapInteger extends GraphicMap<Integer, Integer>
 	}
 	
 	public int getWidth() {
-		return this.map.getWidth()*PDefaultValues.REC_WIDTH;
+		return this.lnMap.getWidth()*PDefaultValues.REC_WIDTH;
 	}
 	
 	public int getHeight() {
-		return this.map.getHeight()*PDefaultValues.REC_HEIGHT;
+		return this.lnMap.getHeight()*PDefaultValues.REC_HEIGHT;
 	}
 	
 
@@ -119,10 +121,6 @@ public class GraphicMapInteger extends GraphicMap<Integer, Integer>
 		
 	}
 	
-	@Override
-	public IPGraphicPosition<Integer, Integer> getGraphicPosition(IPosition<Integer, Integer> position){
-		return gPositions[position.getX()][position.getY()];
-	}
 	
 	//Pre: The first fGPosition should contain the Ente
 	@Override
@@ -141,10 +139,9 @@ public class GraphicMapInteger extends GraphicMap<Integer, Integer>
 		PGraphicPositionInteger fPosi = (PGraphicPositionInteger)fGPosition;
 		PGraphicPositionInteger sPosi = (PGraphicPositionInteger)sGPosition;
 		
-		
 		//Change the actions
 		IJButtonAction fAction = fPosi.getGraAction(); 
-		((IJButtonActionAtack)fAction).setpGPI(sPosi); //Change the position
+		((IJButtonActionAtack)fAction).setpGPI((IPGraphicPositionInteger)sGPosition); //Change the position
 		
 		fPosi.setAction(sPosi.getGraAction());		
 		sPosi.setAction(fAction);
@@ -200,7 +197,13 @@ public class GraphicMapInteger extends GraphicMap<Integer, Integer>
 	@Override
 	public boolean hasPosition(Integer x, Integer y) {
 		// TODO Auto-generated method stub
-		return map.hasPositon(x,y);
+		return lnMap.hasPositon(x,y);
+	}
+
+	@Override
+	public IPGraphicPositionInteger getGraphicPosition(Integer x, Integer y) {
+		// TODO Auto-generated method stub
+		return gPositions[x][y];
 	}
 
 

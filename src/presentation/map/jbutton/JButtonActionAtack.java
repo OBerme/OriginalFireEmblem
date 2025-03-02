@@ -14,13 +14,13 @@ import presentation.menu.PMenu;
 
 
 public class JButtonActionAtack implements IJButtonActionAtack{
-	private PGraphicPositionInteger pGPI;
+	private IPGraphicPositionInteger pGPI;
 	private GraphicEnte gEnte;
 	private IShowMenus isMenu;
 
 
 	
-	public JButtonActionAtack(PGraphicPositionInteger pGPI,
+	public JButtonActionAtack(IPGraphicPositionInteger pGPI,
 			GraphicEnte gEnte, IShowMenus isMenu) {
 		this.pGPI = pGPI;
 		this.gEnte = gEnte;
@@ -28,7 +28,7 @@ public class JButtonActionAtack implements IJButtonActionAtack{
 	}
 	
 	@Override
-	public void setpGPI(PGraphicPositionInteger pGPI) {
+	public void setpGPI(IPGraphicPositionInteger pGPI) {
 		this.pGPI = pGPI;
 	}
 
