@@ -90,7 +90,7 @@ public class PController implements IPEnteController, IShowMenus, IPositionObser
 	}
 
 	@Override
-    public void moveEnte(Ente ente) {		
+    public void moveEnte(IEnte ente) {		
 		
     	if(ente instanceof Movable) {
     		Movable mEnte = (Movable)ente;
@@ -192,7 +192,7 @@ public class PController implements IPEnteController, IShowMenus, IPositionObser
 	}
 
 	@Override
-	public void setgMap(ILNGraphicMapIntegerAtackDistance gMap) {
+	public void setLNMap(ILNGraphicMapIntegerAtackDistance gMap) {
 		this.lnGMap = gMap;
 	}
 

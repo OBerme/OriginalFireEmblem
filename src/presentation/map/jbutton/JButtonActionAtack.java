@@ -4,6 +4,7 @@ import javax.swing.ImageIcon;
 
 import entes.md.GraphicEnte;
 import mapa.md.IPosition;
+import presentation.ente.IGEnte;
 import presentation.graphicOptions.IShowMenus;
 import presentation.graphicOptions.Menuable;
 import presentation.main.PDefaultValues;
@@ -15,13 +16,13 @@ import presentation.menu.PMenu;
 
 public class JButtonActionAtack implements IJButtonActionAtack{
 	private IPGraphicPositionInteger pGPI;
-	private GraphicEnte gEnte;
+	private IGEnte gEnte;
 	private IShowMenus isMenu;
 
 
 	
 	public JButtonActionAtack(IPGraphicPositionInteger pGPI,
-			GraphicEnte gEnte, IShowMenus isMenu) {
+			IGEnte gEnte, IShowMenus isMenu) {
 		this.pGPI = pGPI;
 		this.gEnte = gEnte;
 		this.isMenu = isMenu;

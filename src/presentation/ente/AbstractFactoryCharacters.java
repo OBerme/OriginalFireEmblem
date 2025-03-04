@@ -15,89 +15,56 @@ import entes.md.Persona;
 import mapa.md.IMapa;
 import md.range.Rombo;
 import md.range.Square;
+import presentation.GAtack.AbstractFactoryAtackEnums;
 import presentation.GAtack.IAbstractFactoryAtack;
 import presentation.GAtack.PGraphicDistanceAtack;
 import presentation.GAtack.PGraphicMeleAtack;
 import presentation.map.IGraphicMapAtack;
 import turner.md.enums.TurnerEnumConstant;
 
-public class AbstractFactoryCharacters {
-	private static AbstractFactoryCharacters singleton;
+public class AbstractFactoryCharacters
+	implements IAbstractFactoryNormalCharacter{	
+	public static final int DEFAULT_RANGE = 2;
 	
-	private static final int DEFAULT_RANGE = 2;
-	private static List<IAtack> ataquesN, ataquesM ;
-	private IMapa<Integer, Integer> map;
-	
-	private static List<IEnte> entesAdded;
-	
+	private IAbstractFactoryAtack factory;
 	
 	public AbstractFactoryCharacters(IAbstractFactoryAtack factory) {
+		this.factory = factory;
+	}
+	
+	@Override
+	public IEnte createEnte(AbstractFactoryCharacterEnums ente) {
 		
-		if(singleton == null) {
-			singleton = this;
+		
+		if(AbstractFactoryCharacterEnums.OSCAR_NORMAL.equals(ente)) {
+			List<IAtack> atacks = new ArrayList<IAtack>();
+			atacks.add(factory.createAtack(AbstractFactoryAtackEnums.FIRE_GUN_NORMAL));
+			atacks.add(factory.createAtack(AbstractFactoryAtackEnums.PUNCH_RIBS_NORMAL));
 			
-			ataquesN = new ArrayList<IAtack>();
+			return new Persona(ente.getHealth(),
+					ente.getName(), 
+					ente.getShortName(), 
+					new Estado(ente.getState()),ente.getSpeed(),
+					ente.getRange(), 
+					atacks);
+		}
+		else if (AbstractFactoryCharacterEnums.JIJI_NORMAL.equals(ente)) {
+			List<IAtack> atacks = new ArrayList<IAtack>();
+			atacks.add(factory.createAtack(AbstractFactoryAtackEnums.HIT_GARRA_NORMAL));
+			atacks.add(factory.createAtack(AbstractFactoryAtackEnums.MAGICAL_NORMAL));
 			
-			ataquesN.add(new PGraphicDistanceAtack(
-					new Ataque(1, "Gun atack", 50000, Tipo.FUEGO),
-						(IGraphicMapAtack)map, new Rombo(1, map),2));
-			
-			ataquesN.add(new PGraphicMeleAtack(
-					new Ataque(2, "Punietaso en las costillas", 200, Tipo.AGUA),
-						(IGraphicMapAtack)map, new Square(0, map)));
-			
-			ataquesM = new ArrayList<IAtack>();
-			
-			ataquesM.add(new Ataque(1, "Magical atack", 50000, Tipo.FUEGO));
-			ataquesM.add(new Ataque(2, "Garrazo en las costillas", 300, Tipo.FUEGO));
-			
-			this.entesAdded = new ArrayList<IEnte>();
+
+			return new Persona(ente.getHealth(),
+					ente.getName(), 
+					ente.getShortName(), 
+					new Estado(ente.getState()),ente.getSpeed(),
+					ente.getRange(), 
+					atacks);
 		}
 		
-	}
-	
-	public static Ente createOscar() {
-		Ente nEnte = new Persona(200, "Oscar", "O", 
-				new Estado(StateSerVivo.NORMAL),TurnerEnumConstant.SPEED_DIVIDER.getCost(),DEFAULT_RANGE, 
-				ataquesN);
-		entesAdded.add(nEnte);
 		
-		// TODO Auto-generated method stub
-		return nEnte;
-	}
-	
-
-	public static Ente createJiji() {
-		Ente nEnte =new Persona(700, "Joji", "J", 
-				new Estado(StateSerVivo.NORMAL),
-				TurnerEnumConstant.SPEED_DIVIDER.getCost(),
-				DEFAULT_RANGE,
-				ataquesM);
-		
-		entesAdded.add(nEnte);
-		return nEnte;
-	}
-
-	public static Ente createUndyne() {
-
-		return new Monstruo(1500, "Undyne", "U", 
-				new Estado(StateSerVivo.NORMAL),
-				TurnerEnumConstant.SPEED_DIVIDER.getCost(),
-				DEFAULT_RANGE,
-				ataquesN);
-	}
-	
-	public static Ente createAsgore() {
-
-		return new Monstruo(2700, "Asgore", "A", 
-				new Estado(StateSerVivo.NORMAL),
-				TurnerEnumConstant.SPEED_DIVIDER.getCost(),
-				DEFAULT_RANGE,
-				ataquesN);
-	}
-	
-	public static List<IEnte> getEntes(){
-		return List.copyOf(entesAdded);
+		return null;
 	}
 
 }
+

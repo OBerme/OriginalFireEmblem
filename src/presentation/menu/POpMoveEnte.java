@@ -2,6 +2,7 @@ package presentation.menu;
 
 import entes.Movable;
 import entes.md.Ente;
+import entes.md.IEnte;
 import presentation.main.IPEnteController;
 import presentation.main.PController;
 import presentation.main.PDefaultValues;
@@ -9,9 +10,9 @@ import turner.md.Actionable;
 import turner.md.enums.TurnerEnumConstant;
 
 public class POpMoveEnte extends POption{
-	private Ente ente;
+	private IEnte ente;
 	private IPMenuEnte<Integer, Integer> pMenuEnte;
-	public POpMoveEnte(IPEnteController pcontro, Ente ente, IPMenuEnte<Integer, Integer> pMenuEnte) {
+	public POpMoveEnte(IPEnteController pcontro, IEnte ente, IPMenuEnte<Integer, Integer> pMenuEnte) {
 		super("Move", pcontro);
 		this.ente = ente;
 		this.pMenuEnte = pMenuEnte;

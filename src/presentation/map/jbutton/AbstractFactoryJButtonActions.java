@@ -2,6 +2,7 @@ package presentation.map.jbutton;
 
 import entes.md.GraphicEnte;
 import presentation.ente.AbstractFactoryCharacters;
+import presentation.ente.IGEnte;
 import presentation.graphicOptions.IShowMenus;
 
 public class AbstractFactoryJButtonActions {
@@ -22,7 +23,7 @@ public class AbstractFactoryJButtonActions {
 	}
 	
 	public static IJButtonAction getEnteAction(IPGraphicPositionInteger pGPI,
-			GraphicEnte gEnte, IShowMenus isMenu) {
+			IGEnte gEnte, IShowMenus isMenu) {
 //		return new JButtonActionAtack(pGPI, gEnte, isMenu);
 		return new JButtonActionAtack(pGPI, gEnte, isMenu);
 	}

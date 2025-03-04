@@ -19,7 +19,7 @@ public interface IPController {
 
 	void showMenu(IPMenu<Integer, Integer> nextMenu);
 
-	void setgMap(ILNGraphicMapIntegerAtackDistance gMap);
+	void setLNMap(ILNGraphicMapIntegerAtackDistance gMap);
 
 	void setLnAccionesAtaque(LNAccionesAtaque lnAccionesAtaque);
 

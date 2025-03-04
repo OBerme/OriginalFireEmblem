@@ -5,6 +5,7 @@ import java.awt.Menu;
 import com.modeliosoft.modelio.javadesigner.annotations.objid;
 
 import entes.md.Ente;
+import entes.md.IEnte;
 import presentation.graphicOptions.IShowMenus;
 import presentation.menu.PMenu;
 
@@ -14,6 +15,6 @@ public interface IPEnteController extends IPController {
 
 	void skip();
 
-	void moveEnte(Ente ente);
+	void moveEnte(IEnte ente);
 
 }

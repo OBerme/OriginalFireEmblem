@@ -24,6 +24,7 @@ import entes.md.Ente;
 import entes.md.GraphicEnte;
 import entes.md.GraphicMonstruo;
 import entes.md.GraphicPersona;
+import entes.md.IEnte;
 import entes.md.Monstruo;
 import entes.md.Persona;
 import entes.md.SerVivo;
@@ -41,6 +42,10 @@ import mapa.md.PosicionGroupable;
 import mapa.md.PosicionGroupableActionable;
 import md.range.RangeDiagonal;
 import md.range.Rombo;
+import presentation.GAtack.AbstractFactoryGraphicAtack;
+import presentation.GAtack.AbstractFactoryNormalAtack;
+import presentation.GAtack.IAbstractFactoryGraphicAtack;
+import presentation.GAtack.IAbstractFactoryNormalAtack;
 import presentation.GAtack.PGraphicDistanceAtack;
 import presentation.GAtack.PGraphicMeleAtack;
 import presentation.MouseHoverObserver.AtackerSubject;
@@ -48,7 +53,14 @@ import presentation.MouseHoverObserver.IAtackerSubject;
 import presentation.MouseHoverObserver.IMouseHoverObserver;
 import presentation.MouseHoverObserver.IMouseHoverSubject;
 import presentation.MouseHoverObserver.MouseHoverSubject;
+import presentation.ente.AbstractFactoryCharacterEnums;
 import presentation.ente.AbstractFactoryCharacters;
+import presentation.ente.AbstractFactoryGraphicCharacter;
+import presentation.ente.AbstractFactoryGraphicCharacterEnums;
+import presentation.ente.IAbstractFactoryCharacters;
+import presentation.ente.IAbstractFactoryGraphicCharacters;
+import presentation.ente.IAbstractFactoryNormalCharacter;
+import presentation.ente.IGEnte;
 import presentation.graphicOptions.IShowMenus;
 import presentation.map.GraphicMap;
 import presentation.map.GraphicMapInteger;
@@ -105,7 +117,7 @@ public class PresentationMain {
 		
 		IPPPositionSubjectData subObserPositi = new PPositionData(observers);
 		
-		IGraphicMapAtackDistance gMap = null;
+		GraphicMapIntegerEnteAtackDistance gMap = null;
 		 
 		IPosition<Integer, Integer>[][] positions = new GraphicPositionInteger[length][length];
 		IPGraphicPositionInteger[][] gPositions = new PGraphicPositionInteger[length][length];
@@ -194,46 +206,34 @@ public class PresentationMain {
 		gMap = new GraphicMapIntegerEnteAtackDistance(lnMapa, gPositions,0,0);
 		
 		
-		//Oscar
-		AbstractFactoryCharacters abs = new AbstractFactoryCharacters((IGraphicMapAtack)gMap); //TODO TO SOLVE
-		Persona person = (Persona)AbstractFactoryCharacters.createOscar();
 		
-		addEnteToPosition(new GraphicPersona(person,
-				PDefaultValues.getPathImage("bluesky.png"),
-				PMenuAbstractFactory.getDefaultMenuEnte(person, entContro, frame,controller))
-				, 0, 2, positions, gPositions, menuContro, subObserPositi, observers, mouseSubject);
-				
 		
-		 
-		 
-		//JIJI
-		person = (Persona) AbstractFactoryCharacters.createJiji();
 		
-		addEnteToPosition(new GraphicPersona(person,
-				PDefaultValues.getPathImage("jiji.png"),
-				PMenuAbstractFactory.getDefaultMenuEnte(person, entContro, frame, controller))
-				, 3, 2, positions, gPositions, menuContro, subObserPositi, observers,mouseSubject);
+		//MOVING THE ENTES
+		IAbstractFactoryNormalAtack afNA = new AbstractFactoryNormalAtack();
+		IAbstractFactoryGraphicAtack afGA = new AbstractFactoryGraphicAtack(gMap, afNA);
 		
-		//Another JIJI
-		person = (Persona) AbstractFactoryCharacters.createJiji();
+		IAbstractFactoryNormalCharacter afC = new AbstractFactoryCharacters(afGA); //TODO TO SOLVE
+		IAbstractFactoryPMenu mFactory = new PMenuAbstractFactory(entContro, gMap, entContro);
 		
-		addEnteToPosition(new GraphicPersona(person,
-				PDefaultValues.getPathImage("monster.png"),
-				PMenuAbstractFactory.getDefaultMenuEnte(person, entContro, frame, controller))
-				, 3, 3, positions, gPositions, menuContro, subObserPositi, observers,mouseSubject);
+		IAbstractFactoryGraphicCharacters afGC = new AbstractFactoryGraphicCharacter(afC, mFactory);
 		
-		gMap.moveEnte(new GraphicPersona(person,
-				PDefaultValues.getPathImage("monster.png"),
-				PMenuAbstractFactory.getDefaultMenuEnte(person, entContro, frame, controller))
-				, 3,3);
-		
+		List<IEnte> entesAdded = new ArrayList<IEnte>();
 		
 		ILNGraphicMapIntegerAtackDistance lnGMap = 
 				new LNGraphicMapIntegerAtackDistance(gMap, subObserPositi, lnMapa, menuContro);
 		
-		lnGMap.moveEnte(null, 3,3);
+		IGEnte oscar = afGC.createEnte(AbstractFactoryGraphicCharacterEnums.G_OSCAR_NORMAL);
+		entesAdded.add(oscar);
+		lnGMap.moveEnte(oscar, 3,3);
 		
-		controller.setgMap(lnGMap);
+		
+		IGEnte jiji = afGC.createEnte(
+				AbstractFactoryGraphicCharacterEnums.G_JIJI_NORMAL);
+		entesAdded.add(jiji);
+		lnGMap.moveEnte(jiji, 2,2);
+		
+		controller.setLNMap(lnGMap);
 		
 
 		IEnteEvents[] lnEnteEvents = new IEnteEvents[]{ //TODO improve and make an observer for killed entes
@@ -244,7 +244,7 @@ public class PresentationMain {
 		};
 		
 		
-		ILNEntes lnEntes = new LNEntes(lnEnteEvents, AbstractFactoryCharacters.getEntes()); 
+		ILNEntes lnEntes = new LNEntes(lnEnteEvents, entesAdded ); 
 		LNAccionesAtaque lnAccionesAtaque = new LNAccionesAtaque(lnEntes);
 		
 		controller.setLnAccionesAtaque(lnAccionesAtaque);
