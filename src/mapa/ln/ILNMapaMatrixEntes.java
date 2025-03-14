@@ -10,6 +10,13 @@ public interface ILNMapaMatrixEntes extends ILNMapaMatrix{
 	
 	public IEnte getEnte(int number);
 	
+
+	/**
+	 * Pre: Ente no tiene que ser null, 
+	 * 	posicion tiene que ser una posicion valida del mapa
+	 * Post: it will put the ente if its not on the map and if its on the map it will be change
+	 * 	 his position to the other one 
+	 */
 	boolean moverEnte(IEnte ente, Integer x, Integer y);
 	
 	void addEnte(IEnte ente, Posicion<Integer, Integer> posi);

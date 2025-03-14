@@ -156,6 +156,17 @@ public class PGraphicPositionInteger extends JButton
 		return ((IPositionForEnte)gPosition).getEnte();
 	}
 
+	@Override
+	public void setSomething(IPositionable positionable) {
+		gPosition.setSomething(positionable);
+	}
+
+	@Override
+	public IPositionable getSomething() {
+		// TODO Auto-generated method stub
+		return gPosition.getSomething();
+	}
+
 	
 	
 	

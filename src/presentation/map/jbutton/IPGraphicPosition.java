@@ -3,6 +3,7 @@ package presentation.map.jbutton;
 import javax.swing.JComponent;
 
 import mapa.md.IPosition;
+import mapa.md.IPositionable;
 import presentation.map.position.IGraphicPosition;
 
 public interface IPGraphicPosition<X, Y>{
@@ -21,5 +22,9 @@ public interface IPGraphicPosition<X, Y>{
 
 	void refreshButton();
 	
+	
+	void setSomething(IPositionable positionable);
+
+	IPositionable getSomething();
 
 }

@@ -126,29 +126,22 @@ public class GraphicMapInteger extends GraphicMap<Integer, Integer>
 	//Pre: The first fGPosition should contain the Ente
 	@Override
 	public void changePositions(IPGraphicPosition<Integer, Integer> fGPosition,
-			IPGraphicPosition<Integer, Integer> sGPosition) {
-		
-		GraphicPositionInteger fgCPosi = (GraphicPositionInteger)fGPosition.getgPosition();
-		GraphicPositionInteger sgCPosi = (GraphicPositionInteger)sGPosition.getgPosition();
-		
-		IPositionable fSome =  fgCPosi.getSomething();
-		fgCPosi.setSomething(sgCPosi.getSomething());
-		sgCPosi.setSomething(fSome);
+			IPGraphicPosition<Integer, Integer> sGPosition) {		
+		IPositionable fSome =  fGPosition.getSomething();
+		fGPosition.setSomething(sGPosition.getSomething());
+		sGPosition.setSomething(fSome);
 		
 //		fgCPosi.get
 		
-		PGraphicPositionInteger fPosi = (PGraphicPositionInteger)fGPosition;
-		PGraphicPositionInteger sPosi = (PGraphicPositionInteger)sGPosition;
-		
 		//Change the actions
-		IJButtonAction fAction = fPosi.getGraAction(); 
+		IJButtonAction fAction = fGPosition.getGraAction(); 
 		((IJButtonActionAtack)fAction).setpGPI((IPGraphicPositionInteger)sGPosition); //Change the position
 		
-		fPosi.setAction(sPosi.getGraAction());		
-		sPosi.setAction(fAction);
+		fGPosition.setAction(sGPosition.getGraAction());		
+		sGPosition.setAction(fAction);
 		
-		fPosi.refreshButton();
-		sPosi.refreshButton();
+		fGPosition.refreshButton();
+		sGPosition.refreshButton();
 		refreshMap();
 	}
 

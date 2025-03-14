@@ -5,27 +5,27 @@ import presentation.ente.AbstractFactoryCharacters;
 import presentation.ente.IGEnte;
 import presentation.graphicOptions.IShowMenus;
 
-public class AbstractFactoryJButtonActions {
-	private static AbstractFactoryJButtonActions singleton = checkSingleton();
-	private static JButtonActionVoid voidAction;
+public class AbstractFactoryJButtonActions 
+		implements IAbstractFactoryJButtonActions{
 	
-	private AbstractFactoryJButtonActions() {
-		voidAction = new JButtonActionVoid();
+	private static JButtonActionVoid voidAction;
+	private IShowMenus isMenu;	
+	
+	public AbstractFactoryJButtonActions(IShowMenus isMenu) {
+		if(voidAction == null) voidAction = new JButtonActionVoid();
+		this.isMenu = isMenu;
 	}
 	
-	
-	public static IJButtonAction getVoidAction() {
+	@Override
+	public IJButtonAction getVoidAction() {
 		return voidAction;
 	}
 	
-	private static AbstractFactoryJButtonActions checkSingleton() {
-		return new AbstractFactoryJButtonActions();
-	}
-	
-	public static IJButtonAction getEnteAction(IPGraphicPositionInteger pGPI,
-			IGEnte gEnte, IShowMenus isMenu) {
-//		return new JButtonActionAtack(pGPI, gEnte, isMenu);
-		return new JButtonActionAtack(pGPI, gEnte, isMenu);
+	@Override
+	public IJButtonAction getEnteAction(IPGraphicPositionInteger pGPI,
+			IGEnte gEnte) {
+		
+		return new JButtonActionAtack(pGPI, gEnte, isMenu); //TODO for the entes which hasen't atacks
 	}
 
 }

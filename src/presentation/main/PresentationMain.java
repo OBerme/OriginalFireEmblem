@@ -78,6 +78,7 @@ import presentation.map.ILNGraphicMapIntegerAtackDistance;
 import presentation.map.IPPPositionSubjectData;
 import presentation.map.LNGraphicMapIntegerAtackDistance;
 import presentation.map.jbutton.AbstractFactoryJButtonActions;
+import presentation.map.jbutton.IAbstractFactoryJButtonActions;
 import presentation.map.jbutton.IPGraphicPosition;
 import presentation.map.jbutton.IPGraphicPositionInteger;
 import presentation.map.jbutton.PGraphicOPositionIntegerAtackDistance;
@@ -127,7 +128,7 @@ public class PresentationMain {
 		
 		
 		
-		IShowMenus menuContro = new PShowMenuController(); 
+		IShowMenus menuContro = new PShowMenuController(lPSub);
 		
 		IAtackerSubject atackSub = new AtackerSubject();
 		
@@ -141,9 +142,7 @@ public class PresentationMain {
 		 
 		IPosition<Integer, Integer>[][] positions = new GraphicPositionInteger[length][length];
 		IPGraphicPositionInteger[][] gPositions = new PGraphicPositionInteger[length][length];
-		
-		
-		
+		IAbstractFactoryJButtonActions fJButtonActions = new AbstractFactoryJButtonActions(menuContro);
 		
 		
 		for(int i = 0 ; i < length; i++) {
@@ -157,7 +156,8 @@ public class PresentationMain {
 				
 				
 				gPositions[i][j] = new PGraphicOPositionIntegerAtackDistance(
-						(GraphicPositionInteger)nPositi, subObserPositi, AbstractFactoryJButtonActions.getVoidAction(), mouseSubject);
+						(GraphicPositionInteger)nPositi, subObserPositi,
+							fJButtonActions.getVoidAction() , mouseSubject);
 				
 				mouseSubject.registerObserver((IMouseHoverObserver)gPositions[i][j]);
 				
@@ -223,7 +223,8 @@ public class PresentationMain {
 		
         // Crear el panel de dibujo
 		
-		gMap = new GraphicMapIntegerEnteAtackDistance(lnMapa, gPositions,0,0);
+		gMap = new GraphicMapIntegerEnteAtackDistance(lnMapa, gPositions, 0, 0, fJButtonActions, mouseSubject);
+		
 		ILNGraphicMapIntegerAtackDistance lnGMap = 
 				new LNGraphicMapIntegerAtackDistance(gMap, subObserPositi, lnMapa, menuContro);
 		
@@ -340,27 +341,5 @@ public class PresentationMain {
 		
 	}
 
-	
-	private static void addEnteToPosition(GraphicEnte gPerson, int x, int y , 
-			IPosition<Integer, Integer>[][] positions,  IPGraphicPosition<Integer, Integer>[][] gPositions,
-			IShowMenus menuContro, IPPPositionSubjectData subObserPositi, 
-			List<IObserver> observers, IMouseHoverSubject subjectMouse) {
-		
-		GraphicPositionInteger gPosi = (GraphicPositionInteger)positions[x][y];
-		
-		gPosi.setSomething(gPerson);
-		
-		PGraphicPositionInteger pgPosi = (PGraphicPositionInteger)gPositions[x][y];
-		
-		gPositions[x][y] = new PGraphicOPositionIntegerAtackDistance(gPosi,
-				subObserPositi, AbstractFactoryJButtonActions.getEnteAction(pgPosi, 
-						gPerson, menuContro), subjectMouse);
-		
-		subjectMouse.registerObserver((IMouseHoverObserver)gPositions[x][y]);
-		
-		observers.add((IObserver)gPositions[x][y]);
-	}
-	
-	
 	
 }

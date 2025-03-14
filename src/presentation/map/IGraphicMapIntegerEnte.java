@@ -9,9 +9,11 @@ public interface IGraphicMapIntegerEnte extends IGraphicMap {
 
 	//Pre: The graphicEnte and bAction should be not null
 	//Post: It will change the ente to that position 
-	void moveEnte(IGEnte graphicEnte, int x, int y, IJButtonAction bAction);
+	public void moveEnte(IGEnte gEnte, int lx, int ly, int nx, int ny);
 
 	IGEnte getEntePosition(IPosition<Integer, Integer> posicion);
+
+	public void putEnteOnPosi(IGEnte gEnte, int x, int y);
 
 
 }

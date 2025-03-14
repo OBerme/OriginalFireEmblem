@@ -118,6 +118,8 @@ public class LNMapaMatrixEntes extends LNMapaMatrix
 	/**
 	 * Pre: Ente no tiene que ser null, 
 	 * 	posicion tiene que ser una posicion valida del mapa
+	 * Post: it will put the ente if its not on the map and if its on the map it will be change
+	 * 	 his position to the other one 
 	 */
 	@Override
 	public boolean moverEnte(IEnte ente, Integer x, Integer y) {
