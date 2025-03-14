@@ -1,8 +1,13 @@
-package presentation.main;
+package presentation.main.controller;
+
+import java.util.List;
 
 import acciones.ln.LNAccionesAtaque;
 import acciones.md.ataque.IAtack;
+import entes.md.IEnte;
 import mapa.ln.ILNMapaMatrixEntesGroup;
+import mapa.md.IPosition;
+import presentation.ente.IGEnte;
 import presentation.map.IGraphicMap;
 import presentation.map.ILNGraphicMapIntegerAtackDistance;
 import presentation.map.IPPPositionSubjectData;
@@ -10,18 +15,5 @@ import presentation.menu.IPMenu;
 import presentation.menu.PMenu;
 
 public interface IPController {
-
-	void setPosiProductor(IPPPositionSubjectData posiProductor);
-
-	void showAtack(IAtack atack);
-	
 	void skip();
-
-	void showMenu(IPMenu<Integer, Integer> nextMenu);
-
-	void setLNMap(ILNGraphicMapIntegerAtackDistance gMap);
-
-	void setLnAccionesAtaque(LNAccionesAtaque lnAccionesAtaque);
-
-
 }

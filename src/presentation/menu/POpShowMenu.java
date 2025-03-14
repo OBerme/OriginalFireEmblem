@@ -1,14 +1,13 @@
 package presentation.menu;
 
-import presentation.main.IPController;
-import presentation.main.IPEnteController;
-import presentation.main.PController;
+import presentation.graphicOptions.IShowMenus;
 
 public class POpShowMenu extends POption{
-	
-	public POpShowMenu(String option, IPController pcontro, IPMenu<Integer, Integer> nextMenu) {
-		super(option, pcontro);
+	private IShowMenus iShowMenu;
+	public POpShowMenu(String option, IShowMenus iShowMenu, IPMenu<Integer, Integer> nextMenu) {
+		super(option);
 		this.nextMenu = nextMenu;
+		this.iShowMenu = iShowMenu;
 	}
 
 
@@ -17,7 +16,7 @@ public class POpShowMenu extends POption{
 	
 	@Override
 	public void doAction() {
-		pcontro.showMenu(nextMenu);
+		iShowMenu.showMenu(nextMenu);
 	}
 
 }

@@ -12,13 +12,12 @@ public class LNEntes implements ILNEntes, IEnteEvents{
 	protected IEnteEvents[] enteEvents;
 	private List<IEnte> entes;
 	
-	public LNEntes(IEnteEvents[] enteEvents,List<IEnte> entes) {
-		if(entes == null)
-			this.entes = new ArrayList<>();
-		else this.entes = entes;
-		
-		this.enteEvents =  enteEvents;
+	
+	public LNEntes(IEnteEvents[] enteEvents) {
+		this.entes = new ArrayList<>();
+		this.enteEvents = enteEvents; //TODO to change
 	}
+	
 	
 	public void reducirHp(IEnte ente, int damage) {
 		if(ente.getHp() < damage) {

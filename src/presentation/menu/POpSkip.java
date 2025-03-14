@@ -1,18 +1,19 @@
 package presentation.menu;
 
 import presentation.main.IPEnteController;
-import presentation.main.PController;
+import presentation.main.controller.IPController;
 
 public class POpSkip extends POption{
 
-	public POpSkip(IPEnteController pcontro) {
-		super("Skip", pcontro);
-		// TODO Auto-generated constructor stub
+	private IPController contro; 
+	public POpSkip(IPController contro) {
+		super("Skip");
+		this.contro = contro;
 	}
 
 	@Override
 	public void doAction() {
-		pcontro.skip();
+		contro.skip();
 		
 	}
 	

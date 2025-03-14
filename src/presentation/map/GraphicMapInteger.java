@@ -67,12 +67,13 @@ public class GraphicMapInteger extends GraphicMap<Integer, Integer>
 		this.setBounds(x,y, 
 				getWidth() ,
 				getHeight());
-	}
-	
-	@Override 
-	public void createMap() {
 		createCells();
 	}
+//	
+//	@Override 
+//	public void createMap() {
+//		createCells();
+//	}
 	
 	public int getWidth() {
 		return this.lnMap.getWidth()*PDefaultValues.REC_WIDTH;

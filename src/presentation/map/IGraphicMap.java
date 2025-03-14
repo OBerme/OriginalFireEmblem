@@ -28,5 +28,5 @@ public interface IGraphicMap extends IMapa<Integer, Integer>{
 
 	int getHeight();
 
-	void createMap();
+//	void createMap();
 }

@@ -46,6 +46,8 @@ import presentation.GAtack.AbstractFactoryGraphicAtack;
 import presentation.GAtack.AbstractFactoryNormalAtack;
 import presentation.GAtack.IAbstractFactoryGraphicAtack;
 import presentation.GAtack.IAbstractFactoryNormalAtack;
+import presentation.GAtack.IPAtackController;
+import presentation.GAtack.PAtackController;
 import presentation.GAtack.PGraphicDistanceAtack;
 import presentation.GAtack.PGraphicMeleAtack;
 import presentation.MouseHoverObserver.AtackerSubject;
@@ -61,7 +63,10 @@ import presentation.ente.IAbstractFactoryCharacters;
 import presentation.ente.IAbstractFactoryGraphicCharacters;
 import presentation.ente.IAbstractFactoryNormalCharacter;
 import presentation.ente.IGEnte;
+import presentation.ente.PEnteController;
 import presentation.graphicOptions.IShowMenus;
+import presentation.main.controller.IPController;
+import presentation.main.controller.PController;
 import presentation.map.GraphicMap;
 import presentation.map.GraphicMapInteger;
 import presentation.map.GraphicMapIntegerEnteAtack;
@@ -80,12 +85,16 @@ import presentation.map.jbutton.PGraphicPositionInteger;
 import presentation.map.jbutton.PGraphicPositionIntegerAtack;
 import presentation.map.position.GraphicPositionInteger;
 import presentation.map.position.IGraphicPosition;
+import presentation.map.position.ILastPositionObserver;
+import presentation.map.position.ILastPositionSubject;
 import presentation.map.position.IObserver;
 import presentation.map.position.IPPositionSubject;
+import presentation.map.position.LastPositionSubject;
 import presentation.map.position.PPositionData;
 import presentation.menu.IPMenu;
 import presentation.menu.PMenu;
 import presentation.menu.PMenuAbstractFactory;
+import presentation.menu.PShowMenuController;
 import turner.ln.LNTurner;
 import turner.md.enums.TurnerEnumConstant;
 
@@ -105,17 +114,28 @@ public class PresentationMain {
 		MapaMatrixEnteGroupActionable mapa = new MapaMatrixEnteGroupActionable();
 		
 		//controls set up
-		IPController controller = new PController(frame);
-		IPEnteController entContro = (IPEnteController)controller; 
-		IShowMenus menuContro = (IShowMenus)controller; 
+		
+		List<IObserver> posiObservers = new ArrayList<IObserver>();
+		ILastPositionSubject lPSub = new LastPositionSubject();
+		
+		
+		IPEnteController entContro = new PEnteController(); 
+		posiObservers.add((IObserver)entContro); //TODOO fix the problem of posi observers
+		
+		
+		
+		
+		
+		
+		IShowMenus menuContro = new PShowMenuController(); 
 		
 		IAtackerSubject atackSub = new AtackerSubject();
 		
 		IMouseHoverSubject mouseSubject = new MouseHoverSubject(atackSub);
 		
-		List<IObserver> observers = new ArrayList<IObserver>();
 		
-		IPPPositionSubjectData subObserPositi = new PPositionData(observers);
+		
+		IPPPositionSubjectData subObserPositi = new PPositionData(posiObservers);
 		
 		GraphicMapIntegerEnteAtackDistance gMap = null;
 		 
@@ -141,7 +161,7 @@ public class PresentationMain {
 				
 				mouseSubject.registerObserver((IMouseHoverObserver)gPositions[i][j]);
 				
-				observers.add((IObserver)gPositions[i][j]);
+				posiObservers.add((IObserver)gPositions[i][j]);
 			}
 		}
 		
@@ -198,14 +218,33 @@ public class PresentationMain {
 		
 		
 		
-		((PController)controller).setLnMMEG(lnMapa);								
+//		((PController)controller).setLnMMEG(lnMapa);								
 		
 		
         // Crear el panel de dibujo
 		
 		gMap = new GraphicMapIntegerEnteAtackDistance(lnMapa, gPositions,0,0);
+		ILNGraphicMapIntegerAtackDistance lnGMap = 
+				new LNGraphicMapIntegerAtackDistance(gMap, subObserPositi, lnMapa, menuContro);
 		
+
+		IEnteEvents[] lnEnteEvents = new IEnteEvents[]{ //TODO improve and make an observer for killed entes
+				(IEnteEvents)lnMapa,
+				(IEnteEvents)gMap
+//				(IEnteEvents)lnJojiGroup,
+//				(IEnteEvents)lnOsquiGroup,
+		};
 		
+
+		ILNEntes lnEntes = new LNEntes(lnEnteEvents); 
+		LNAccionesAtaque lnAccionesAtaque = new LNAccionesAtaque(lnEntes);
+
+		IPAtackController ataContro = new PAtackController(lnAccionesAtaque, lnGMap);
+		
+		IPController controller = new PController();
+		posiObservers.add((IObserver)controller);
+		
+		IAbstractFactoryPMenu mFactory = new PMenuAbstractFactory(entContro, ataContro, frame, controller, menuContro);
 		
 		
 		
@@ -214,14 +253,12 @@ public class PresentationMain {
 		IAbstractFactoryGraphicAtack afGA = new AbstractFactoryGraphicAtack(gMap, afNA);
 		
 		IAbstractFactoryNormalCharacter afC = new AbstractFactoryCharacters(afGA); //TODO TO SOLVE
-		IAbstractFactoryPMenu mFactory = new PMenuAbstractFactory(entContro, gMap, entContro);
+		
 		
 		IAbstractFactoryGraphicCharacters afGC = new AbstractFactoryGraphicCharacter(afC, mFactory);
 		
 		List<IEnte> entesAdded = new ArrayList<IEnte>();
 		
-		ILNGraphicMapIntegerAtackDistance lnGMap = 
-				new LNGraphicMapIntegerAtackDistance(gMap, subObserPositi, lnMapa, menuContro);
 		
 		IGEnte oscar = afGC.createEnte(AbstractFactoryGraphicCharacterEnums.G_OSCAR_NORMAL);
 		entesAdded.add(oscar);
@@ -232,31 +269,21 @@ public class PresentationMain {
 				AbstractFactoryGraphicCharacterEnums.G_JIJI_NORMAL);
 		entesAdded.add(jiji);
 		lnGMap.moveEnte(jiji, 2,2);
-		
-		controller.setLNMap(lnGMap);
-		
-
-		IEnteEvents[] lnEnteEvents = new IEnteEvents[]{ //TODO improve and make an observer for killed entes
-				(IEnteEvents)lnMapa,
-				(IEnteEvents)gMap
-//				(IEnteEvents)lnJojiGroup,
-//				(IEnteEvents)lnOsquiGroup,
-		};
-		
-		
-		ILNEntes lnEntes = new LNEntes(lnEnteEvents, entesAdded ); 
-		LNAccionesAtaque lnAccionesAtaque = new LNAccionesAtaque(lnEntes);
-		
-		controller.setLnAccionesAtaque(lnAccionesAtaque);
-		
-		
-		controller.setPosiProductor(subObserPositi);
-		
-		observers.add((IObserver)controller);
+//		
+//		controller.setLNMap(lnGMap);
+//		
+//
+//		
+//		controller.setLnAccionesAtaque(lnAccionesAtaque);
+//		
+//		
+//		controller.setPosiProductor(subObserPositi);
 		
 		
 		
-		gMap.createMap(); //To show the map
+		
+//		
+//		gMap.createMap(); //To show the map
 		
 //        frame.add(gMap);
         

@@ -18,13 +18,7 @@ import mapa.md.IPositionForEnte;
 import mapa.md.IPositionable;
 import mapa.md.Posicion;
 import presentation.ente.IGEnte;
-import presentation.graphicOptions.IDrawable;
 import presentation.graphicOptions.IShowMenus;
-import presentation.graphicOptions.Menuable;
-import presentation.main.IPEnteController;
-import presentation.main.PController;
-import presentation.main.PDefaultValues;
-import presentation.menu.PMenuAbstractFactory;
 
 public class GraphicPositionInteger 
 	implements IGraphicPosition<Integer, Integer>, IPositionForEnte{
