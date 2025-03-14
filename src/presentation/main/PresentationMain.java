@@ -172,10 +172,6 @@ public class PresentationMain {
 		
 		ILNGraphicMapIntegerAtackDistance lnGMap = 
 				new LNGraphicMapIntegerAtackDistance(gMap, subObserPositi, lnMapa, menuContro, gMap);
-		
-		
-		
-		
 
 		IEnteEvents[] lnEnteEvents = new IEnteEvents[]{ //TODO improve and make an observer for killed entes
 				(IEnteEvents)lnMapa,

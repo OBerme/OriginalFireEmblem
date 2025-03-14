@@ -28,8 +28,8 @@ public class Posicion<X,Y> implements IPosition<X, Y>, IPositionForEnte{
 	@Override
 	public boolean equals(Object obj) {
 		// TODO Auto-generated method stub
-		if(obj instanceof Posicion) {
-			Posicion<X, Y> objPosi = (Posicion<X, Y>)obj; 
+		if(obj instanceof IPosition) {
+			IPosition objPosi = (IPosition)obj; 
 			return objPosi.getX().equals(getX()) && objPosi.getY().equals(getY());
 		}
 		return false;
