@@ -1,11 +1,12 @@
 package mapa.md;
 
 import entes.md.Ente;
+import entes.md.IEnte;
 import group.md.Group;
 import group.md.Groupable;
 import turner.md.Actionable;
 
-public class Posicion<X,Y> implements IPosition<X, Y>{
+public class Posicion<X,Y> implements IPosition<X, Y>, IPositionForEnte{
 	protected X x;
 	protected Y y;
 	protected IPositionable positionable;
@@ -89,6 +90,18 @@ public class Posicion<X,Y> implements IPosition<X, Y>{
 	public boolean isEmpty() {
 		return !hasSomething();
 				
+	}
+
+	@Override
+	public boolean hasEnte() {
+		// TODO Auto-generated method stub
+		return positionable instanceof IEnte;
+	}
+
+	@Override
+	public IEnte getEnte() {
+		// TODO Auto-generated method stub
+		return (IEnte)positionable;
 	}
 
 	

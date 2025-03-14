@@ -69,5 +69,10 @@ public class GraphicEnte implements IDrawable, IGEnte {
 		// TODO Auto-generated method stub
 		return ente.isDied();
 	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		return ente.equals(obj);
+	}
 
 }

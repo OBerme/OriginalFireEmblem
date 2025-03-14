@@ -120,21 +120,11 @@ public class PresentationMain {
 		ILastPositionSubject lPSub = new LastPositionSubject();
 		
 		
-		IPEnteController entContro = new PEnteController(); 
-		posiObservers.add((IObserver)entContro); //TODOO fix the problem of posi observers
-		
-		
-		
-		
 		
 		
 		IShowMenus menuContro = new PShowMenuController(lPSub);
-		
 		IAtackerSubject atackSub = new AtackerSubject();
-		
 		IMouseHoverSubject mouseSubject = new MouseHoverSubject(atackSub);
-		
-		
 		
 		IPPPositionSubjectData subObserPositi = new PPositionData(posiObservers);
 		
@@ -165,51 +155,6 @@ public class PresentationMain {
 			}
 		}
 		
-		
-		
-		
-//		addEnteToPosition(new GraphicPersona(
-//				jiji,
-//				PDefaultValues.getPathImage("jiji.png"), 
-//				PMenuAbstractFactory.getDefaultMenuEnte(jiji, entContro, frame //invoker  
-//						)), 
-//						((GraphicPositionInteger)positions[3][2])
-//						, (PGraphicPositionInteger) gPositions[3][2],
-//						menuContro, subObserPositi, observers);
-		
-//		//Undyne
-//		Monstruo undy = (Monstruo)AbstractFactoryCharacters.createUndyne();
-//		gPerson = new GraphicMonstruo(
-//				undy,
-//				PDefaultValues.getPathImage("monster.png"), 
-//				PMenuAbstractFactory.getDefaultMenuEnte(undy, entContro, frame));
-//		
-//		gPosi =((GraphicPositionInteger)positions[2][3]); 
-//		gPosi.setSomething(gPerson); 
-//		
-//		pgPosi = (PGraphicPositionInteger)gPositions[2][3]; 
-//		pgPosi = new PGraphicPositionIntegerEnte(gPosi,
-//				subObserPositi, AbstractFactoryJButtonActions.getEnteAction(pgPosi, 
-//						gPerson, menuContro), gPerson, menuContro);
-//		
-//		observers.add((IObserver)pgPosi);
-//		
-//		//ASGORE
-//		Monstruo asgor =(Monstruo)AbstractFactoryCharacters.createAsgore();
-//		
-//		gPerson = new GraphicMonstruo(
-//				asgor,
-//				PDefaultValues.getPathImage("monster.png"), 
-//				PMenuAbstractFactory.getDefaultMenuEnte(asgor, entContro, frame));
-//		
-//		gPosi =((GraphicPositionInteger)positions[3][3]); 
-//		gPosi.setSomething(gPerson); 
-//		
-//		pgPosi = (PGraphicPositionInteger)gPositions[3][3]; 
-//		pgPosi = new PGraphicPositionIntegerEnte(gPosi,
-//				subObserPositi, AbstractFactoryJButtonActions.getEnteAction(pgPosi, 
-//						gPerson, menuContro), gPerson, menuContro);
-//		
 		//SET UP THE MAP
 		
 		
@@ -226,7 +171,10 @@ public class PresentationMain {
 		gMap = new GraphicMapIntegerEnteAtackDistance(lnMapa, gPositions, 0, 0, fJButtonActions, mouseSubject);
 		
 		ILNGraphicMapIntegerAtackDistance lnGMap = 
-				new LNGraphicMapIntegerAtackDistance(gMap, subObserPositi, lnMapa, menuContro);
+				new LNGraphicMapIntegerAtackDistance(gMap, subObserPositi, lnMapa, menuContro, gMap);
+		
+		
+		
 		
 
 		IEnteEvents[] lnEnteEvents = new IEnteEvents[]{ //TODO improve and make an observer for killed entes
@@ -245,6 +193,9 @@ public class PresentationMain {
 		IPController controller = new PController();
 		posiObservers.add((IObserver)controller);
 		
+		
+		IPEnteController entContro = new PEnteController(subObserPositi, lnMapa, lnGMap);
+		posiObservers.add((IObserver)entContro); //TODOO fix the problem of posi observers		
 		IAbstractFactoryPMenu mFactory = new PMenuAbstractFactory(entContro, ataContro, frame, controller, menuContro);
 		
 		
