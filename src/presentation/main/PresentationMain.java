@@ -184,7 +184,8 @@ public class PresentationMain {
 		ILNEntes lnEntes = new LNEntes(lnEnteEvents); 
 		LNAccionesAtaque lnAccionesAtaque = new LNAccionesAtaque(lnEntes);
 
-		IPAtackController ataContro = new PAtackController(lnAccionesAtaque, lnGMap);
+		IPAtackController ataContro = new PAtackController(lnAccionesAtaque, lnGMap, lPSub);
+		posiObservers.add((IObserver)ataContro);
 		
 		IPController controller = new PController();
 		posiObservers.add((IObserver)controller);
