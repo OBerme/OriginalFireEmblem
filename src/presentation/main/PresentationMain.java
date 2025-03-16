@@ -47,10 +47,12 @@ import presentation.GAtack.AbstractFactoryNormalAtack;
 import presentation.GAtack.IAbstractFactoryGraphicAtack;
 import presentation.GAtack.IAbstractFactoryNormalAtack;
 import presentation.GAtack.IPAtackController;
+import presentation.GAtack.IShowAtack;
 import presentation.GAtack.PAtackController;
 import presentation.GAtack.PGraphicDistanceAtack;
 import presentation.GAtack.PGraphicMeleAtack;
 import presentation.MouseHoverObserver.AtackerSubject;
+import presentation.MouseHoverObserver.IAtackerObserver;
 import presentation.MouseHoverObserver.IAtackerSubject;
 import presentation.MouseHoverObserver.IMouseHoverObserver;
 import presentation.MouseHoverObserver.IMouseHoverSubject;
@@ -67,37 +69,24 @@ import presentation.ente.PEnteController;
 import presentation.graphicOptions.IShowMenus;
 import presentation.main.controller.IPController;
 import presentation.main.controller.PController;
-import presentation.map.GraphicMap;
-import presentation.map.GraphicMapInteger;
-import presentation.map.GraphicMapIntegerEnteAtack;
 import presentation.map.GraphicMapIntegerEnteAtackDistance;
-import presentation.map.IGraphicMap;
-import presentation.map.IGraphicMapAtack;
-import presentation.map.IGraphicMapAtackDistance;
 import presentation.map.ILNGraphicMapIntegerAtackDistance;
 import presentation.map.IPPPositionSubjectData;
+import presentation.map.IShowAtackDistance;
 import presentation.map.LNGraphicMapIntegerAtackDistance;
 import presentation.map.jbutton.AbstractFactoryJButtonActions;
 import presentation.map.jbutton.IAbstractFactoryJButtonActions;
-import presentation.map.jbutton.IPGraphicPosition;
 import presentation.map.jbutton.IPGraphicPositionInteger;
 import presentation.map.jbutton.PGraphicOPositionIntegerAtackDistance;
 import presentation.map.jbutton.PGraphicPositionInteger;
-import presentation.map.jbutton.PGraphicPositionIntegerAtack;
 import presentation.map.position.GraphicPositionInteger;
-import presentation.map.position.IGraphicPosition;
-import presentation.map.position.ILastPositionObserver;
 import presentation.map.position.ILastPositionSubject;
 import presentation.map.position.IObserver;
-import presentation.map.position.IPPositionSubject;
 import presentation.map.position.LastPositionSubject;
 import presentation.map.position.PPositionData;
-import presentation.menu.IPMenu;
-import presentation.menu.PMenu;
 import presentation.menu.PMenuAbstractFactory;
 import presentation.menu.PShowMenuController;
 import turner.ln.LNTurner;
-import turner.md.enums.TurnerEnumConstant;
 
 public class PresentationMain {
 	
@@ -106,11 +95,8 @@ public class PresentationMain {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(800, 600);
         
-        
         int length = 5;
 		
-		
-//		groups.add(new Group())
 		
 		MapaMatrixEnteGroupActionable mapa = new MapaMatrixEnteGroupActionable();
 		
@@ -119,14 +105,18 @@ public class PresentationMain {
 		List<IObserver> posiObservers = new ArrayList<IObserver>();
 		ILastPositionSubject lPSub = new LastPositionSubject();
 		
-		
-		
-		
 		IShowMenus menuContro = new PShowMenuController(lPSub);
+		
 		IAtackerSubject atackSub = new AtackerSubject();
 		IMouseHoverSubject mouseSubject = new MouseHoverSubject(atackSub);
 		
+		atackSub.registerObserver((IAtackerObserver)mouseSubject);
+		
+		
 		IPPPositionSubjectData subObserPositi = new PPositionData(posiObservers);
+		
+		IPController controller = new PController(subObserPositi,atackSub);
+		posiObservers.add((IObserver)controller);
 		
 		GraphicMapIntegerEnteAtackDistance gMap = null;
 		 
@@ -156,22 +146,15 @@ public class PresentationMain {
 		}
 		
 		//SET UP THE MAP
-		
-		
-		
 		ILNMapaMatrixEntesGroup lnMapa = setUpGroupMap(length, null, null, null, new IMapIntegerEvents[] {}); //Empty for now
-		
-		
-		
-//		((PController)controller).setLnMMEG(lnMapa);								
-		
-		
-        // Crear el panel de dibujo
 		
 		gMap = new GraphicMapIntegerEnteAtackDistance(lnMapa, gPositions, 0, 0, fJButtonActions, mouseSubject);
 		
 		ILNGraphicMapIntegerAtackDistance lnGMap = 
-				new LNGraphicMapIntegerAtackDistance(gMap, subObserPositi, lnMapa, menuContro, gMap);
+				new LNGraphicMapIntegerAtackDistance(gMap, lnMapa, menuContro, gMap);
+		
+		controller.setLnGMIAD(lnGMap);
+		controller.setShowAtacks((IShowAtack)lnGMap);
 
 		IEnteEvents[] lnEnteEvents = new IEnteEvents[]{ //TODO improve and make an observer for killed entes
 				(IEnteEvents)lnMapa,
@@ -180,15 +163,13 @@ public class PresentationMain {
 //				(IEnteEvents)lnOsquiGroup,
 		};
 		
-
+		//SET UP ENTES
 		ILNEntes lnEntes = new LNEntes(lnEnteEvents); 
 		LNAccionesAtaque lnAccionesAtaque = new LNAccionesAtaque(lnEntes);
 
-		IPAtackController ataContro = new PAtackController(lnAccionesAtaque, lnGMap, lPSub);
+		IPAtackController ataContro = new PAtackController(lnAccionesAtaque, lnGMap,
+				lPSub, (IShowAtackDistance)controller);
 		posiObservers.add((IObserver)ataContro);
-		
-		IPController controller = new PController();
-		posiObservers.add((IObserver)controller);
 		
 		
 		IPEnteController entContro = new PEnteController(subObserPositi, lnMapa, lnGMap);
@@ -199,7 +180,8 @@ public class PresentationMain {
 		
 		//MOVING THE ENTES
 		IAbstractFactoryNormalAtack afNA = new AbstractFactoryNormalAtack();
-		IAbstractFactoryGraphicAtack afGA = new AbstractFactoryGraphicAtack(gMap, afNA);
+		IAbstractFactoryGraphicAtack afGA = 
+				new AbstractFactoryGraphicAtack(gMap, afNA, (IShowAtackDistance)controller, mouseSubject);
 		
 		IAbstractFactoryNormalCharacter afC = new AbstractFactoryCharacters(afGA); //TODO TO SOLVE
 		
@@ -218,28 +200,11 @@ public class PresentationMain {
 				AbstractFactoryGraphicCharacterEnums.G_JIJI_NORMAL);
 		entesAdded.add(jiji);
 		lnGMap.moveEnte(jiji, 2,2);
-//		
-//		controller.setLNMap(lnGMap);
-//		
-//
-//		
-//		controller.setLnAccionesAtaque(lnAccionesAtaque);
-//		
-//		
-//		controller.setPosiProductor(subObserPositi);
-		
-		
-		
-		
-//		
-//		gMap.createMap(); //To show the map
-		
-//        frame.add(gMap);
-        
+
         //Setup menus
         JLayeredPane layeredPane = new JLayeredPane();
         frame.setContentPane(layeredPane);
-//        
+        
         layeredPane.add(gMap);
 
         layeredPane.addMouseMotionListener(new MouseMotionAdapter() {
@@ -257,11 +222,7 @@ public class PresentationMain {
         
         
         // Mostrar la ventana
-        frame.setVisible(true);
-        
-//        ((PController) controller).setLastPosition(new Posicion<Integer, Integer>(2, 2));
-//        controller.showAtack( new PGraphicMeleAtack(
-//				new Ataque(1, "Gun atack", 50000, Tipo.FUEGO), (IGraphicMapAtack)gMap, new Rombo(1, gMap)));       
+        frame.setVisible(true);       
 	}
 	
 

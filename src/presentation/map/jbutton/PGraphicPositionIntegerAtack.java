@@ -21,6 +21,8 @@ public class PGraphicPositionIntegerAtack
 			IJButtonAction action) {
 		super(gPosition, pSubject, action);
 		this.actiAtack = false;
+		
+		
 
 	}
 
