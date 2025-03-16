@@ -15,7 +15,7 @@ public final class PDefaultValues {
 	
 	public static final boolean DEBUG_MODE_PGPIAD = false; //PGraphicOPositionIntegerAtackDistance
 	
-	public static String IMAGES_PATH = "/home/stallman/Downloads/Trash/game/";
+	public static String IMAGES_PATH = "/home/stallman/eclipse/SIS/GameServer/media/photos/";
 	
 	public static String getPathImage(String image) {
 		return IMAGES_PATH + "/" + image;
