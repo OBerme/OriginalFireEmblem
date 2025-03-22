@@ -54,8 +54,6 @@ public class GraphicMapInteger extends GraphicMap<Integer, Integer>
 	protected INLMapa<Integer, Integer> lnMap;
 	protected IPGraphicPositionInteger[][] gPositions;
 	
-	
-	
 	public GraphicMapInteger(INLMapa<Integer, Integer> map,
 			IPGraphicPositionInteger[][] gPositions,
 			int x, int y) {

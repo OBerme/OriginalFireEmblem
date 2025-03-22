@@ -48,6 +48,8 @@ import presentation.GAtack.IAbstractFactoryGraphicAtack;
 import presentation.GAtack.IAbstractFactoryNormalAtack;
 import presentation.GAtack.IPAtackController;
 import presentation.GAtack.IShowAtack;
+import presentation.GAtack.IShowAtackCached;
+import presentation.GAtack.IShowAtackDistance;
 import presentation.GAtack.PAtackController;
 import presentation.GAtack.PGraphicDistanceAtack;
 import presentation.GAtack.PGraphicMeleAtack;
@@ -72,7 +74,6 @@ import presentation.main.controller.PController;
 import presentation.map.GraphicMapIntegerEnteAtackDistance;
 import presentation.map.ILNGraphicMapIntegerAtackDistance;
 import presentation.map.IPPPositionSubjectData;
-import presentation.map.IShowAtackDistance;
 import presentation.map.LNGraphicMapIntegerAtackDistance;
 import presentation.map.jbutton.AbstractFactoryJButtonActions;
 import presentation.map.jbutton.IAbstractFactoryJButtonActions;
@@ -115,8 +116,12 @@ public class PresentationMain {
 		
 		IPPPositionSubjectData subObserPositi = new PPositionData(posiObservers);
 		
-		IPController controller = new PController(subObserPositi,atackSub);
+		IPController controller = new PController(subObserPositi, atackSub, mouseSubject);
 		posiObservers.add((IObserver)controller);
+		mouseSubject.registerObserver((IMouseHoverObserver)controller);
+		
+		
+		IShowAtackCached sACached = (IShowAtackCached)controller;
 		
 		GraphicMapIntegerEnteAtackDistance gMap = null;
 		 
@@ -148,13 +153,19 @@ public class PresentationMain {
 		//SET UP THE MAP
 		ILNMapaMatrixEntesGroup lnMapa = setUpGroupMap(length, null, null, null, new IMapIntegerEvents[] {}); //Empty for now
 		
-		gMap = new GraphicMapIntegerEnteAtackDistance(lnMapa, gPositions, 0, 0, fJButtonActions, mouseSubject);
+		
+		try {
+			gMap = new GraphicMapIntegerEnteAtackDistance(lnMapa, gPositions, 0, 0, fJButtonActions, mouseSubject);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		ILNGraphicMapIntegerAtackDistance lnGMap = 
 				new LNGraphicMapIntegerAtackDistance(gMap, lnMapa, menuContro, gMap);
 		
 		controller.setLnGMIAD(lnGMap);
-		controller.setShowAtacks((IShowAtack)lnGMap);
+		controller.setShowAtacks((IShowAtackDistance)lnGMap);
 
 		IEnteEvents[] lnEnteEvents = new IEnteEvents[]{ //TODO improve and make an observer for killed entes
 				(IEnteEvents)lnMapa,
@@ -181,7 +192,7 @@ public class PresentationMain {
 		//MOVING THE ENTES
 		IAbstractFactoryNormalAtack afNA = new AbstractFactoryNormalAtack();
 		IAbstractFactoryGraphicAtack afGA = 
-				new AbstractFactoryGraphicAtack(gMap, afNA, (IShowAtackDistance)controller, mouseSubject);
+				new AbstractFactoryGraphicAtack(gMap, afNA, (IShowAtackDistance)controller, mouseSubject, sACached );
 		
 		IAbstractFactoryNormalCharacter afC = new AbstractFactoryCharacters(afGA); //TODO TO SOLVE
 		
@@ -193,13 +204,15 @@ public class PresentationMain {
 		
 		IGEnte oscar = afGC.createEnte(AbstractFactoryGraphicCharacterEnums.G_OSCAR_NORMAL);
 		entesAdded.add(oscar);
+		
+		
 		lnGMap.moveEnte(oscar, 3,3);
 		
 		
 		IGEnte jiji = afGC.createEnte(
 				AbstractFactoryGraphicCharacterEnums.G_JIJI_NORMAL);
 		entesAdded.add(jiji);
-		lnGMap.moveEnte(jiji, 2,2);
+		lnGMap.moveEnte(jiji, 0,2);
 
         //Setup menus
         JLayeredPane layeredPane = new JLayeredPane();

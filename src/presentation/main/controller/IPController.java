@@ -8,6 +8,7 @@ import entes.md.IEnte;
 import mapa.ln.ILNMapaMatrixEntesGroup;
 import mapa.md.IPosition;
 import presentation.GAtack.IShowAtack;
+import presentation.GAtack.IShowAtackDistance;
 import presentation.ente.IGEnte;
 import presentation.map.IGraphicMap;
 import presentation.map.ILNGraphicMapIntegerAtackDistance;
@@ -20,5 +21,5 @@ public interface IPController {
 
 	void setLnGMIAD(ILNGraphicMapIntegerAtackDistance lnGMIAD);
 
-	void setShowAtacks(IShowAtack showAtacks);
+	void setShowAtacks(IShowAtackDistance showAtacks);
 }
