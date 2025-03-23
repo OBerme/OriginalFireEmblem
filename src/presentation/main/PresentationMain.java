@@ -53,6 +53,9 @@ import presentation.GAtack.IShowAtackDistance;
 import presentation.GAtack.PAtackController;
 import presentation.GAtack.PGraphicDistanceAtack;
 import presentation.GAtack.PGraphicMeleAtack;
+import presentation.MouseHoverAtackObserver.IHoverPositionAtackerObserver;
+import presentation.MouseHoverAtackObserver.IHoverPositionAtackerSubject;
+import presentation.MouseHoverAtackObserver.PositionAtackerHoverSubject;
 import presentation.MouseHoverObserver.AtackerSubject;
 import presentation.MouseHoverObserver.IAtackerObserver;
 import presentation.MouseHoverObserver.IAtackerSubject;
@@ -110,15 +113,17 @@ public class PresentationMain {
 		
 		IAtackerSubject atackSub = new AtackerSubject();
 		IMouseHoverSubject mouseSubject = new MouseHoverSubject(atackSub);
+		IHoverPositionAtackerSubject hPASubject = new PositionAtackerHoverSubject();
 		
 		atackSub.registerObserver((IAtackerObserver)mouseSubject);
 		
 		
 		IPPPositionSubjectData subObserPositi = new PPositionData(posiObservers);
 		
-		IPController controller = new PController(subObserPositi, atackSub, mouseSubject);
+		IPController controller = new PController(subObserPositi, atackSub, mouseSubject, hPASubject);
 		posiObservers.add((IObserver)controller);
 		mouseSubject.registerObserver((IMouseHoverObserver)controller);
+		hPASubject.registerObserver((IHoverPositionAtackerObserver)controller);
 		
 		
 		IShowAtackCached sACached = (IShowAtackCached)controller;
@@ -140,13 +145,16 @@ public class PresentationMain {
 				positions[i][j] = nPositi;
 				
 				
-				gPositions[i][j] = new PGraphicOPositionIntegerAtackDistance(
+				IPGraphicPositionInteger nGPI = new PGraphicOPositionIntegerAtackDistance(
 						(GraphicPositionInteger)nPositi, subObserPositi,
-							fJButtonActions.getVoidAction() , mouseSubject);
+							fJButtonActions.getVoidAction() , mouseSubject,hPASubject);
 				
-				mouseSubject.registerObserver((IMouseHoverObserver)gPositions[i][j]);
+				mouseSubject.registerObserver((IMouseHoverObserver)nGPI);
+//				hPASubject.registerObserver((IHoverPositionAtackerObserver)nGPI); //we dont need for now
 				
-				posiObservers.add((IObserver)gPositions[i][j]);
+				posiObservers.add((IObserver)nGPI);
+				
+				gPositions[i][j] =nGPI;
 			}
 		}
 		
@@ -155,7 +163,7 @@ public class PresentationMain {
 		
 		
 		try {
-			gMap = new GraphicMapIntegerEnteAtackDistance(lnMapa, gPositions, 0, 0, fJButtonActions, mouseSubject);
+			gMap = new GraphicMapIntegerEnteAtackDistance(lnMapa, gPositions, 0, 0, fJButtonActions);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

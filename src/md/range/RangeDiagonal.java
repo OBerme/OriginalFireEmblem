@@ -45,4 +45,8 @@ public class RangeDiagonal {
 		}
 		return positions; 
 	}
+	
+	public static IPosition<Integer, Integer> getCenterPosition(IPosition<Integer, Integer> posi){
+		return posi;
+	}
 }

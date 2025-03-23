@@ -4,6 +4,8 @@ package presentation.map.jbutton;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 
+import presentation.MouseHoverAtackObserver.IHoverPositionAtackerObserver;
+import presentation.MouseHoverAtackObserver.IHoverPositionAtackerSubject;
 import presentation.MouseHoverObserver.IMouseHoverSubject;
 import presentation.main.PDefaultValues;
 import presentation.map.IPPPositionSubjectData;
@@ -18,14 +20,19 @@ public class PGraphicPositionIntegerAtack
 	
 	protected boolean actiAtack; //Shows if the cell is activate for an atack
 
-	protected IMouseHoverSubject subjectMouse; 
+	protected boolean isLastPositionAtack;
+	
+	protected IMouseHoverSubject subjectMouse;
+	protected IHoverPositionAtackerSubject subjectPositionAtacker;
+	
 	
 	public PGraphicPositionIntegerAtack(IGraphicPosition<Integer, Integer> gPosition,
 			IPPPositionSubjectData pSubject,
-			IJButtonAction action,IMouseHoverSubject subjectMouse) {
+			IJButtonAction action,IMouseHoverSubject subjectMouse, IHoverPositionAtackerSubject subjectPositionAtacker) {
 		super(gPosition, pSubject, action);
 		this.actiAtack = false;
 		this.subjectMouse = subjectMouse;
+		this.subjectPositionAtacker = subjectPositionAtacker;
 		
 		addMouseMotionListener(new MouseMotionAdapter() {
             @Override
@@ -40,7 +47,13 @@ public class PGraphicPositionIntegerAtack
     	if(actiAtack) {
     		subjectMouse.setPosition(gPosition);
     	}
+    	
+    	if(isLastPositionAtack) {
+    		subjectPositionAtacker.setAtackerPositionHover(gPosition);
+    	}
 	}
+	
+	
 
 	@Override
 	public void activateAtack() {
@@ -56,6 +69,7 @@ public class PGraphicPositionIntegerAtack
 		super.update();
 		if(actiAtack) {
 			if(!pSubject.getPosi().equals(gPosition)) {
+				isLastPositionAtack = false;
 				deactivateAtack();
 			}
 		}
@@ -81,6 +95,12 @@ public class PGraphicPositionIntegerAtack
 	public boolean isActive() {
 		return actiAtack;
 	}
+
+	@Override
+	public void setCenterPositionAtack() {
+		this.isLastPositionAtack = true;
+	}
+
 
 	
 }
