@@ -106,7 +106,12 @@ public class PGraphicDistanceAtack extends PGraphicAtack
 	@Override
 	public void onChangeActivatePosition(IPosition<Integer, Integer> atackerPosi, int maxRange) {
 		if(maxRange != getRelativeMaxDistance()) {
-			atackShowable.activateAtackPositions(getChangedActivatePositions(atackerPosi, maxRange));		
+			List<IPosition<Integer, Integer>>  positiAtack = getChangedActivatePositions(atackerPosi, maxRange);
+			if(positiAtack.contains(atackerPosi)) { //for the last position of the atacks
+				positiAtack.remove(atackerPosi);
+			}
+			
+			atackShowable.activateAtackPositions(positiAtack);		
 			((IShowAtackDistance)atackShowable).activateDistancePositions(getChangedActivateDistancePositions(atackerPosi, maxRange));	
 		}
 		else 

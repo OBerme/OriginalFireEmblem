@@ -41,7 +41,7 @@ public class PGraphicOPositionIntegerAtackDistance
 	
 	protected void hiddeCell() {
 		hidden = true;
-		setBackground(PDefaultValues.D_CELL_COLOR_DIST_DEAC);
+//		setBackground(PDefaultValues.D_CELL_COLOR_DIST_DEAC);
 	}
 
 	@Override
@@ -74,7 +74,7 @@ public class PGraphicOPositionIntegerAtackDistance
 	@Override
 	public void updateMouseRange() {
 		if(actiDistance) {
-			if(subjectMouse.getRange() > rangeFromAttacker ) {
+			if(subjectMouse.getRange() >= rangeFromAttacker ) {
 				if(hidden)
 					showCell();
 			}
